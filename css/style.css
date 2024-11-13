@@ -1,0 +1,145 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Background settings */
+body {
+  /* padding-top: 60px;  */
+
+  background-image: url("../img/gdungjti.png");
+  /* Replace with your background image */
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  /* Needed for the pseudo-element positioning */
+  overflow: hidden;
+}
+
+/* Adding white transparent overlay */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(143, 143, 143, 0.5);
+  /* Semi-transparent white */
+  filter: blur(8px);
+  /* Adjust the blur level as needed */
+  z-index: -1;
+  /* Place the pseudo-element behind other content */
+}
+
+.banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #007bff; /* Biru */
+  padding: 10px 0;
+  z-index: 9999;
+}
+
+.banner .container-fluid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.banner .navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.banner .navbar-brand img {
+  height: 40px;
+}
+
+.banner .navbar-text {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+}
+
+/* Responsive styling */
+@media (max-width: 100px) {
+  .banner .container-fluid {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .banner .navbar-text {
+    margin-top: 10px;
+    font-size: 16px; /* Font size smaller for smaller screens */
+  }
+
+  .banner .navbar-brand img {
+    height: 30px; /* Adjust logo size for smaller screens */
+  }
+}
+
+/* Login card */
+.login-card {
+  width: 90%;
+  max-width: 500px;
+  background-color: #3FA9F4;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.login-card .form-control {
+  border-radius: 20px;
+}
+
+.login-card .btn-login {
+  border-radius: 20px;
+  background-color: #4caf50;
+  color: white;
+}
+
+.login-card .btn-login:hover {
+    border-radius: 20px;
+    background-color: #bfdfc0;
+    color: white;
+  }
+
+.login-card .forgot-password {
+  font-size: 15px;
+  text-decoration: none;
+  color: #07407B;
+}
+
+.login-card .forgot-password:hover {
+    font-size: 15px;
+    text-decoration: none;
+    color: #d3e7fc;
+  }
+
+div.fixed {
+  position: fixed;
+  bottom: 8;
+  right: 0;
+  left: 0;
+  z-index: 2;
+}
+
+
+
+.welcome {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+}
