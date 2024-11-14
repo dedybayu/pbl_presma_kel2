@@ -40,7 +40,7 @@ if ($row) {
         if (password_verify($combined_password, $hashed_password)) {
             $_SESSION['username'] = $row['username'];
             $_SESSION['level'] = $row['level'];
-            echo "Login Benar ";
+            
             if ($row['level'] == "admin") {
                 header("Location: home.php");
             } else {
@@ -48,17 +48,14 @@ if ($row) {
             }
             exit();
         } else {
-            pesan('danger', "Login Gagal. Password anda Salah.");
-            // header("Location: login.php");
-            echo "Login Salah";
+            set_flashdata('error', "Username atau Password salah!"); // Set flash message error
+            header("Location: index.php");
             exit();
         }
     }
 } else {
-    pesan('warning', "Username Tidak Ditemukan.");
-    // header("Location: login.php");
-    echo "Login entahlah";
-
+    set_flashdata('error', "Username atau Password salah!"); // Set flash message error
+    header("Location: index.php");
     exit();
 }
 ?>

@@ -6,7 +6,7 @@
 
 /* Background settings */
 body {
-  /* padding-top: 60px;  */
+  padding-top: 0px; 
 
   background-image: url("../img/gdungjti.png");
   /* Replace with your background image */
@@ -29,7 +29,7 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(143, 143, 143, 0.5);
+  background-color: rgba(72, 87, 109, 0.5);
   /* Semi-transparent white */
   filter: blur(8px);
   /* Adjust the blur level as needed */
@@ -42,7 +42,7 @@ body::before {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #007bff; /* Biru */
+  background-color: #3fa9f4;
   padding: 10px 0;
   z-index: 9999;
 }
@@ -87,19 +87,44 @@ body::before {
   }
 }
 
+
+/* Footer */
+.footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* background-color: #007bff; */
+    color: rgb(179, 179, 179);
+    padding: 10px 0;
+    z-index: 9999;
+    text-align: center;
+  }
+
+
 /* Login card */
 .login-card {
   width: 90%;
   max-width: 500px;
-  background-color: #3FA9F4;
-  border-radius: 10px;
+  background-color: #3fa9f4;
+  border-radius: 30px;
   padding: 30px;
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
-  text-align: center;
+  text-align: center; /* Keep content centered by default */
 }
 
 .login-card .form-control {
-  border-radius: 20px;
+  /* margin: 2px; */
+  border-radius: 15px;
+  border: none;
+}
+
+.form-control:focus {
+  background: linear-gradient(to right, #e0e0e0, #ffffff); /* Gradient abu-abu ke putih */
+  outline: none;
+  box-shadow: none; /* Hapus shadow biru Bootstrap */
+  border-color: none; /* Kembalikan warna border ke warna awal */
+  border: none;
 }
 
 .login-card .btn-login {
@@ -108,23 +133,27 @@ body::before {
   color: white;
 }
 
-.login-card .btn-login:hover {
-    border-radius: 20px;
-    background-color: #bfdfc0;
-    color: white;
-  }
-
-.login-card .forgot-password {
-  font-size: 15px;
-  text-decoration: none;
-  color: #07407B;
+.login-card .btn-login:hover{
+  border-radius: 20px;
+  background-color: #82d385;
+  color: white;
 }
 
-.login-card .forgot-password:hover {
-    font-size: 15px;
+/* Make .forgot-password align to the right */
+.login-card .forgot-password {
+  font-size: 15px;
+  text-align: right; /* Align text to the right */
+  display: block; /* Ensure it takes up full width to apply text-align */
+}
+
+.forgot{
+    text-decoration: none;
+    color: #07407b;
+}
+.forgot:hover{
     text-decoration: none;
     color: #d3e7fc;
-  }
+}
 
 div.fixed {
   position: fixed;
@@ -134,12 +163,71 @@ div.fixed {
   z-index: 2;
 }
 
-
-
 .welcome {
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-    width: 100%;
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
 }
+
+
+/* Optional: Alert danger background adjustment */
+.alert-danger {
+    background-color: #003a698c; /* Bootstrap default red with a light shade */
+    border-color: #ff4747;
+    color: #ff4747;
+}
+
+/* Optional: Adjust close button */
+.alert .btn-close {
+    color: #2d0e9b; /* Customize to match alert text color */
+    opacity: 0.75;
+}
+
+.alert .btn-close:hover {
+    opacity: 1;
+}
+
+
+/* Mengatur tombol berada di dalam form control */
+.input-group {
+    display: flex; /* Gunakan flex untuk memastikan elemen dalam grup terpasang dengan benar */
+    /* background-color: #ffffff; */
+}
+
+/* Mengubah latar belakang tombol menjadi putih */
+#togglePassword {
+    background-color: white; /* Latar belakang putih */
+    border-radius: 15px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;    
+    border: none;
+    text-decoration: none;
+    padding: 5px 10px;  /* Padding agar tombol sedikit lebih besar */
+    border-left: none;  /* Hilangkan border kiri agar menyatu dengan input */
+
+    cursor: pointer;  /* Mengubah cursor saat hover tombol */
+}
+
+/* Mengubah ukuran ikon */
+#togglePassword i {
+    color: #333;  /* Warna ikon */
+    font-size: 18px;  /* Ukuran ikon */
+}
+
+/* Hover state untuk tombol */
+#togglePassword i:hover {
+    color: #006db6;  /* Warna ikon */
+    /* background-color: #f0f0f0; Efek hover */
+}
+/* 
+.input-group{
+  border-radius: 15px;
+  background-color: blue;
+}
+
+.input-group:hover{
+  background-color: red;
+  border: 5px;
+} */

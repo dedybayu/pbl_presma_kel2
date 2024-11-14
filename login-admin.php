@@ -41,11 +41,8 @@ include "fungsi/pesan_kilat.php";
 
         <form action="cek_login.php" method="post">
             <div class="mb-3">
-                <div class="input-group">
-                    <input type="text" class="form-control" name="username" id="floatingInput"
-                        placeholder="Masukan Username" required>
-                </div>
-
+                <input type="text" class="form-control" name="username" id="floatingInput"
+                    placeholder="Masukan Username" required>
             </div>
             <br>
             <div class="mb-3">
