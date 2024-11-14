@@ -16,6 +16,11 @@ include "fungsi/pesan_kilat.php";
 </head>
 
 <body>
+
+<div class="background-blur"></div> <!-- Blurred background image -->
+  <div class="overlay"></div> <!-- Semi-transparent overlay -->
+  <!-- Your main content goes here -->
+
     <!-- Banner -->
     <div class="banner bg" style="color: #05090c;">
         <div class="container-fluid">

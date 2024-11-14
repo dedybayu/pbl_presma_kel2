@@ -21,3 +21,8 @@ INSERT INTO [user] ([id], [username], [password], [salt], [level]) VALUES
 INSERT INTO [user] ([id], [username], [password], [salt], [level]) VALUES
 (7, 'mahasiswa', '$2y$10$KVL24OkvYhklhtnB0BvXL.0SInfs2QcJ/LvzzR7IPhkGfS3GBeW0O', '8ad2e053c563c20a803cf4698d95bf9d', 'user');
 GO
+
+
+SELECT * FROM [user];
+
+SELECT * FROM dbo.[user];
