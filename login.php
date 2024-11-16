@@ -16,6 +16,11 @@ include "fungsi/pesan_kilat.php";
 </head>
 
 <body>
+
+<div class="background-blur"></div> <!-- Blurred background image -->
+  <div class="overlay"></div> <!-- Semi-transparent overlay -->
+  <!-- Your main content goes here -->
+
     <!-- Banner -->
     <div class="banner bg" style="color: #05090c;">
         <div class="container-fluid">
@@ -41,8 +46,11 @@ include "fungsi/pesan_kilat.php";
 
         <form action="cek_login.php" method="post">
             <div class="mb-3">
-                <input type="text" class="form-control" name="username" id="floatingInput"
-                    placeholder="Masukan Username" required>
+                <div class="input-group">
+                    <input type="text" class="form-control" name="username" id="floatingInput"
+                        placeholder="Masukan Username" required>
+                </div>
+
             </div>
             <br>
             <div class="mb-3">

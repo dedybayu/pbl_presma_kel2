@@ -42,7 +42,7 @@ if ($row) {
             $_SESSION['level'] = $row['level'];
             
             if ($row['level'] == "admin") {
-                header("Location: home.php");
+                header("Location: dashboard/");
             } else {
                 header("Location: mhs.php");
             }

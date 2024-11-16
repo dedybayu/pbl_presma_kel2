@@ -1,0 +1,197 @@
+body {
+    font-family: Arial, sans-serif;
+    margin-top: 60px;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #00A7E1;
+    padding-top: 60px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.active {
+    transform: translateX(-250px);
+}
+
+.sidebar a {
+    color: white;
+    padding: 15px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.sidebar a.active{
+    background-color: #30c6f8;
+    
+}
+
+.sidebar a:hover {
+    background-color: #6ddaff;
+}
+
+.content {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+.navbar {
+    z-index: 10;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-brand {
+    color: white;
+}
+
+.custom-navbar {
+    background-color: #0078be !important; /* Paksa warna khusus */
+}
+
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-250px);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .content {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 769px) {
+    .sidebar {
+        transform: translateX(0) !important;
+    }
+
+    .content {
+        margin-left: 250px;
+    }
+
+    .navbar-toggler {
+        display: none; /* Sembunyikan tombol toggler di layar lebar */
+    }
+}
+
+.navbar-toggler {
+    background-color: transparent;
+    border: none;
+    color: white !important;
+    /* border: solid red; */
+}
+
+.navbar-toggler-icon {
+    background-color: transparent;
+    width: 30px;
+    height: 3px;
+    border-radius: 2px;
+    position: relative;
+    color: white !important;
+
+}
+
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 3px;
+    border-radius: 2px;
+    background-color: white !important;
+    color: white !important;
+
+    /* Set warna semua garis menjadi putih */
+    left: 0;
+}
+
+.navbar-toggler-icone:hover {
+    background-color: rgb(172, 172, 172);
+    /* Set warna semua garis menjadi putih */
+
+}
+
+.navbar-toggler-icon::before {
+    top: -7px;
+    /* Garis atas */
+}
+
+.navbar-toggler-icon::after {
+    top: 7px;
+    /* Garis bawah */
+}
+
+.navbar-toggler-icon {
+    background-color: white;
+    /* Ini untuk garis tengah */
+}
+
+.navbar-toggler:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* Efek mengecilkan ikon navbar-toggler saat sidebar terbuka */
+.sidebar.active .navbar-toggler-icon {
+    transform: scale(0.8);
+    transition: transform 0.2s ease-in-out;
+}
+
+
+
+
+/* DARK MODE */
+
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode .navbar {
+    background-color: #333;
+}
+
+.dark-mode .sidebar {
+    background-color: #1f1f1f;
+}
+
+.dark-mode .sidebar a {
+    color: white;
+}
+
+.dark-mode .sidebar a:hover {
+    background-color: #575d63;
+}
+
+.dark-mode .content {
+    background-color: #181818;
+}
+
+.dark-mode .btn-outline-light {
+    color: #fff;
+    border-color: #fff;
+}
+
+.dark-mode .btn-outline-light:hover {
+    background-color: #444;
+    border-color: #444;
+}
+
+.dark-mode .custom-navbar {
+    background-color: #0b3249 !important;
+    /* Paksa warna khusus */
+}
+
+.dark-mode .sidebar a.active{
+    background-color: #444b52;
+    
+}
