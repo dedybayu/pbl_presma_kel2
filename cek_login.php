@@ -16,7 +16,7 @@ $username = antiinjection($_POST['username']);
 $password = antiinjection($_POST["password"]);
 
 // Menjalankan query untuk mengambil informasi pengguna berdasarkan username
-$query = "SELECT username, level, salt, password AS hashed_password FROM [user] WHERE username = ?";
+$query = "SELECT username, level, salt, password AS hashed_password FROM [admin] WHERE username = ?";
 $params = array($username);
 $stmt = sqlsrv_query($koneksi, $query, $params);
 

@@ -1,3 +1,12 @@
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    // Jika session tidak ada, arahkan ke halaman login
+    header("Location: ../blm.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

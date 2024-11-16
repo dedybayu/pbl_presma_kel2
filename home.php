@@ -1,8 +1,5 @@
 <?php
-// Mulai session untuk memeriksa apakah pengguna sudah login
 session_start();
-
-// Cek apakah session 'username' ada (artinya pengguna sudah login)
 if (!isset($_SESSION['username'])) {
     // Jika session tidak ada, arahkan ke halaman login
     header("Location: blm.php");
