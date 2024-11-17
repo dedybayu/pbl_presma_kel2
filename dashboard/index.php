@@ -13,7 +13,7 @@ if (!isset($_SESSION['username'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Dashboard</title>
+    <title>PresMa Dashboard</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/page.css">
@@ -23,16 +23,17 @@ if (!isset($_SESSION['username'])) {
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-primary custom-navbar fixed-top">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
-                onclick="toggleSidebar()">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand" href="#">Dashboard</a>
-            <!-- Dark Mode Toggle -->
-            
-        </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-primary custom-navbar fixed-top">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
+                    onclick="toggleSidebar()">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" href="#">Pencatatan Prestasi Mahasiswa</a>
+                <img src="../img/example-logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top logo-navbar">
+            </div>
+        </nav>
     </nav>
 
     <!-- Sidebar -->
@@ -41,15 +42,18 @@ if (!isset($_SESSION['username'])) {
         <a href="#">Profile</a>
         <a href="#">Settings</a>
         <a href=""><button class="btn btn-outline-light" id="darkModeToggle" onclick="toggleDarkMode()">Dark
-            Mode</button></a>
+                Mode</button></a>
         <a href="../fungsi/logout.php">Log Out</a>
     </div>
 
     <!-- Content Area -->
     <div class="content">
-        <h1>Welcome to the Dashboard</h1>
-        <p>This is the main content area.</p>
+        <!-- <h1>Welcome to the Dashboard</h1>
+        <p>This is the main content area.</p> -->
         <!-- Add more content as needed -->
+        <div class="kotak-judul">
+            <p>SELAMAT DATANG DI SISTEM PENCATATAN PRESTASI MAHASISWA</p>
+        </div>
     </div>
 
     <!-- Bootstrap 5 JS and dependencies -->
@@ -94,8 +98,6 @@ if (!isset($_SESSION['username'])) {
             }
         };
     </script>
-
-    <!-- CSS for Dark Mode -->
 
 </body>
 

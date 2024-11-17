@@ -7,8 +7,8 @@ include "../fungsi/anti_injection.php";
 // $password = $_POST['password'];
 // $level = $_POST['level'];  // Misalnya 'admin' atau 'user'
 
-$username = "ines";
-$password = "ines";
+$username = "admin";
+$password = "admin";
 $level = "admin";
 
 // Membuat koneksi ke database
