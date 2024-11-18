@@ -50,9 +50,9 @@ CREATE TABLE [prodi] (
 
 CREATE TABLE [mahasiswa] (
   [NIM] VARCHAR(10) NOT NULL PRIMARY KEY,
+  [nama] VARCHAR(100) NOT NULL,
   [password] VARCHAR(100) NOT NULL,
   [salt] VARCHAR(50) NOT NULL,
-  [level] VARCHAR(10) NOT NULL DEFAULT 'mahasiswa' CHECK ([level] = 'mahasiswa'),
   [id_prodi] INT NOT NULL,
   [alamat] VARCHAR(200) NOT NULL,
   CONSTRAINT FK_mahasiswa_prodi FOREIGN KEY ([id_prodi])

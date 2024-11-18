@@ -31,7 +31,7 @@ include "fungsi/pesan_kilat.php";
         <div class="container-fluid">
             <!-- Logo di kiri -->
             <a class="navbar-brand" href="#">
-                <img src="img/polinema.png" alt="Logo">
+                <img src="img/logo.png" alt="Logo">
             </a>
 
             <!-- Tulisan di tengah -->
@@ -40,7 +40,7 @@ include "fungsi/pesan_kilat.php";
             </div>
 
             <a class="navbar-brand" href="#">
-                <img src="img/JTI.png" alt="Logo">
+                <img src="img/logo.png" alt="Logo">
             </a>
         </div>
     </div>
@@ -94,9 +94,10 @@ include "fungsi/pesan_kilat.php";
 
     <div style="position: fixed;
             bottom: 0;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
             right: 0;
-            width: 140px;">
+            width: 140px;
+            z-index: 10;">
         <a class="sidebar-class"  href=""><button class="btn btn-outline-light" id="darkModeToggle" onclick="toggleDarkMode()">Dark
         Mode</button></a>    
         </div>

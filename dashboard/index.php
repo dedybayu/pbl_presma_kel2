@@ -21,10 +21,15 @@ if (!isset($_SESSION['username'])) {
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
     <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
-    
+
+    <!-- DataTables CSS -->
+    <link href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css" rel="stylesheet">
+
+
 </head>
 
 <body id="body" class="light-mode">
@@ -37,8 +42,8 @@ if (!isset($_SESSION['username'])) {
                 onclick="toggleSidebar()">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="#">Pencatatan Prestasi Mahasiswa</a>
-            <img src="../img/example-logo.png" alt="Logo" width="30" height="30"
+            <a class="navbar-brand" href="#">Prestasi Mahasiswa</a>
+            <img src="../img/logo.png" alt="Logo" width="30" height="30"
                 class="d-inline-block align-text-top logo-navbar">
         </div>
     </nav>
@@ -46,11 +51,14 @@ if (!isset($_SESSION['username'])) {
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <a class="sidebar-class sidebar-default" href="#"><i class="bi bi-house-fill"></i> Dashboard</a>
+        <a class="sidebar-class" href="#"><i class="bi bi-trophy-fill"></i> Input Prestasi</a>
+        <a class="sidebar-class" href="#"><i class="bi bi-card-list"></i> Daftar Prestasi</a>
         <a class="sidebar-class" href="#"><i class="bi bi-person-circle"></i> Profile</a>
-        <a class="sidebar-class" href="#">Settings</a>
-        <a class="sidebar-class" href=""><button class="btn btn-outline-light" id="darkModeToggle" onclick="toggleDarkMode()">Dark
+        <a class="sidebar-class" href="#"><i class="bi bi-gear-fill"></i> Settings</a>
+        <a class="sidebar-class" href=""><button class="btn btn-outline-light" id="darkModeToggle"
+                onclick="toggleDarkMode()">Dark
                 Mode</button></a>
-        <a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">Log Out</a> <!-- Trigger logout modal -->
+        <a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="bi bi-box-arrow-right"></i> Log Out</a> <!-- Trigger logout modal -->
     </div>
 
     <!-- Content Area -->
@@ -59,37 +67,44 @@ if (!isset($_SESSION['username'])) {
             <p>SELAMAT DATANG DI SISTEM PENCATATAN PRESTASI MAHASISWA</p>
         </div><br>
 
-        <table id="example" class="table table-striped table-bordered" style="width:100%">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Jenis Kelamin</th>
-                    <th>Alamat</th>
-                    <th>No Tlp</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Ines</td>
-                    <td>Perempuan</td>
-                    <td>Jalan Inaja</td>
-                    <td>12345</td>
-                    <td><button class="btn btn-success btn-sm edit_data"><i class="fa  fa-edit"></i>Edit</button></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Ines</td>
-                    <td>Perempuan</td>
-                    <td>Jalan Inaja</td>
-                    <td>12345</td>
-                    <td><button class="btn btn-success btn-sm edit_data"><i class="fa  fa-edit"></i>Edit</button></td>
-                </tr>
-            </tbody>
-        </table>
-        
+        <div class="container my-4">
+            <!-- Membungkus tabel dengan div untuk scroll horizontal -->
+            <div class="table-container">
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Alamat</th>
+                            <th>No Tlp</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Orang satu</td>
+                            <td>Perempuan</td>
+                            <td>Jalan Inaja</td>
+                            <td>12345</td>
+                            <td><button class="btn btn-success btn-sm edit_data"><i class="fa  fa-edit"></i>
+                                    Edit</button></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Orang dua</td>
+                            <td>Perempuan</td>
+                            <td>Jalan Inaja</td>
+                            <td>12345</td>
+                            <td><button class="btn btn-success btn-sm edit_data"><i class="fa  fa-edit"></i>
+                                    Edit</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 
     <!-- Bootstrap 5 JS and dependencies -->
@@ -101,6 +116,21 @@ if (!isset($_SESSION['username'])) {
 
     <!-- Custom JS -->
     <script src="../js/script.js"> </script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+
+    <script>
+        if (!$.fn.DataTable.isDataTable('#example')) {
+            $('#example').DataTable({
+                responsive: true,
+                scrollX: true
+            });
+        }
+    </script>
 
     <!-- Logout Confirmation Modal -->
     <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">

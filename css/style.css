@@ -240,21 +240,16 @@ div.fixed {
 
 /* Gaya untuk tombol */
 
-
-
-
-
 /* DARK MODE */
-.dark-mode .overlay{
+.dark-mode .overlay {
   background-color: rgba(0, 21, 56, 0.507); /* Semi-transparent overlay */
-
 }
 .dark-mode .banner {
-  background-color: #134e70 ;
+  background-color: #134e70;
 }
 
-.dark-mode .login-card{
-  background-color: #134e70 ;
+.dark-mode .login-card {
+  background-color: #134e70;
   color: rgb(230, 230, 230);
 }
 
@@ -262,24 +257,20 @@ div.fixed {
   color: #3fa9f4;
 }
 
-.dark-mode .form-control{
-  background-color: #2a7baa ;
+.dark-mode .form-control {
+  background-color: #2a7baa;
   color: white !important;
 }
 
-.dark-mode #floatingInput.form-control{
+.dark-mode #floatingInput.form-control {
   color: white;
 }
 
 .dark-mode .form-control:focus {
-  background: linear-gradient(
-    to right,
-    #398fc0,
-    #2a7baa
-  );
+  background: linear-gradient(to right, #398fc0, #2a7baa);
 }
 .dark-mode #togglePassword {
-  background-color: #2a7baa !important; 
+  background-color: #2a7baa !important;
 }
 
 .dark-mode #togglePassword:focus {

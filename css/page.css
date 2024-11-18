@@ -232,7 +232,7 @@ table.dataTable thead th, table.dataTable thead td {
 }
 
 .dark-mode .sidebar {
-  background-color: #1f1f1f;
+  background-color: #0d2836 ;
 }
 
 .dark-mode .sidebar a {
@@ -258,7 +258,7 @@ table.dataTable thead th, table.dataTable thead td {
 }
 
 .dark-mode .custom-navbar {
-  background-color: #0b3249 !important;
+  background-color: #134e70 !important;
 }
 
 .dark-mode .sidebar a.active {
