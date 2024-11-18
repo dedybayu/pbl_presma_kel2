@@ -42,7 +42,6 @@ body {
   z-index: -1; /* Behind other content, above background-blur */
 }
 
-
 .banner {
   position: fixed;
   top: 0;
@@ -51,6 +50,7 @@ body {
   background-color: #3fa9f4;
   padding: 10px 0;
   z-index: 9999;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
 }
 
 .banner .container-fluid {
@@ -93,20 +93,18 @@ body {
   }
 }
 
-
 /* Footer */
-.footer{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    /* background-color: #007bff; */
-    color: rgb(179, 179, 179);
-    padding: 10px 0;
-    z-index: 9999;
-    text-align: center;
-  }
-
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  /* background-color: #007bff; */
+  color: rgb(179, 179, 179);
+  padding: 10px 0;
+  z-index: 9999;
+  text-align: center;
+}
 
 /* Login card */
 .login-card {
@@ -126,7 +124,11 @@ body {
 }
 
 .form-control:focus {
-  background: linear-gradient(to right, #e0e0e0, #ffffff); /* Gradient abu-abu ke putih */
+  background: linear-gradient(
+    to right,
+    #e0e0e0,
+    #ffffff
+  ); /* Gradient abu-abu ke putih */
   outline: none;
   box-shadow: none; /* Hapus shadow biru Bootstrap */
   border-color: none; /* Kembalikan warna border ke warna awal */
@@ -139,7 +141,7 @@ body {
   color: white;
 }
 
-.login-card .btn-login:hover{
+.login-card .btn-login:hover {
   border-radius: 20px;
   background-color: #82d385;
   color: white;
@@ -152,13 +154,13 @@ body {
   display: block; /* Ensure it takes up full width to apply text-align */
 }
 
-.forgot{
-    text-decoration: none;
-    color: #07407b;
+.forgot {
+  text-decoration: none;
+  color: #07407b;
 }
-.forgot:hover{
-    text-decoration: none;
-    color: #d3e7fc;
+.forgot:hover {
+  text-decoration: none;
+  color: #d3e7fc;
 }
 
 div.fixed {
@@ -177,55 +179,53 @@ div.fixed {
   width: 100%;
 }
 
-
 /* Optional: Alert danger background adjustment */
 .alert-danger {
-    background-color: #003a698c; /* Bootstrap default red with a light shade */
-    border-color: #ff4747;
-    color: #ff4747;
+  background-color: #003a698c; /* Bootstrap default red with a light shade */
+  border-color: #ff4747;
+  color: #ff4747;
 }
 
 /* Optional: Adjust close button */
 .alert .btn-close {
-    color: #2d0e9b; /* Customize to match alert text color */
-    opacity: 0.75;
+  color: #2d0e9b; /* Customize to match alert text color */
+  opacity: 0.75;
 }
 
 .alert .btn-close:hover {
-    opacity: 1;
+  opacity: 1;
 }
-
 
 /* Mengatur tombol berada di dalam form control */
 .input-group {
-    display: flex; /* Gunakan flex untuk memastikan elemen dalam grup terpasang dengan benar */
-    /* background-color: #ffffff; */
+  display: flex; /* Gunakan flex untuk memastikan elemen dalam grup terpasang dengan benar */
+  /* background-color: #ffffff; */
 }
 
 /* Mengubah latar belakang tombol menjadi putih */
 #togglePassword {
-    background-color: white; /* Latar belakang putih */
-    border-radius: 15px;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;    
-    border: none;
-    text-decoration: none;
-    padding: 5px 10px;  /* Padding agar tombol sedikit lebih besar */
-    border-left: none;  /* Hilangkan border kiri agar menyatu dengan input */
+  background-color: white; /* Latar belakang putih */
+  border-radius: 15px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border: none;
+  text-decoration: none;
+  padding: 5px 10px; /* Padding agar tombol sedikit lebih besar */
+  border-left: none; /* Hilangkan border kiri agar menyatu dengan input */
 
-    cursor: pointer;  /* Mengubah cursor saat hover tombol */
+  cursor: pointer; /* Mengubah cursor saat hover tombol */
 }
 
 /* Mengubah ukuran ikon */
 #togglePassword i {
-    color: #333;  /* Warna ikon */
-    font-size: 18px;  /* Ukuran ikon */
+  color: #333; /* Warna ikon */
+  font-size: 18px; /* Ukuran ikon */
 }
 
 /* Hover state untuk tombol */
 #togglePassword i:hover {
-    color: #006db6;  /* Warna ikon */
-    /* background-color: #f0f0f0; Efek hover */
+  color: #006db6; /* Warna ikon */
+  /* background-color: #f0f0f0; Efek hover */
 }
 /* 
 .input-group{
@@ -237,3 +237,63 @@ div.fixed {
   background-color: red;
   border: 5px;
 } */
+
+/* Gaya untuk tombol */
+
+
+
+
+
+/* DARK MODE */
+.dark-mode .overlay{
+  background-color: rgba(0, 21, 56, 0.507); /* Semi-transparent overlay */
+
+}
+.dark-mode .banner {
+  background-color: #134e70 ;
+}
+
+.dark-mode .login-card{
+  background-color: #134e70 ;
+  color: rgb(230, 230, 230);
+}
+
+.dark-mode .forgot {
+  color: #3fa9f4;
+}
+
+.dark-mode .form-control{
+  background-color: #2a7baa ;
+  color: white !important;
+}
+
+.dark-mode #floatingInput.form-control{
+  color: white;
+}
+
+.dark-mode .form-control:focus {
+  background: linear-gradient(
+    to right,
+    #398fc0,
+    #2a7baa
+  );
+}
+.dark-mode #togglePassword {
+  background-color: #2a7baa !important; 
+}
+
+.dark-mode #togglePassword:focus {
+  background-color: #2a7baa !important;
+}
+
+/* Mengubah ukuran ikon */
+.dark-mode #togglePassword i {
+  color: #d6d6d6; /* Warna ikon */
+  font-size: 18px; /* Ukuran ikon */
+}
+
+/* Hover state untuk tombol */
+.dark-mode #togglePassword i:hover {
+  color: #8fc0e0; /* Warna ikon */
+  /* background-color: #f0f0f0; Efek hover */
+}

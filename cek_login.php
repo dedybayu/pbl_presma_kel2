@@ -3,6 +3,23 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Set waktu maksimal sesi
+ini_set('session.gc_maxlifetime', 1440); // 1440 detik = 24 menit
+session_set_cookie_params(1440); // Durasi cookie sesi 24 menit
+
+// Cek apakah sesi telah kedaluwarsa (lebih dari 24 menit tanpa aktivitas)
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY']) > 1440) {
+    // Hapus sesi dan redirect ke halaman login
+    session_unset(); 
+    session_destroy(); 
+    header("Location: ../sesi_habis.php"); // Redirect ke halaman login
+    exit();
+}
+
+// Update waktu aktivitas terakhir
+$_SESSION['LAST_ACTIVITY'] = time();
+
+// Melanjutkan kode yang ada
 include "config/database.php";
 include "fungsi/pesan_kilat.php";
 include "fungsi/anti_injection.php";

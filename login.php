@@ -1,6 +1,11 @@
 <?php
 session_start();
+if (isset($_SESSION['username'])) {
+    header("Location: index.php");
+    exit();
+}
 include "fungsi/pesan_kilat.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,14 +20,14 @@ include "fungsi/pesan_kilat.php";
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
-<body>
+<body id="body" class="light-mode">
 
-<div class="background-blur"></div> <!-- Blurred background image -->
-  <div class="overlay"></div> <!-- Semi-transparent overlay -->
-  <!-- Your main content goes here -->
+    <div class="background-blur"></div> <!-- Blurred background image -->
+    <div class="overlay"></div> <!-- Semi-transparent overlay -->
+    <!-- Your main content goes here -->
 
     <!-- Banner -->
-    <div class="banner bg" style="color: #05090c;">
+    <div class="banner">
         <div class="container-fluid">
             <!-- Logo di kiri -->
             <a class="navbar-brand" href="#">
@@ -86,6 +91,17 @@ include "fungsi/pesan_kilat.php";
     <div class="footer">
         <p>&copy; 2024 PT. DBS Network</p>
     </div>
+
+    <div style="position: fixed;
+            bottom: 0;
+            margin-bottom: 40px;
+            right: 0;
+            width: 140px;">
+        <a class="sidebar-class"  href=""><button class="btn btn-outline-light" id="darkModeToggle" onclick="toggleDarkMode()">Dark
+        Mode</button></a>    
+        </div>
+
+    <script src="js/script.js"> </script>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

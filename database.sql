@@ -76,6 +76,7 @@ CREATE TABLE [prestasi] (
   [surat_tugas] VARCHAR(70),
   [proposal] VARCHAR(70),
   [poin] INT NOT NULL,
+  [waktu_modifikasi] DATE NOT NULL,
   CONSTRAINT FK_prestasi_mahasiswa FOREIGN KEY ([NIM])
     REFERENCES [mahasiswa]([NIM])
     ON DELETE CASCADE

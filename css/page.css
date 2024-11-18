@@ -1,231 +1,357 @@
 body {
-    font-family: Arial, sans-serif;
-    margin-top: 60px;
+  font-family: Arial, sans-serif;
+  margin-top: 60px;
 }
 
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    height: 100%;
-    background-color: #00A7E1;
-    padding-top: 60px;
-    transition: transform 0.3s ease-in-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #00a7e1;
+  box-shadow: 10px 0px 10px rgba(0, 0, 0, 0.3);
+  padding-top: 60px;
+  transition: transform 0.3s ease-in-out;
+  z-index: 2;
 }
 
 .sidebar.active {
-    transform: translateX(-250px);
+  transform: translateX(-250px);
 }
 
 .sidebar a {
-    color: white;
-    padding: 15px;
-    text-decoration: none;
-    display: block;
-    transition: background-color 0.3s;
+  color: white;
+  padding: 15px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s;
 }
 
-.sidebar a.active{
-    background-color: #30c6f8;
-    
+.sidebar a.active {
+  background-color: #30c6f8;
 }
 
 .sidebar a:hover {
-    background-color: #6ddaff;
+  background-color: #6ddaff;
 }
 
 .content {
-    margin-left: 250px;
-    padding: 20px;
+  margin-left: 250px;
+  padding: 20px;
 }
 
 .navbar {
-    z-index: 10;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
+  background-color: #3fa9f4 !important;
 }
 
 .navbar-brand {
-    color: white;
+  color: white;
 }
 
-.custom-navbar {
-    background-color: #0078be !important; /* Paksa warna khusus */
-}
+
 
 .logo-navbar {
-    margin-left: 10px;
-    order: 0; /* Posisi awal logo di kiri */
+  margin-left: 10px;
+  order: 0; /* Posisi awal logo di kiri */
 }
 
 /* Responsiveness */
 @media (max-width: 768px) {
-    .sidebar {
-        transform: translateX(-250px);
-    }
+  .sidebar {
+    transform: translateX(-250px);
+  }
 
-    .sidebar.active {
-        transform: translateX(0);
-    }
+  .sidebar.active {
+    transform: translateX(0);
+  }
 
-    .content {
-        margin-left: 0;
-    }
+  .content {
+    margin-left: 0;
+  }
 
-    .logo-navbar {
-        margin-left: auto; 
-        order: 1;       
-    }
+  .logo-navbar {
+    margin-left: auto;
+    order: 1;
+  }
 }
 
 @media (min-width: 769px) {
-    .sidebar {
-        transform: translateX(0) !important;
-    }
+  .sidebar {
+    transform: translateX(0) !important;
+  }
 
-    .content {
-        margin-left: 250px;
-    }
+  .content {
+    margin-left: 250px;
+  }
 
-    .navbar-toggler {
-        display: none; /* Sembunyikan tombol toggler di layar lebar */
-    }
-    
-    .logo-navbar {
-        margin-left: 10px; /* Reset margin kiri */
-        order: 0;          /* Urutan default untuk elemen flex */
-    }
+  .navbar-toggler {
+    display: none; /* Sembunyikan tombol toggler di layar lebar */
+  }
 
+  .logo-navbar {
+    margin-left: 10px; /* Reset margin kiri */
+    order: 0; /* Urutan default untuk elemen flex */
+  }
 }
 
 .navbar-toggler {
-    background-color: transparent;
-    border: none;
-    color: white !important;
-    /* border: solid red; */
+  background-color: transparent;
+  border: none;
+  color: white !important;
 }
 
 .navbar-toggler-icon {
-    background-color: transparent;
-    width: 30px;
-    height: 3px;
-    border-radius: 2px;
-    position: relative;
-    color: white !important;
-
+  background-color: transparent;
+  width: 30px;
+  height: 3px;
+  border-radius: 2px;
+  position: relative;
+  color: white !important;
 }
 
 .navbar-toggler-icon::before,
 .navbar-toggler-icon::after {
-    content: "";
-    position: absolute;
-    width: 30px;
-    height: 3px;
-    border-radius: 2px;
-    background-color: white !important;
-    color: white !important;
-
-    /* Set warna semua garis menjadi putih */
-    left: 0;
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 3px;
+  border-radius: 2px;
+  background-color: white !important;
+  color: white !important;
+  left: 0;
 }
 
 .navbar-toggler-icone:hover {
-    background-color: rgb(172, 172, 172);
-    /* Set warna semua garis menjadi putih */
-
+  background-color: rgb(172, 172, 172);
+  /* Set warna semua garis menjadi putih */
 }
 
 .navbar-toggler-icon::before {
-    top: -7px;
-    /* Garis atas */
+  top: -7px;
+  /* Garis atas */
 }
 
 .navbar-toggler-icon::after {
-    top: 7px;
-    /* Garis bawah */
+  top: 7px;
+  /* Garis bawah */
 }
 
 .navbar-toggler-icon {
-    background-color: white;
-    /* Ini untuk garis tengah */
+  background-color: white;
+  /* Ini untuk garis tengah */
 }
 
 .navbar-toggler:focus {
-    outline: none;
-    box-shadow: none;
+  outline: none;
+  box-shadow: none;
 }
 
 /* Efek mengecilkan ikon navbar-toggler saat sidebar terbuka */
 .sidebar.active .navbar-toggler-icon {
-    transform: scale(0.8);
-    transition: transform 0.2s ease-in-out;
+  transform: scale(0.8);
+  transition: transform 0.2s ease-in-out;
 }
 
-
 .kotak-judul {
-    width: 100%;
-    height: 100%;
-    background-color: #EEEEEE;
-    border-radius: 15px;
-    padding-top: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-bottom: 1px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-
+  width: 100%;
+  height: 100%;
+  background-color: #eeeeee;
+  border-radius: 15px;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 1px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
 
 .kotak-judul p {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: #424242;
-    text-align: center;
-    font-size: 20pt;
-    font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #424242;
+  text-align: center;
+  font-size: 20pt;
+  font-weight: bold;
 }
 
+
+/* BUAT DATATABLE */
+
+
+table.dataTable{
+    margin-top: 100px;
+}
+
+table.dataTable thead th, table.dataTable thead td {
+    /* border-top: 1px solid #000; */
+    background-color: #3fa9f483 !important;
+}
+
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    color: white !important;
+    border: #474f57 !important;
+    border-radius: 5px !important;
+    background: linear-gradient(to bottom, #007bff 0%, #007bff 100%) !important;
+}
+
+
+.dataTables_wrapper .dataTables_filter {
+    margin-bottom: 20px; /* Berikan jarak di bawah kotak pencarian */
+}
+
+.dataTables_wrapper {
+    padding-top: 10px; /* Opsional: tambahkan sedikit ruang di atas tabel */
+}
+
+
+
+/* BUAT MODAL */
+
 /* DARK MODE */
+/* DARK MODE */
+/* DARK MODE */
+/* DARK MODE */
+/* DARK MODE */
+/* DARK MODE */
+/* DARK MODE */
+/* DARK MODE */
+/* DARK MODE */
+/* DIBAWAH INI */
+
 
 .dark-mode {
-    background-color: #121212;
-    color: #ffffff;
+  background-color: #121212;
+  color: #ffffff;
 }
 
 .dark-mode .navbar {
-    background-color: #333;
+  background-color: #333;
 }
 
 .dark-mode .sidebar {
-    background-color: #1f1f1f;
+  background-color: #1f1f1f;
 }
 
 .dark-mode .sidebar a {
-    color: white;
+  color: white;
 }
 
 .dark-mode .sidebar a:hover {
-    background-color: #575d63;
+  background-color: #575d63;
 }
 
 .dark-mode .content {
-    background-color: #181818;
+  background-color: #181818;
 }
 
 .dark-mode .btn-outline-light {
-    color: #fff;
-    border-color: #fff;
+  color: #fff;
+  border-color: #fff;
 }
 
 .dark-mode .btn-outline-light:hover {
-    background-color: #444;
-    border-color: #444;
+  background-color: #444;
+  border-color: #444;
 }
 
 .dark-mode .custom-navbar {
-    background-color: #0b3249 !important;
-    /* Paksa warna khusus */
+  background-color: #0b3249 !important;
 }
 
-.dark-mode .sidebar a.active{
-    background-color: #444b52;
-    
+.dark-mode .sidebar a.active {
+  background-color: #444b52;
+}
+
+/* UNTUK JUDUL */
+.dark-mode .kotak-judul {
+    background-color: #2c3036;
+}
+
+.dark-mode .kotak-judul p {
+    color: white;
+}
+
+/* UNTUK TABLE */
+.dark-mode #example {
+  background-color: #343a40;
+  color: #fff !important;
+}
+
+.dark-mode #example thead {
+  background-color: #23272b;
+}
+
+.dark-mode #example th,
+.dark-mode #example td {
+  border-color: #474f57;
+}
+
+.dark-mode #example tr:nth-child(even) {
+  background-color: #2c3036;
+}
+
+.dark-mode #example tr:nth-child(odd) {
+  background-color: #23272b;
+}
+
+.dark-mode .dataTables_wrapper .dataTables_paginate .paginate_button {
+  background-color: #474f57;
+  color: #fff !important;
+}
+
+.dark-mode .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background-color: #565e64;
+}
+
+.dark-mode #example th,
+.dark-mode #example td {
+  color: white !important;
+}
+
+.dark-mode .dataTables_wrapper .dataTables_length,
+.dark-mode .dataTables_wrapper .dataTables_filter,
+.dark-mode .dataTables_wrapper .dataTables_info,
+.dark-mode .dataTables_wrapper .dataTables_processing,
+.dark-mode .dataTables_wrapper .dataTables_paginate {
+    color: white !important;
+}
+
+.dark-mode .dataTables_wrapper .dataTables_length select {
+    color: rgb(255, 255, 255);
+}
+
+.dark-mode .dataTables_wrapper .dataTables_length #example-length {
+    color: rgb(53, 36, 36) !important;
+}
+
+.dark-mode .paginate_button.current {
+    color: white !important ;
+    border: #474f57 !important;
+    background: linear-gradient(to bottom, #1e5186 0%, #1e5186 100%) !important;
+}
+
+.dark-mode .dataTables_wrapper .dataTables_filter input {
+    color : white;
+}
+
+.dark-mode .dataTables_length select {
+    background-color: #2c3036 !important; /* Warna latar belakang */
+    color: white !important; /* Warna teks */
+    border: 1px solid #007bff; /* Warna border */
+    border-radius: 5px; /* Opsional: sudut membulat */
+    padding: 5px; /* Opsional: padding */
+}
+
+.dark-mode .dataTables_length select:focus {
+    outline: none; /* Hapus outline default saat fokus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Glow saat fokus */
+}
+
+/* BUAT MODAL */
+.dark-mode .modal-header, .dark-mode .modal-body, .dark-mode .modal-footer {
+    background-color: #364e5e !important;
+    border: none;
 }

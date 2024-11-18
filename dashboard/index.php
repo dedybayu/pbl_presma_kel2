@@ -2,7 +2,7 @@
 session_start();
 if (!isset($_SESSION['username'])) {
     // Jika session tidak ada, arahkan ke halaman login
-    header("Location: ../blm.php");
+    header("Location: ../belum_login.php");
     exit();
 }
 ?>
@@ -17,87 +17,109 @@ if (!isset($_SESSION['username'])) {
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/page.css">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
+    
 </head>
 
 <body id="body" class="light-mode">
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-primary custom-navbar fixed-top">
-        <nav class="navbar navbar-expand-lg navbar-light bg-primary custom-navbar fixed-top">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
-                    onclick="toggleSidebar()">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="navbar-brand" href="#">Pencatatan Prestasi Mahasiswa</a>
-                <img src="../img/example-logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top logo-navbar">
-            </div>
-        </nav>
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
+                onclick="toggleSidebar()">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#">Pencatatan Prestasi Mahasiswa</a>
+            <img src="../img/example-logo.png" alt="Logo" width="30" height="30"
+                class="d-inline-block align-text-top logo-navbar">
+        </div>
     </nav>
 
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
-        <a class="active" href="#">Dashboard</a>
-        <a href="#">Profile</a>
-        <a href="#">Settings</a>
-        <a href=""><button class="btn btn-outline-light" id="darkModeToggle" onclick="toggleDarkMode()">Dark
+        <a class="sidebar-class sidebar-default" href="#"><i class="bi bi-house-fill"></i> Dashboard</a>
+        <a class="sidebar-class" href="#"><i class="bi bi-person-circle"></i> Profile</a>
+        <a class="sidebar-class" href="#">Settings</a>
+        <a class="sidebar-class" href=""><button class="btn btn-outline-light" id="darkModeToggle" onclick="toggleDarkMode()">Dark
                 Mode</button></a>
-        <a href="../fungsi/logout.php">Log Out</a>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">Log Out</a> <!-- Trigger logout modal -->
     </div>
 
     <!-- Content Area -->
     <div class="content">
-        <!-- <h1>Welcome to the Dashboard</h1>
-        <p>This is the main content area.</p> -->
-        <!-- Add more content as needed -->
         <div class="kotak-judul">
             <p>SELAMAT DATANG DI SISTEM PENCATATAN PRESTASI MAHASISWA</p>
-        </div>
+        </div><br>
+
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Alamat</th>
+                    <th>No Tlp</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Ines</td>
+                    <td>Perempuan</td>
+                    <td>Jalan Inaja</td>
+                    <td>12345</td>
+                    <td><button class="btn btn-success btn-sm edit_data"><i class="fa  fa-edit"></i>Edit</button></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Ines</td>
+                    <td>Perempuan</td>
+                    <td>Jalan Inaja</td>
+                    <td>12345</td>
+                    <td><button class="btn btn-success btn-sm edit_data"><i class="fa  fa-edit"></i>Edit</button></td>
+                </tr>
+            </tbody>
+        </table>
+        
     </div>
 
     <!-- Bootstrap 5 JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Custom JS for Sidebar Toggle and Dark Mode -->
-    <script>
-        // Function to toggle sidebar visibility
-        function toggleSidebar() {
-            var sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
-            var navbarTogglerIcon = document.querySelector('.navbar-toggler-icon');
-            if (sidebar.classList.contains('active')) {
-                navbarTogglerIcon.style.transform = 'scale(0.8)';  // Mengecilkan ikon saat sidebar terbuka
-            } else {
-                navbarTogglerIcon.style.transform = 'scale(1)';  // Kembalikan ukuran normal saat sidebar ditutup
-            }
-        }
+    <!-- DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
-        // Function to toggle dark mode
-        function toggleDarkMode() {
-            var body = document.getElementById('body');
-            var darkModeToggle = document.getElementById('darkModeToggle');
+    <!-- Custom JS -->
+    <script src="../js/script.js"> </script>
 
-            // Toggle between light and dark mode classes
-            body.classList.toggle('dark-mode');
-            if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark'); // Save preference
-                darkModeToggle.textContent = 'Light Mode'; // Change button text
-            } else {
-                localStorage.setItem('theme', 'light'); // Save preference
-                darkModeToggle.textContent = 'Dark Mode'; // Change button text
-            }
-        }
-
-        // Check local storage for theme preference and apply it
-        window.onload = function () {
-            var savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.getElementById('body').classList.add('dark-mode');
-                document.getElementById('darkModeToggle').textContent = 'Light Mode'; // Set button text
-            }
-        };
-    </script>
+    <!-- Logout Confirmation Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Konfirmasi Logout</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin keluar dari aplikasi?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <a href="../fungsi/logout.php" type="button" class="btn btn-danger">Keluar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 
