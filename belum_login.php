@@ -20,7 +20,7 @@ if (isset($_SESSION['username'])) {
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
-<body>
+<body id="body" class="light-mode">
 
     <div class="background-blur"></div> <!-- Blurred background image -->
     <div class="overlay"></div> <!-- Semi-transparent overlay -->
@@ -62,7 +62,7 @@ if (isset($_SESSION['username'])) {
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="js/script.js"> </script>
 </body>
 
 </html>

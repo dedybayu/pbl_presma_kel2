@@ -59,7 +59,7 @@ body {
 }
 
 /* Responsiveness */
-@media (max-width: 768px) {
+@media (max-width: 899px) {
   .sidebar {
     transform: translateX(-250px);
   }
@@ -78,7 +78,7 @@ body {
   }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 900px) {
   .sidebar {
     transform: translateX(0) !important;
   }
@@ -184,7 +184,6 @@ table.dataTable{
 }
 
 table.dataTable thead th, table.dataTable thead td {
-    /* border-top: 1px solid #000; */
     background-color: #3fa9f483 !important;
 }
 
@@ -278,6 +277,11 @@ table.dataTable thead th, table.dataTable thead td {
 .dark-mode #example {
   background-color: #343a40;
   color: #fff !important;
+}
+
+.dark-mode .dataTable thead th, .dark-mode table.dataTable thead td {
+  color: white !important;
+  background-color: #3fa9f483 !important;
 }
 
 .dark-mode #example thead {

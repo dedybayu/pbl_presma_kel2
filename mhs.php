@@ -3,7 +3,7 @@
 session_start();
 
 // Cek apakah session 'username' ada (artinya pengguna sudah login)
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['nim'])) {
     // Jika session tidak ada, arahkan ke halaman login
     header("Location: blm.php");
     exit();

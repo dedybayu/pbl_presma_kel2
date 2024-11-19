@@ -267,7 +267,7 @@ div.fixed {
 }
 
 .dark-mode .form-control:focus {
-  background: linear-gradient(to right, #398fc0, #2a7baa);
+  background: linear-gradient(to right, #4a96c2, #2a7baa);
 }
 .dark-mode #togglePassword {
   background-color: #2a7baa !important;

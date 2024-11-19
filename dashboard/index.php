@@ -1,10 +1,22 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['nim'])) {
     // Jika session tidak ada, arahkan ke halaman login
     header("Location: ../belum_login.php");
     exit();
 }
+
+// Cek apakah sesi telah kedaluwarsa (lebih dari 30 menit tanpa aktivitas)
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY']) > 1800) {
+    // Hapus sesi dan redirect ke halaman login
+    session_unset();
+    session_destroy();
+    header("Location: sesi_habis.php"); // Redirect ke halaman login
+    exit();
+}
+
+// Update waktu aktivitas terakhir
+$_SESSION['LAST_ACTIVITY'] = time();
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +41,8 @@ if (!isset($_SESSION['username'])) {
     <link href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css" rel="stylesheet">
 
+    <!-- ICON -->
+    <link rel="icon" href="../img/logo.ico" type="image/x-icon" />
 
 </head>
 
@@ -65,6 +79,7 @@ if (!isset($_SESSION['username'])) {
     <div class="content">
         <div class="kotak-judul">
             <p>SELAMAT DATANG DI SISTEM PENCATATAN PRESTASI MAHASISWA</p>
+            <p><?php echo $_SESSION['nim'] ?></p>
         </div><br>
 
         <div class="container my-4">

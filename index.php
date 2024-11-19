@@ -42,7 +42,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Periksa apakah pengguna sudah login
-if (!empty($_SESSION['username'])) {
+if (!empty($_SESSION['nim'])) {
     // Arahkan ke dashboard jika sudah login
     header("Location: dashboard/");
     exit();

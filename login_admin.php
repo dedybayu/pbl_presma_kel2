@@ -1,9 +1,9 @@
 <?php
 session_start();
-// if (isset($_SESSION['username'])) {
-//     header("Location: index.php");
-//     exit();
-// }
+if (isset($_SESSION['username'])) {
+    header("Location: index.php");
+    exit();
+}
 include "fungsi/pesan_kilat.php";
 
 ?>
@@ -55,8 +55,8 @@ include "fungsi/pesan_kilat.php";
         <form action="cek_login.php" method="post">
             <div class="mb-3">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="nim" id="floatingInput"
-                        placeholder="Masukan NIM" required>
+                    <input type="text" class="form-control" name="username" id="floatingInput"
+                        placeholder="Masukan Username" required>
                 </div>
 
             </div>
@@ -70,7 +70,7 @@ include "fungsi/pesan_kilat.php";
                     </button>
                 </div>
             </div>
-            <input type="hidden" name="level" id="level" value="mahasiswa">
+            <input type="hidden" name="level" id="level" value="admin">
 
             <!-- Menampilkan pesan error jika ada -->
             <?php
