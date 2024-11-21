@@ -4,6 +4,15 @@ session_start();
 //     header("Location: index.php");
 //     exit();
 // }
+
+if (isset($_POST['cancel'])) {
+    // Hapus session level
+    unset($_SESSION['level']);
+    // Arahkan kembali ke index.html
+    header("Location: index.php");
+    exit();
+}
+
 include "fungsi/pesan_kilat.php";
 
 ?>
@@ -50,13 +59,13 @@ include "fungsi/pesan_kilat.php";
 
     <!-- Login Form -->
     <div class="login-card mt-10 pt-10">
-        <h5 class="welcome">Silahkan Login</h5><br>
+        <h5 class="welcome">Halaman Login Dosen</h5><br>
 
         <form action="cek_login.php" method="post">
             <div class="mb-3">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="nim" id="floatingInput"
-                        placeholder="Masukan NIM" required>
+                    <input type="text" class="form-control" name="nip" id="floatingInput" placeholder="Masukan NIP"
+                        required>
                 </div>
 
             </div>
@@ -70,7 +79,7 @@ include "fungsi/pesan_kilat.php";
                     </button>
                 </div>
             </div>
-            <input type="hidden" name="level" id="level" value="mahasiswa">
+            <input type="hidden" name="level" id="level" value="dosen">
 
             <!-- Menampilkan pesan error jika ada -->
             <?php
@@ -89,11 +98,23 @@ include "fungsi/pesan_kilat.php";
             <div class="mt-3">
                 <button type="submit" class="btn btn-login w-50">Login</button>
             </div>
+
         </form>
     </div>
 
     <div class="footer">
         <p>&copy; 2024 PT. DBS Network</p>
+    </div>
+
+    <div style="position: fixed;
+            bottom: 0;
+            margin-bottom: 60px;
+            margin-left: 35px;
+            left: 0;
+            z-index: 10;">
+        <form action="" method="POST">
+            <button type="submit" name="cancel" class="btn-cancel">Batal</button>
+        </form>
     </div>
 
     <div style="position: fixed;

@@ -51,7 +51,7 @@ if (isset($_SESSION['username'])) {
         <hr>
         <br>
         <div class="mt-3">
-            <a href="login.php" class="btn btn-login w-50">Login Kembali</a>
+            <a href="index.php" class="btn btn-login w-50">Login Kembali</a>
         </div>
     </div>
 

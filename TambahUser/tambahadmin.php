@@ -9,7 +9,6 @@ include "../fungsi/anti_injection.php";
 
 $username = "admin";
 $password = "admin";
-$level = "admin";
 
 // Membuat koneksi ke database
 $db = new Database();
@@ -39,8 +38,8 @@ function tambahUser($username, $password, $level, $koneksi) {
     $hashed_password = password_hash($combined_password, PASSWORD_BCRYPT);
 
     // Query untuk memasukkan data ke dalam tabel admin
-    $query = "INSERT INTO [admin] (username, password, salt, level_admin) VALUES (?, ?, ?, ?)";
-    $params = array($username, $hashed_password, $salt, $level);
+    $query = "INSERT INTO [admin] (username, password, salt) VALUES (?, ?, ?)";
+    $params = array($username, $hashed_password, $salt);
     $stmt = sqlsrv_query($koneksi, $query, $params);
 
     if ($stmt === false) {

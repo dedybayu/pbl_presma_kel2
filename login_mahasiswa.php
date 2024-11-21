@@ -13,6 +13,7 @@ if (isset($_POST['cancel'])) {
     exit();
 }
 
+
 include "fungsi/pesan_kilat.php";
 
 ?>
@@ -59,13 +60,13 @@ include "fungsi/pesan_kilat.php";
 
     <!-- Login Form -->
     <div class="login-card mt-10 pt-10">
-        <h5 class="welcome">Halaman Login Admin</h5><br>
+        <h5 class="welcome">Silahkan Login</h5><br>
 
         <form action="cek_login.php" method="post">
             <div class="mb-3">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="username" id="floatingInput"
-                        placeholder="Masukan Username" required>
+                    <input type="text" class="form-control" name="nim" id="floatingInput" placeholder="Masukan NIM"
+                        required>
                 </div>
 
             </div>
@@ -79,7 +80,7 @@ include "fungsi/pesan_kilat.php";
                     </button>
                 </div>
             </div>
-            <input type="hidden" name="level" id="level" value="admin">
+            <input type="hidden" name="level" id="level" value="mahasiswa">
 
             <!-- Menampilkan pesan error jika ada -->
             <?php
@@ -108,23 +109,23 @@ include "fungsi/pesan_kilat.php";
     <div style="position: fixed;
             bottom: 0;
             margin-bottom: 60px;
-            margin-left: 35px;
-            left: 0;
-            z-index: 10;">
-        <form action="" method="POST">
-            <button type="submit" name="cancel" class="btn-cancel">Batal</button>
-        </form>
-    </div>
-
-    <div style="position: fixed;
-            bottom: 0;
-            margin-bottom: 60px;
             right: 0;
             width: 140px;
             z-index: 10;">
         <a class="sidebar-class" href=""><button class="btn btn-outline-light" id="darkModeToggle"
                 onclick="toggleDarkMode()">Dark
                 Mode</button></a>
+    </div>
+
+    <div style="position: fixed;
+            bottom: 0;
+            margin-bottom: 60px;
+            margin-left: 35px;
+            left: 0;
+            z-index: 10;">
+        <form action="" method="POST">
+            <button type="submit" name="cancel" class="btn-cancel">Batal</button>
+        </form>
     </div>
 
     <script src="js/script.js"> </script>

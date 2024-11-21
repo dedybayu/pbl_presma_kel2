@@ -139,12 +139,16 @@ body {
   border-radius: 20px;
   background-color: #4caf50;
   color: white;
+  box-shadow: 0px 0px 15px rgba(89, 102, 161, 0.5);
+
 }
 
 .login-card .btn-login:hover {
   border-radius: 20px;
   background-color: #82d385;
   color: white;
+  transform: scale(1.05); /* Membesarkan tombol sedikit saat hover */
+
 }
 
 /* Make .forgot-password align to the right */
@@ -287,4 +291,36 @@ div.fixed {
 .dark-mode #togglePassword i:hover {
   color: #8fc0e0; /* Warna ikon */
   /* background-color: #f0f0f0; Efek hover */
+}
+
+
+/* BTN BATAL */
+/* CSS untuk tombol Batal */
+.btn-cancel {
+  display: inline-block;
+  padding: 7px 30px;
+  font-size: 16px;
+  background-color: #f44336; /* Merah */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect */
+.btn-cancel:hover {
+  background-color: #d32f2f; /* Merah sedikit lebih gelap */
+  transform: scale(1.05); /* Membesarkan tombol sedikit saat hover */
+}
+
+/* CSS untuk tombol Batal */
+.dark-mode .btn-cancel {
+  background-color: #7e2222; /* Merah gelap untuk dark mode */
+}
+
+/* Hover effect */
+.dark-mode .btn-cancel:hover {
+  background-color: #c62828; /* Merah lebih gelap saat hover */
 }

@@ -48,7 +48,7 @@ if ($level == "mahasiswa") {
 
             if (password_verify($combined_password, $hashed_password)) {
                 $_SESSION['nim'] = $row['NIM'];
-
+                $_SESSION['level'] = "mahasiswa";
                 header(header: "Location: index.php");
                 exit();
             } else {
@@ -68,7 +68,7 @@ if ($level == "mahasiswa") {
     $username = antiinjection($_POST['username']);
     $password = antiinjection($_POST["password"]);
     // Menjalankan query untuk mengambil informasi pengguna berdasarkan username
-    $query = "SELECT username, level, salt, password AS hashed_password FROM [admin] WHERE username = ?";
+    $query = "SELECT username, salt, password AS hashed_password FROM [admin] WHERE username = ?";
     $params = array($username);
     $stmt = sqlsrv_query($koneksi, $query, $params);
 
@@ -91,16 +91,52 @@ if ($level == "mahasiswa") {
 
             if (password_verify($combined_password, $hashed_password)) {
                 $_SESSION['username'] = $row['username'];
-                $_SESSION['level'] = $level;
-
-                if ($level == "mahasiswa") {
-                    header("Location: dashboard/");
-                } else {
-                    header("Location: mhs.php"); //PERLU DIBENAKKAN
-                }
+                $_SESSION['level'] = "admin";
+                header("Location: index.php");
                 exit();
             } else {
                 set_flashdata('error', "Username atau Password salah!"); // Set flash message error
+                header("Location: index.php");
+                exit();
+            }
+        }
+    } else {
+        set_flashdata('error', "Username atau Password salah!"); // Set flash message error
+        header("Location: index.php");
+        exit();
+    }
+} elseif ($level == "dosen") {
+    $nip = antiinjection($_POST['nip']);
+    $password = antiinjection($_POST["password"]);
+    // Menjalankan query untuk mengambil informasi pengguna berdasarkan username
+    $query = "SELECT nip, salt, password AS hashed_password FROM [dosen] WHERE nip = ?";
+    $params = array($nip);
+    $stmt = sqlsrv_query($koneksi, $query, $params);
+
+    if ($stmt === false) {
+        die(print_r(sqlsrv_errors(), true));
+    }
+
+    // Mengambil hasil query
+    $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+    sqlsrv_free_stmt($stmt);
+    sqlsrv_close($koneksi);
+
+    if ($row) {
+        $salt = $row['salt'];
+        $hashed_password = $row['hashed_password'];
+
+        // Validasi password
+        if ($salt !== null && $hashed_password !== null) {
+            $combined_password = $salt . $password;
+
+            if (password_verify($combined_password, $hashed_password)) {
+                $_SESSION['nip'] = $row['nip'];
+                $_SESSION['level'] = "dosen";
+                header("Location: index.php");
+                exit();
+            } else {
+                set_flashdata('error', "NIP atau Password salah!"); // Set flash message error
                 header("Location: index.php");
                 exit();
             }

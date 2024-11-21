@@ -14,6 +14,7 @@ GO
 -- GO
 
 DROP TABLE [admin];
+SELECT * FROM [admin];
 EXEC sp_rename 'user', 'admin';
 
 -- INSERT INTO [admin] ([id], [username], [password], [salt], [level]) VALUES
@@ -41,7 +42,6 @@ CREATE TABLE [admin] (
   [username] VARCHAR(50) NOT NULL,
   [password] VARCHAR(100) NOT NULL,
   [salt] VARCHAR(50) NOT NULL,
-  [level_admin] VARCHAR(10) NOT NULL DEFAULT 'admin' CHECK ([level_admin] = 'admin'),
 );
 GO
 
@@ -92,12 +92,16 @@ CREATE TABLE [mahasiswa] (
   [id_prodi] INT NOT NULL,
   [no_tlp] VARCHAR(15),
   [alamat] VARCHAR(500),
+  [file_foto_profile] VARBINARY(MAX),
+  [nama_file_foto_profile] VARCHAR(255),
   CONSTRAINT FK_mahasiswa_prodi FOREIGN KEY ([id_prodi])
     REFERENCES [prodi]([id])
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
 
+
+DROP TABLE mahasiswa;
 SELECT * FROM mahasiswa;
 DELETE FROM mahasiswa WHERE nama = 'Ines Sandika';
 
@@ -112,6 +116,10 @@ CREATE TABLE [message] (
     ON UPDATE CASCADE
 );
 
+DROP TABLE message;
+
+
+
 CREATE TABLE [prestasi] (
   [id] INT IDENTITY(1,1) PRIMARY KEY,
   [NIM] VARCHAR(10) NOT NULL,
@@ -121,14 +129,20 @@ CREATE TABLE [prestasi] (
   [juara_lomba] VARCHAR(50) NOT NULL,
   [tingkat_lomba] VARCHAR(50) NOT NULL,
   [waktu_pelaksanaan] DATE NOT NULL,
+  [tempat_pelaksanaan] VARCHAR(100) NOT NULL,
   [penyelenggara_lomba] VARCHAR(50) NOT NULL,
-  [bukti_foto] VARCHAR(70) NOT NULL,
-  [sertifikat] VARCHAR(70) NOT NULL,
-  [surat_undangan] VARCHAR(70),
-  [surat_tugas] VARCHAR(70),
-  [proposal] VARCHAR(70),
+  [file_bukti_foto] VARBINARY(MAX) NOT NULL,
+  [nama_file_bukti_foto] VARCHAR(255) NOT NULL,
+  [file_sertifikat] VARBINARY(MAX) NOT NULL,
+  [nama_file_sertifikat] VARCHAR(255) NOT NULL,
+  [file_surat_undangan] VARBINARY(MAX),
+  [nama_file_surat_undangan] VARCHAR(255),
+  [file_surat_tugas] VARBINARY(MAX),
+  [nama_file_surat_tugas] VARCHAR(255),
+  [file_proposal] VARBINARY(MAX),
+  [nama_file_proposal] VARCHAR(255),
   [poin] INT NOT NULL,
-  [waktu_modifikasi] DATE NOT NULL,
+  [upload_date] DATE NOT NULL,
   CONSTRAINT FK_prestasi_mahasiswa FOREIGN KEY ([NIM])
     REFERENCES [mahasiswa]([NIM])
     ON DELETE CASCADE
@@ -139,8 +153,16 @@ CREATE TABLE [prestasi] (
     ON UPDATE CASCADE
 );
 
-DROP TABLE prestasi;
 
+
+SELECT COLUMN_NAME, DATA_TYPE
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'prestasi' AND COLUMN_NAME = 'waktu_pelaksanaan';
+
+
+
+DROP TABLE prestasi;
+SELECT * FROM prestasi;
 
 CREATE TABLE [dosen] (
   [nip] VARCHAR(20) NOT NULL PRIMARY KEY,
@@ -150,8 +172,11 @@ CREATE TABLE [dosen] (
   [jabatan] VARCHAR(50) NOT NULL,
   [no_tlp] VARCHAR(15),
   [alamat] VARCHAR(500),
+  [file_foto_profile] VARBINARY(MAX),
+  [nama_file_foto_profile] VARCHAR(255),
 );
 
+SELECT * FROM dosen;
 DROP TABLE dosen;
 
 DROP TABLE [dosen_pembimbing];
@@ -161,3 +186,13 @@ ALTER TABLE [prestasi]
 ADD [dosen_pembimbing] VARCHAR(50) NOT NULL DEFAULT '';
 
 DROP TABLE prestasi;
+
+
+
+CREATE TABLE [tanggal] (
+  [tanggal] date NOT NULL,
+);
+
+INSERT INTO [tanggal] VALUES ('2024-11-21');
+SELECT * FROM tanggal
+

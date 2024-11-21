@@ -1,0 +1,32 @@
+CREATE TABLE [prestasi] (
+  [id] INT IDENTITY(1,1) PRIMARY KEY,
+  [NIM] VARCHAR(10) NOT NULL,
+  [nama_lomba] VARCHAR(50) NOT NULL,
+  [nip_dosbim] VARCHAR(20),
+  [jenis_lomba] VARCHAR(50) NOT NULL,
+  [juara_lomba] VARCHAR(50) NOT NULL,
+  [tingkat_lomba] VARCHAR(50) NOT NULL,
+  [waktu_pelaksanaan] DATE NOT NULL,
+  [tempat_pelaksanaan] DATE NOT NULL,
+  [penyelenggara_lomba] VARCHAR(50) NOT NULL,
+  [file_bukti_foto] VARBINARY(MAX) NOT NULL,
+  [nama_file_bukti_foto] VARCHAR(255) NOT NULL,
+  [file_sertifikat] VARBINARY(MAX) NOT NULL,
+  [nama_file_sertifikat] VARCHAR(255) NOT NULL,
+  [file_surat_undangan] VARBINARY(MAX),
+  [nama_file_surat_undangan] VARCHAR(255),
+  [file_surat_tugas] VARBINARY(MAX),
+  [nama_file_surat_tugas] VARCHAR(255),
+  [file_proposal] VARBINARY(MAX),
+  [nama_file_proposal] VARCHAR(255),
+  [poin] INT NOT NULL,
+  [upload_date] DATE NOT NULL,
+  CONSTRAINT FK_prestasi_mahasiswa FOREIGN KEY ([NIM])
+    REFERENCES [mahasiswa]([NIM])
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT FK_dosbim FOREIGN KEY ([nip_dosbim])
+    REFERENCES [dosen]([nip])
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);

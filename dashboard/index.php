@@ -64,16 +64,18 @@ $_SESSION['LAST_ACTIVITY'] = time();
 
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
-        <a class="sidebar-class sidebar-default" href="#"><i class="bi bi-house-fill"></i> Dashboard</a>
-        <a class="sidebar-class" href="#"><i class="bi bi-trophy-fill"></i> Input Prestasi</a>
-        <a class="sidebar-class" href="#"><i class="bi bi-card-list"></i> Daftar Prestasi</a>
+        <a class="sidebar-class sidebar-default" href="index.php"><i class="bi bi-house-fill"></i> Dashboard</a>
+        <a class="sidebar-class" href="https://youtube.com"><i class="bi bi-trophy-fill"></i> Input Prestasi</a>
+        <a class="sidebar-class" href="index.php?page=daftarprestasi"><i class="bi bi-card-list"></i> Daftar Prestasi</a>
+        <a class="sidebar-class" href="#"><i class="bi bi-person-circle"></i> Profile</a>
         <a class="sidebar-class" href="#"><i class="bi bi-person-circle"></i> Profile</a>
         <a class="sidebar-class" href="#"><i class="bi bi-gear-fill"></i> Settings</a>
-        <a class="sidebar-class" href=""><button class="btn btn-outline-light" id="darkModeToggle"
+        <a class="sidebar-class" href="#"><button class="btn btn-outline-light" id="darkModeToggle"
                 onclick="toggleDarkMode()">Dark
                 Mode</button></a>
         <a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="bi bi-box-arrow-right"></i> Log Out</a> <!-- Trigger logout modal -->
     </div>
+
 
     <!-- Content Area -->
     <div class="content">
@@ -119,7 +121,6 @@ $_SESSION['LAST_ACTIVITY'] = time();
                 </table>
             </div>
         </div>
-
     </div>
 
     <!-- Bootstrap 5 JS and dependencies -->

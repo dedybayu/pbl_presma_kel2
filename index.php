@@ -1,39 +1,4 @@
-<?php 
-// if (session_status() === PHP_SESSION_NONE) {
-//     session_start(); // Memastikan sesi sudah dimulai
-// }
-
-// // Periksa apakah pengguna sudah login
-// if (!empty($_SESSION['username'])) {
-//     require_once 'config/database.php'; // Pastikan database.php dimuat hanya sekali
-//     require_once 'fungsi/pesan_kilat.php'; // Pastikan pesan kilat dimuat hanya sekali
-
-//     // include 'admin/template/header.php'; // Memuat header
-
-//     // Validasi dan sanitasi halaman yang diminta
-//     $page = !empty($_GET['page']) ? basename($_GET['page']) : null;
-//     $modulePath = 'admin/module/' . $page . '/index.php';
-
-//     // Periksa apakah file module ada
-//     if ($page && file_exists($modulePath)) {
-//         include $modulePath; // Muat halaman yang diminta
-//     } elseif (!$page) {
-//         include 'admin/dashboard/'; // Muat halaman beranda jika page kosong
-//     } else {
-//         // Tampilkan pesan error jika file tidak ditemukan
-//         echo "<div class='container mt-5'>
-//                 <div class='alert alert-danger text-center'>
-//                     <strong>Halaman tidak ditemukan!</strong> Halaman yang Anda minta tidak tersedia.
-//                 </div>
-//               </div>";
-//     }
-
-//     include 'admin/template/footer.php'; // Memuat footer
-// } else {
-//     // Arahkan ke halaman login jika belum login
-//     header("Location: login.php");
-//     exit();
-// }
+<?php
 
 
 
@@ -41,15 +6,163 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start(); // Memastikan sesi sudah dimulai
 }
 
-// Periksa apakah pengguna sudah login
-if (!empty($_SESSION['nim'])) {
-    // Arahkan ke dashboard jika sudah login
-    header("Location: dashboard/");
-    exit();
+if (!empty($_SESSION['level'])) { // Cek jika session level ada dan tidak kosong
+    if ($_SESSION['level'] == 'mahasiswa') {
+        // Kode untuk mahasiswa
+        if (!empty($_SESSION['nim'])) {
+            require 'config/database.php';
+            require 'fungsi/pesan_kilat.php';
+
+            include 'page/template/header.php';
+            include 'page/template/sidebar_mhs.php';
+            if (!empty($_GET['page'])) {
+                include 'page/mahasiswa/' . $_GET['page'] . '/index.php';
+            } else {
+                include 'page/mahasiswa/index.php';
+            }
+            include 'page/template/footer.php';
+            exit();
+        } else {
+            header("Location: login_mahasiswa.php");
+            exit();
+        }
+    } elseif ($_SESSION['level'] == 'admin') {
+        // Kode untuk admin
+        if (!empty($_SESSION['username'])) {
+            require 'config/database.php';
+            require 'fungsi/pesan_kilat.php';
+        
+            include 'page/template/header.php';
+            include 'page/template/sidebar_admin.php';
+            if (!empty($_GET['page'])) {
+                include 'page/admin/' . $_GET['page'] . '/index.php';
+            } else {
+                include 'page/admin/index.php';
+            }
+            include 'page/template/footer.php';
+            exit();
+        } else {
+            header("Location: login_admin.php");
+            exit();
+        }
+    } elseif ($_SESSION['level'] == 'dosen') {
+        // Kode untuk dosen
+        // Kode untuk admin
+        if (!empty($_SESSION['nip'])) {
+            require 'config/database.php';
+            require 'fungsi/pesan_kilat.php';
+        
+            include 'page/template/header.php';
+            include 'page/template/sidebar_dosen.php';
+            if (!empty($_GET['page'])) {
+                include 'page/dosen/' . $_GET['page'] . '/index.php';
+            } else {
+                include 'page/dosen/index.php';
+            }
+            include 'page/template/footer.php';
+            exit();
+        } else {
+            header("Location: login_dosen.php");
+            exit();
+        }
+    }
 } else {
-    // Arahkan ke halaman login jika belum login
-    header("Location: login.php");
-    exit();
+    header("Location: landing_page.php");
 }
+
+
+
+
+// if (!empty($_SESSION['nim'])) {
+//     require 'config/database.php';
+//     require 'fungsi/pesan_kilat.php';
+
+//     include 'page/template/header.php';
+//     include 'page/template/sidebar_mhs.php';
+//     if (!empty($_GET['page'])) {
+//         include 'page/mahasiswa/' . $_GET['page'] . '/index.php';
+//     } else {
+//         include 'page/mahasiswa/index.php';
+//     }
+//     include 'page/template/footer.php';
+//     exit();
+// }  else {
+//     header("Location: login.php");
+//     exit();
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// if (!empty($_SESSION['level'])) { // Cek jika session level ada dan tidak kosong
+//     if ($_SESSION['level'] == 'mahasiswa') {
+//         // Kode untuk mahasiswa
+//         if (!empty($_SESSION['nim'])) {
+//             require 'config/database.php';
+//             require 'fungsi/pesan_kilat.php';
+
+//             include 'page/template/header.php';
+//             include 'page/template/sidebar_mhs.php';
+//             if (!empty($_GET['page'])) {
+//                 include 'page/mahasiswa/' . $_GET['page'] . '/index.php';
+//             } else {
+//                 include 'page/mahasiswa/index.php';
+//             }
+//             include 'page/template/footer.php';
+//             exit();
+//         } else {
+//             header("Location: login.php");
+//             exit();
+//         }
+//     } elseif ($_SESSION['level'] == 'admin') {
+//         // Kode untuk admin
+//         if (!empty($_SESSION['username'])) {
+//             require 'config/database.php';
+//             require 'fungsi/pesan_kilat.php';
+        
+//             include 'page/template/header.php';
+//             include 'page/template/sidebar_admin.php';
+//             if (!empty($_GET['page'])) {
+//                 include 'page/admin/' . $_GET['page'] . '/index.php';
+//             } else {
+//                 include 'page/admin/index.php';
+//             }
+//             include 'page/template/footer.php';
+//             exit();
+//         } else {
+//             header("Location: login.php");
+//             exit();
+//         }
+//     } elseif ($_SESSION['level'] == 'dosen') {
+//         // Kode untuk dosen
+//         // Tambahkan kode untuk dosen di sini
+//     }
+// } else {
+//     // Tidak ada session level, arahkan ke halaman login
+//     header("Location: login.php");
+//     exit();
+// }
+
+
+
+
+// if (!empty($_SESSION['nim'])) {
+//     header("Location: dashboard/");
+//     exit();
+// } else {
+//     header("Location: login.php");
+//     exit();
+// }
+
 
 ?>
