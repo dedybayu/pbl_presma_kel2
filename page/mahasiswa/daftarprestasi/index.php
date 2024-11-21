@@ -15,7 +15,13 @@
                 echo "<td>" . $prestasi['tingkat_lomba'] . "</td>";
                 echo "<td>" . $prestasi['waktu_pelaksanaan']->format('Y-m-d') . "</td>";
                 echo "<td>" . $prestasi['penyelenggara_lomba'] . "</td>";
-                echo "<td><button class='btn btn-success btn-sm edit_data'><i class='fa  fa-edit'></i>Edit</button></td>";
+                ?>
+                <td style="text-align: center; vertical-align: middle;">
+                    <button class="btn btn-success btn-sm edit_data">
+                        <i class="fa fa-edit"></i> Detail
+                    </button>
+                </td>
+                <?php
                 echo "</tr>";
                 // echo "<option value='" . $['nip'] . "'>- " . htmlspecialchars($dosen['nama']) . "</option>"; // Menampilkan nama dosen
             }
