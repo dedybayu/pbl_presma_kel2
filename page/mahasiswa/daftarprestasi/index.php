@@ -1,48 +1,17 @@
 <!-- Content Area -->
 <div class="content">
-    <!-- Tampilan List Dosen -->
+    <!-- Tampilan List Prestasi -->
     <?php
     require_once "class_data/data_prestasi.php";
     $listPrestasi = new ListPrestasi();
     $daftarPrestasi = $listPrestasi->getListPrestasi($_SESSION['nim']);
-    function getListPrestasi($daftarPrestasi)
-    {
-        if (!empty($daftarPrestasi)) {
-            foreach ($daftarPrestasi as $prestasi) {
-                echo "<tr>";
-                echo "<td>" . $prestasi['nama_lomba'] . "</td>";
-                echo "<td>" . "Juara" . $prestasi['juara_lomba'] . "</td>";
-                echo "<td>" . $prestasi['tingkat_lomba'] . "</td>";
-                echo "<td>" . $prestasi['waktu_pelaksanaan']->format('Y-m-d') . "</td>";
-                echo "<td>" . $prestasi['penyelenggara_lomba'] . "</td>";
-                ?>
-                <td style="text-align: center; vertical-align: middle;">
-                    <button class="btn btn-success btn-sm edit_data" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#detailModal" 
-                            data-nama="<?php echo htmlspecialchars($prestasi['nama_lomba']); ?>" 
-                            data-juara="<?php echo htmlspecialchars($prestasi['juara_lomba']); ?>" 
-                            data-tingkat="<?php echo htmlspecialchars($prestasi['tingkat_lomba']); ?>" 
-                            data-tanggal="<?php echo $prestasi['waktu_pelaksanaan']->format('Y-m-d'); ?>" 
-                            data-penyelenggara="<?php echo htmlspecialchars($prestasi['penyelenggara_lomba']); ?>">
-                        <i class="fa fa-edit"></i> Detail
-                    </button>
-                </td>
-                <?php
-                echo "</tr>";
-            }
-        } else {
-            echo "Tidak ada dosen yang ditemukan.";
-        }
-    }
     ?>
 
-
     <div class="kotak-judul">
-        <p>Daftar Prestasi <?php echo $row['nama'] ?></p>
+        <p>Daftar Prestasi <?php echo $row['nama']; ?></p>
     </div><br>
+
     <div class="container my-4">
-        <!-- Membungkus tabel dengan div untuk scroll horizontari-->
         <div class="table-container">
             <table id="example" class="table table-striped table-bordered" style="width:100%">
                 <thead>
@@ -56,17 +25,44 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php getListPrestasi($daftarPrestasi) ?>
+                    <?php
+                    if (!empty($daftarPrestasi)) {
+                        foreach ($daftarPrestasi as $prestasi) {
+                            echo "<tr>";
+                            echo "<td>" . $prestasi['nama_lomba'] . "</td>";
+                            echo "<td>" . "Juara " . $prestasi['juara_lomba'] . "</td>";
+                            echo "<td>" . $prestasi['tingkat_lomba'] . "</td>";
+                            echo "<td>" . $prestasi['waktu_pelaksanaan']->format('Y-m-d') . "</td>";
+                            echo "<td>" . $prestasi['penyelenggara_lomba'] . "</td>";
+                            ?>
+                            <td style="text-align: center; vertical-align: middle;">
+                                <button class="btn btn-success btn-sm btn-detail" 
+                                    data-id="<?php echo $prestasi['id']; ?>"
+                                    data-nama="<?php echo $prestasi['nama_lomba']; ?>"
+                                    data-juara="<?php echo $prestasi['juara_lomba']; ?>"
+                                    data-tingkat="<?php echo $prestasi['tingkat_lomba']; ?>"
+                                    data-tanggal="<?php echo $prestasi['waktu_pelaksanaan']->format('Y-m-d'); ?>"
+                                    data-penyelenggara="<?php echo $prestasi['penyelenggara_lomba']; ?>"
+                                    data-foto="<?php echo base64_encode($prestasi['file_bukti_foto'] ?? ''); ?>"
+                                    data-proposal="<?php echo base64_encode($prestasi['file_proposal'] ?? ''); ?>"
+                                    data-bs-toggle="modal" data-bs-target="#detailModal">
+                                    <i class="fa fa-edit"></i> Detail
+                                </button>
+                            </td>
+                            <?php
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "Tidak ada prestasi yang ditemukan.";
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
-<?php 
-    // $prestasiById = 
-?>
-<!-- Modal -->
+<!-- Modal Detail Prestasi (Statis) -->
 <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -75,29 +71,114 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p><strong>Nama Lomba:</strong> <span id="modalNama"></span></p>
-                <p><strong>Juara:</strong> <span id="modalJuara"></span></p>
-                <p><strong>Tingkat:</strong> <span id="modalTingkat"></span></p>
-                <p><strong>Tanggal:</strong> <span id="modalTanggal"></span></p>
-                <p><strong>Penyelenggara:</strong> <span id="modalPenyelenggara"></span></p>
+                <p><strong>Nama Lomba:</strong> <span id="modalNamaLomba"></span></p>
+                <p><strong>Juara:</strong> <span id="modalJuaraLomba"></span></p>
+                <p><strong>Tingkat:</strong> <span id="modalTingkatLomba"></span></p>
+                <p><strong>Tanggal:</strong> <span id="modalTanggalLomba"></span></p>
+                <p><strong>Penyelenggara:</strong> <span id="modalPenyelenggaraLomba"></span></p>
+
+                <!-- Menampilkan foto jika ada -->
+                <p><strong>Bukti Foto:</strong></p>
+                <div id="modalFotoContainer">
+                    <img id="modalFoto" src="" alt="Foto Prestasi" style="max-width: 90%; height: auto; display: block; margin: 0 auto;">
+                    <span id="noFoto" style="display:none;">Tidak ada foto</span>
+                </div>
+
+                <br>
+
+                <!-- Menampilkan proposal jika ada -->
+                <p><strong>Proposal:</strong></p>
+                <div id="modalProposalContainer">
+                    <embed id="modalProposal" src="" width="100%" height="600px">
+                    <span id="noProposal" style="display:none;">Tidak ada proposal</span>
+                </div>
             </div>
             <div class="modal-footer">
+                <form action="edit_prestasi.php" method="POST">
+                    <input type="hidden" name="prestasiId" id="prestasiId">
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                </form>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- JavaScript -->
 <script>
-    // Event listener for buttons with class 'edit_data'
-    document.querySelectorAll('.edit_data').forEach(button => {
-        button.addEventListener('click', function () {
-            document.getElementById('modalNama').textContent = this.getAttribute('data-nama');
-            document.getElementById('modalJuara').textContent = "Juara " + this.getAttribute('data-juara');
-            document.getElementById('modalTingkat').textContent = this.getAttribute('data-tingkat');
-            document.getElementById('modalTanggal').textContent = this.getAttribute('data-tanggal');
-            document.getElementById('modalPenyelenggara').textContent = this.getAttribute('data-penyelenggara');
-        });
+// JavaScript untuk memperbarui modal dengan data yang sesuai
+document.querySelectorAll('.btn-detail').forEach(function(button) {
+    button.addEventListener('click', function() {
+        const prestasiId = this.getAttribute('data-id');
+        const namaLomba = this.getAttribute('data-nama');
+        const juaraLomba = this.getAttribute('data-juara');
+        const tingkatLomba = this.getAttribute('data-tingkat');
+        const tanggalLomba = this.getAttribute('data-tanggal');
+        const penyelenggaraLomba = this.getAttribute('data-penyelenggara');
+        const foto = this.getAttribute('data-foto');
+        const proposal = this.getAttribute('data-proposal');
+
+        // Update modal dengan data prestasi
+        document.getElementById('prestasiId').value = prestasiId;
+        document.getElementById('modalNamaLomba').textContent = namaLomba;
+        document.getElementById('modalJuaraLomba').textContent = juaraLomba;
+        document.getElementById('modalTingkatLomba').textContent = tingkatLomba;
+        document.getElementById('modalTanggalLomba').textContent = tanggalLomba;
+        document.getElementById('modalPenyelenggaraLomba').textContent = penyelenggaraLomba;
+
+        // Update foto
+        const modalFoto = document.getElementById('modalFoto');
+        const noFoto = document.getElementById('noFoto');
+        const modalFotoContainer = document.getElementById('modalFotoContainer');
+        if (foto) {
+            modalFoto.src = 'data:image/jpeg;base64,' + foto;
+            modalFoto.style.display = 'block';
+            noFoto.style.display = 'none';
+        } else {
+            modalFoto.style.display = 'none';
+            noFoto.style.display = 'block';
+        }
+
+        // Update proposal
+        const modalProposal = document.getElementById('modalProposal');
+        const noProposal = document.getElementById('noProposal');
+        const modalProposalContainer = document.getElementById('modalProposalContainer');
+        if (proposal) {
+            modalProposal.src = 'data:application/pdf;base64,' + proposal;
+            modalProposal.style.display = 'block';
+            noProposal.style.display = 'none';
+        } else {
+            modalProposal.style.display = 'none';
+            noProposal.style.display = 'block';
+        }
     });
+});
 </script>
+
+<style>
+    /* Modal style */
+    .modal-dialog {
+        max-width: 1300px;
+        width: 95%;
+    }
+
+    .modal-body {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
+    #modalFoto {
+        max-width: 100%;
+        height: auto;
+    }
+
+    #modalProposal {
+        width: 100%;
+        height: 600px;
+    }
+
+    /* Menyembunyikan konten bila tidak ada foto atau proposal */
+    #noFoto, #noProposal {
+        display: none;
+        color: #999;
+    }
+</style>
