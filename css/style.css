@@ -48,7 +48,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #3fa9f4;
+  background-color: #07407B;
   padding: 10px 0;
   z-index: 9999;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
@@ -71,7 +71,7 @@ body {
 }
 
 .banner .navbar-text {
-  color: white;
+  color: #ebebeb;
   font-size: 18px;
   font-weight: bold;
   text-align: center;
@@ -331,4 +331,81 @@ div.fixed {
 /* Hover effect */
 .dark-mode .btn-cancel:hover {
   background-color: #c62828; /* Merah lebih gelap saat hover */
+}
+
+.slider {
+  position: relative;
+  margin: 20px auto;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  align-items: center;
+}
+
+.slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.slide img {
+  border-radius: 10px;
+  max-width: 300px;
+}
+
+.details {
+  text-align: left;
+}
+
+.details h2 {
+  color: #4d4d4d;
+  font-size: 20px;
+}
+
+.details p {
+  margin: 5px 0;
+  color: #333;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
+
+.login {
+  background-color: #4cd137;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}
+
+.login:hover {
+  background-color: #44bd32;
+}
+
+.content{
+  width: 80%;
+  align-items: center;
+  text-align: center;
 }
