@@ -132,15 +132,10 @@ CREATE TABLE [prestasi] (
   [tempat_pelaksanaan] VARCHAR(100) NOT NULL,
   [penyelenggara_lomba] VARCHAR(50) NOT NULL,
   [file_bukti_foto] VARBINARY(MAX) NOT NULL,
-  [nama_file_bukti_foto] VARCHAR(255) NOT NULL,
   [file_sertifikat] VARBINARY(MAX) NOT NULL,
-  [nama_file_sertifikat] VARCHAR(255) NOT NULL,
   [file_surat_undangan] VARBINARY(MAX),
-  [nama_file_surat_undangan] VARCHAR(255),
   [file_surat_tugas] VARBINARY(MAX),
-  [nama_file_surat_tugas] VARCHAR(255),
   [file_proposal] VARBINARY(MAX),
-  [nama_file_proposal] VARCHAR(255),
   [poin] INT NOT NULL,
   [upload_date] DATE NOT NULL,
   CONSTRAINT FK_prestasi_mahasiswa FOREIGN KEY ([NIM])
@@ -153,6 +148,12 @@ CREATE TABLE [prestasi] (
     ON UPDATE CASCADE
 );
 
+
+ALTER TABLE [prestasi] DROP COLUMN [nama_file_bukti_foto];
+ALTER TABLE [prestasi] DROP COLUMN [nama_file_sertifikat];
+ALTER TABLE [prestasi] DROP COLUMN [nama_file_surat_undangan];
+ALTER TABLE [prestasi] DROP COLUMN [nama_file_surat_tugas];
+ALTER TABLE [prestasi] DROP COLUMN [nama_file_proposal];
 
 
 SELECT COLUMN_NAME, DATA_TYPE

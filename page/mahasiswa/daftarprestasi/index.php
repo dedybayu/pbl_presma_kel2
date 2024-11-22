@@ -91,7 +91,11 @@
                 <div id="modalProposalContainer">
                     <embed id="modalProposal" src="" width="100%" height="600px">
                     <span id="noProposal" style="display:none;">Tidak ada proposal</span>
-                </div>
+                </div><br>
+                <form action="hapus_prestasi.php" method="POST">
+                    <input type="hidden" name="prestasiId" id="prestasiId">
+                    <button type="submit" class="btn btn-primary">Hapus Prestasi</button>
+                </form>
             </div>
             <div class="modal-footer">
                 <form action="edit_prestasi.php" method="POST">
