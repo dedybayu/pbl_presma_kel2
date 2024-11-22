@@ -6,7 +6,7 @@
     function getListPrestasi()
     {
         $listPrestasi = new ListPrestasi();
-        $listPrestasi = $listPrestasi->getListPrestasi();
+        $listPrestasi = $listPrestasi->getListPrestasi($_SESSION['nim']);
         if (!empty($listPrestasi)) {
             foreach ($listPrestasi as $prestasi) {
                 echo "<tr>";

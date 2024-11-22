@@ -13,9 +13,9 @@ class ListPrestasi
         $this->db = new Database(); // Menyimpan instance Database ke properti $db
     }
 
-    public function getListPrestasi()
+    public function getListPrestasi($nim)
     {
-        $query = "SELECT * FROM prestasi";
+        $query = "SELECT * FROM prestasi WHERE NIM = $nim";
         $stmt = sqlsrv_query($this->db->conn, $query);
 
         if ($stmt === false) {
