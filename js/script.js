@@ -1,35 +1,29 @@
+// document.addEventListener("DOMContentLoaded", function () {
+//     // Ambil semua elemen dengan class sidebar-class
+//     const navLinks = document.querySelectorAll('.sidebar-class');
 
-document.addEventListener("DOMContentLoaded", function () {
-    // Ambil semua elemen dengan class nav-link
-    const navLinks = document.querySelectorAll('.nav-link');
+//     // Ambil parameter "page" dari URL
+//     const currentPage = new URLSearchParams(window.location.search).get('page');
 
-    // Tetapkan default ke Dashboard jika tidak ada parameter "page"
-    const currentPage = new URLSearchParams(window.location.search).get('page');
-    const defaultLink = document.querySelector('a[href="index.php"]');
+//     // Tetapkan class active berdasarkan URL
+//     navLinks.forEach(link => {
+//         const linkHref = link.getAttribute('href');
+        
+//         // Jika href tidak memiliki parameter page, anggap itu adalah halaman default (dashboard)
+//         if (!currentPage && linkHref === "index.php") {
+//             link.classList.add('active');
+//         } else {
+//             // Ambil nilai page dari href link
+//             const pageValue = new URLSearchParams(linkHref.split('?')[1]).get('page');
 
-    if (!currentPage && defaultLink) {
-        defaultLink.classList.add('active');
-    }
+//             // Jika currentPage sama dengan pageValue, tambahkan class active
+//             if (currentPage === pageValue) {
+//                 link.classList.add('active');
+//             }
+//         }
+//     });
+// });
 
-    // Tambahkan event listener ke setiap elemen
-    navLinks.forEach(link => {
-        link.addEventListener('click', function () {
-            // Hapus class active dari semua elemen
-            navLinks.forEach(nav => nav.classList.remove('active'));
-
-            // Tambahkan class active ke elemen yang diklik
-            this.classList.add('active');
-        });
-    });
-
-    // Tetapkan active berdasarkan URL (untuk navigasi selain Dashboard)
-    navLinks.forEach(link => {
-        const linkHref = link.getAttribute('href');
-        if (linkHref.includes(`page=${currentPage}`)) {
-            link.classList.add('active');
-        }
-    });
-});
 
 // Function to toggle sidebar visibility
 function toggleSidebar() {

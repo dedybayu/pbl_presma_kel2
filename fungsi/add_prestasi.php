@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         // Tanggal upload
-        $upload_date = date('Y-m-d');
+        $upload_date = date('Y-m-d H:i');
 
         // Query SQL untuk insert data ke tabel prestasi
         $sql = "INSERT INTO prestasi (

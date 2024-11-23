@@ -99,6 +99,7 @@ CREATE TABLE [mahasiswa] (
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
+ALTER TABLE [mahasiswa] DROP COLUMN [nama_file_foto_profile];
 
 
 DROP TABLE mahasiswa;
@@ -176,6 +177,8 @@ CREATE TABLE [dosen] (
   [file_foto_profile] VARBINARY(MAX),
   [nama_file_foto_profile] VARCHAR(255),
 );
+
+ALTER TABLE [dosen] DROP COLUMN [nama_file_foto_profile];
 
 SELECT * FROM dosen;
 DROP TABLE dosen;

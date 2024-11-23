@@ -48,8 +48,12 @@ body {
 }
 
 .navbar-brand {
-  color: white;
+  color: white !important;
 }
+.navbar-brand:hover {
+  color: rgb(201, 221, 247) !important;
+}
+
 
 .logo-navbar {
   margin-left: 10px;

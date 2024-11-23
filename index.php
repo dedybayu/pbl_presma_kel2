@@ -14,10 +14,17 @@ if (!empty($_SESSION['level'])) { // Cek jika session level ada dan tidak kosong
             require 'fungsi/pesan_kilat.php';
 
             include 'page/template/header.php';
-            include 'page/template/sidebar_mhs.php';
             if (!empty($_GET['page'])) {
+                if ($_GET['page'] === "editprestasi") {
+                    $_SESSION['page'] = "daftarprestasi";
+                } else {
+                    $_SESSION['page'] = $_GET['page'];
+                }
+                include 'page/template/sidebar_mhs.php';
                 include 'page/mahasiswa/' . $_GET['page'] . '/index.php';
             } else {
+                $_SESSION['page'] = "dashboard";
+                include 'page/template/sidebar_mhs.php';
                 include 'page/mahasiswa/index.php';
             }
             include 'page/template/footer.php';
