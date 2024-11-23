@@ -50,8 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $file_proposal = NULL;
         // $tmp_file_proposal = null;
         if (!empty($_FILES['proposal']['name'])) {
-            if ($_FILES['proposal']['size'] > 1 * 1024 * 1024) {
-                throw new Exception("Ukuran file proposal terlalu besar. Maksimal 1 MB.");
+            if ($_FILES['proposal']['size'] > 4 * 1024 * 1024) {
+                throw new Exception("Ukuran file proposal terlalu besar. Maksimal 4 MB.");
             }
             $file_proposal = file_get_contents($_FILES['proposal']['tmp_name']);
         }

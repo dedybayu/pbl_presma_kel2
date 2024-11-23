@@ -12,16 +12,17 @@ if (!empty($_SESSION['level'])) { // Cek jika session level ada dan tidak kosong
         if (!empty($_SESSION['nim'])) {
             require 'config/database.php';
             require 'fungsi/pesan_kilat.php';
-
             include 'page/template/header.php';
             if (!empty($_GET['page'])) {
                 if ($_GET['page'] === "editprestasi") {
                     $_SESSION['page'] = "daftarprestasi";
+                    include 'page/template/sidebar_mhs.php';
+                    include 'page/' . $_GET['page'] . '/index.php';
                 } else {
                     $_SESSION['page'] = $_GET['page'];
+                    include 'page/template/sidebar_mhs.php';
+                    include 'page/mahasiswa/' . $_GET['page'] . '/index.php';
                 }
-                include 'page/template/sidebar_mhs.php';
-                include 'page/mahasiswa/' . $_GET['page'] . '/index.php';
             } else {
                 $_SESSION['page'] = "dashboard";
                 include 'page/template/sidebar_mhs.php';
@@ -38,7 +39,7 @@ if (!empty($_SESSION['level'])) { // Cek jika session level ada dan tidak kosong
         if (!empty($_SESSION['username'])) {
             require 'config/database.php';
             require 'fungsi/pesan_kilat.php';
-        
+
             include 'page/template/header.php';
             include 'page/template/sidebar_admin.php';
             if (!empty($_GET['page'])) {
@@ -58,7 +59,7 @@ if (!empty($_SESSION['level'])) { // Cek jika session level ada dan tidak kosong
         if (!empty($_SESSION['nip'])) {
             require 'config/database.php';
             require 'fungsi/pesan_kilat.php';
-        
+
             include 'page/template/header.php';
             include 'page/template/sidebar_dosen.php';
             if (!empty($_GET['page'])) {
@@ -136,7 +137,7 @@ if (!empty($_SESSION['level'])) { // Cek jika session level ada dan tidak kosong
 //         if (!empty($_SESSION['username'])) {
 //             require 'config/database.php';
 //             require 'fungsi/pesan_kilat.php';
-        
+
 //             include 'page/template/header.php';
 //             include 'page/template/sidebar_admin.php';
 //             if (!empty($_GET['page'])) {

@@ -199,4 +199,5 @@ CREATE TABLE [tanggal] (
 
 INSERT INTO [tanggal] VALUES ('2024-11-21');
 SELECT * FROM tanggal
+DROP TABLE tanggal;
 

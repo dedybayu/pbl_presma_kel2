@@ -1,30 +1,3 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//     // Ambil semua elemen dengan class sidebar-class
-//     const navLinks = document.querySelectorAll('.sidebar-class');
-
-//     // Ambil parameter "page" dari URL
-//     const currentPage = new URLSearchParams(window.location.search).get('page');
-
-//     // Tetapkan class active berdasarkan URL
-//     navLinks.forEach(link => {
-//         const linkHref = link.getAttribute('href');
-        
-//         // Jika href tidak memiliki parameter page, anggap itu adalah halaman default (dashboard)
-//         if (!currentPage && linkHref === "index.php") {
-//             link.classList.add('active');
-//         } else {
-//             // Ambil nilai page dari href link
-//             const pageValue = new URLSearchParams(linkHref.split('?')[1]).get('page');
-
-//             // Jika currentPage sama dengan pageValue, tambahkan class active
-//             if (currentPage === pageValue) {
-//                 link.classList.add('active');
-//             }
-//         }
-//     });
-// });
-
-
 // Function to toggle sidebar visibility
 function toggleSidebar() {
     var sidebar = document.getElementById('sidebar');

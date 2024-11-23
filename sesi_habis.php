@@ -30,7 +30,7 @@ if (isset($_SESSION['username'])) {
         <div class="container-fluid">
             <!-- Logo di kiri -->
             <a class="navbar-brand" href="#">
-                <img src="img/polinema.png" alt="Logo">
+                <img src="img/logo.png" alt="Logo">
             </a>
 
             <!-- Tulisan di tengah -->
@@ -39,7 +39,7 @@ if (isset($_SESSION['username'])) {
             </div>
 
             <a class="navbar-brand" href="#">
-                <img src="img/JTI.png" alt="Logo">
+                <img src="img/logo.png" alt="Logo">
             </a>
         </div>
     </div>

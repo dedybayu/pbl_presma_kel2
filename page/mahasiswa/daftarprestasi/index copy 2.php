@@ -117,6 +117,23 @@
     </div>
 </div>
 
+<?php
+session_start();
+if (isset($_SESSION['success_message'])) {
+    echo '<div class="alert alert-success text-center" role="alert">';
+    echo $_SESSION['success_message'];
+    echo '</div>';
+    unset($_SESSION['success_message']); // Hapus pesan setelah ditampilkan
+}
+
+if (isset($_SESSION['error_message'])) {
+    echo '<div class="alert alert-danger text-center" role="alert">';
+    echo $_SESSION['error_message'];
+    echo '</div>';
+    unset($_SESSION['error_message']); // Hapus pesan setelah ditampilkan
+}
+?>
+
 
 <style>
     /* Modal style untuk semua modal */
