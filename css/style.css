@@ -338,9 +338,16 @@ div.fixed {
   margin: 20px auto;
   background-color: white;
   border-radius: 10px;
+  overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   align-items: center;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
 }
 
 .slide {
@@ -348,11 +355,12 @@ div.fixed {
   align-items: center;
   justify-content: center;
   gap: 20px;
+  flex: 0 0 100%;
 }
 
 .slide img {
   border-radius: 10px;
-  max-width: 300px;
+  max-width: 400px;
 }
 
 .details {
@@ -378,6 +386,11 @@ div.fixed {
   font-size: 24px;
   font-weight: bold;
   cursor: pointer;
+  color: #0097e6;
+}
+
+.arrow:hover {
+  color: #005f99;
 }
 
 .arrow.left {
@@ -385,7 +398,7 @@ div.fixed {
 }
 
 .arrow.right {
-  right: 10px;
+  right: 50px;
 }
 
 .login {
@@ -405,7 +418,28 @@ div.fixed {
 }
 
 .content{
-  width: 80%;
+  width: 60%;
   align-items: center;
   text-align: center;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+input#slide1:checked ~ .slides {
+  transform: translateX(0%);
+}
+
+input#slide2:checked ~ .slides {
+  transform: translateX(-100%);
+}
+
+.navigation {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
 }
