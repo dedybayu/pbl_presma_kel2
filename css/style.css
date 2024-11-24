@@ -393,12 +393,8 @@ div.fixed {
   color: #005f99;
 }
 
-.arrow.left {
-  left: 10px;
-}
-
 .arrow.right {
-  right: 50px;
+  right: 43px;
 }
 
 .login {
@@ -442,4 +438,44 @@ input#slide2:checked ~ .slides {
   display: flex;
   justify-content: space-between;
   transform: translateY(-50%);
+}
+
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.2rem; /* Reduce font size for header */
+  }
+
+  .slide {
+    flex-direction: column; /* Stack image and details vertically */
+    gap: 15px;
+  }
+
+  .details {
+    text-align: center; /* Center-align text on small screens */
+  }
+
+  .arrow {
+    font-size: 20px; /* Adjust arrow size */
+  }
+
+  .login {
+    padding: 8px 16px; /* Reduce padding for smaller screens */
+    font-size: 0.9rem;
+  }
+}
+
+/* Very Small Screens (Max Width: 480px) */
+@media (max-width: 480px) {
+  .details h2 {
+    font-size: 1rem; /* Further reduce font size */
+  }
+
+  .details p {
+    font-size: 0.8rem; /* Smaller text for very small screens */
+  }
+
+  .login {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
 }
