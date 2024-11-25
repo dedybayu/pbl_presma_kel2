@@ -135,12 +135,24 @@
                                             <div id="modalProposalContainer_<?php echo $prestasi['id']; ?>">
                                                 <?php
                                                 if (!empty($prestasi['file_proposal'])) {
+                                                    // Tampilkan PDF menggunakan <embed>
                                                     echo '<embed id="modalProposal" src="data:application/pdf;base64,' . base64_encode($prestasi['file_proposal']) . '" width="100%" height="600px">';
+
+                                                    // Tautan untuk mengunduh file proposal
+                                                    $encodedProposal = base64_encode($prestasi['file_proposal']);
+                                                    $downloadUrl = 'data:application/pdf;base64,' . $encodedProposal;
+                                                    ?>
+                                                    <a style="text-align: right; display: block;" href="<?php echo $downloadUrl; ?>"
+                                                        download="proposal_<?php echo $prestasi['id']; ?>.pdf">
+                                                        Download Proposal
+                                                    </a>
+                                                    <?php
                                                 } else {
                                                     echo '<span id="noProposal">Tidak ada proposal</span>';
                                                 }
                                                 ?>
-                                            </div><br><br>
+                                            </div>
+                                            <br><br><br>
 
                                             <div class="d-flex justify-content-between">
                                                 <!-- Tombol untuk membuka modal -->
@@ -150,16 +162,11 @@
                                                     Hapus
                                                 </button>
 
-                                                <!-- <form action="fungsi/edit_prestasi.php" method="POST" class="me-auto">
-                                                    <input type="hidden" name="prestasiId"
-                                                        value="<?php //echo $prestasi['id']; ?>">
-                                                    <button type="submit" class="btn btn-primary">Edit</button>
-                                                </form> -->
-
-                                                <a href="index.php?page=editprestasi&idPrestasi=<?php echo $prestasi['id']; ?>" class="btn btn-primary">Edit</a>
-                                            </div>
+                                                <a href="index.php?page=editprestasi&idPrestasi=<?php echo $prestasi['id']; ?>"
+                                                    class="btn btn-primary">Edit</a>
+                                            </div><br>
                                         </div>
-                                        <div class="modal-footer d-flex justify-content-center">
+                                        <div class="modal-footer">
 
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Tutup</button>
