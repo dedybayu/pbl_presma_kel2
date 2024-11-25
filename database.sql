@@ -150,11 +150,26 @@ CREATE TABLE [prestasi] (
 );
 
 
+
 ALTER TABLE [prestasi] DROP COLUMN [nama_file_bukti_foto];
 ALTER TABLE [prestasi] DROP COLUMN [nama_file_sertifikat];
 ALTER TABLE [prestasi] DROP COLUMN [nama_file_surat_undangan];
 ALTER TABLE [prestasi] DROP COLUMN [nama_file_surat_tugas];
 ALTER TABLE [prestasi] DROP COLUMN [nama_file_proposal];
+
+
+
+CREATE TABLE [tim] (
+  [id] INT IDENTITY(1,1) PRIMARY KEY,
+  [nama_tim] VARCHAR(50) NOT NULL,
+);
+
+CREATE TABLE [anggota_tim] (
+  [id_tim] INT,
+  [nim_mhs] VARCHAR(10)
+)
+
+
 
 
 SELECT COLUMN_NAME, DATA_TYPE

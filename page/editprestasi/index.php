@@ -6,7 +6,7 @@
     require_once "class_data/data_user.php";
     require_once "class_data/data_prestasi.php";
     $listPrestasi = new ListPrestasi();
-    $daftarPrestasi = $listPrestasi->getPrestasiById($_GET['idPrestasi']);
+    $prestasi = $listPrestasi->getPrestasiById($_GET['idPrestasi']);
     function getListDosen($prestasi)
     {
         $listDosen = new ListDosen();
@@ -39,7 +39,7 @@
                 <div class="mb-3">
                     <label for="namaLomba" class="form-label">Nama Lomba <span style="color: red;">*</span></label>
                     <input type="text" class="form-control" id="namaLomba" name="nama_lomba"
-                        value="<?php echo $daftarPrestasi[0]['nama_lomba']; ?>" required>
+                        value="<?php echo $prestasi[0]['nama_lomba']; ?>" required>
                 </div>
 
                 <div class="mb-3">
@@ -47,14 +47,14 @@
                             style="color: red;">*</span></label>
                     <select class="form-select" id="tingkatLomba" name="tingkat_lomba" required>
                         <option value="" disabled selected>Pilih Tingkatan</option>
-                        <option value="internasional" <?php if ($daftarPrestasi[0]['tingkat_lomba'] === 'internasional') {
+                        <option value="internasional" <?php if ($prestasi[0]['tingkat_lomba'] === 'internasional') {
                             echo 'selected';
                         } ?>>Internasional
                         </option>
-                        <option value="nasional" <?php if ($daftarPrestasi[0]['tingkat_lomba'] === 'nasional') {
+                        <option value="nasional" <?php if ($prestasi[0]['tingkat_lomba'] === 'nasional') {
                             echo 'selected';
                         } ?>>Nasional</option>
-                        <option value="regional" <?php if ($daftarPrestasi[0]['tingkat_lomba'] === 'regional') {
+                        <option value="regional" <?php if ($prestasi[0]['tingkat_lomba'] === 'regional') {
                             echo 'selected';
                         } ?>>Regional</option>
                     </select>
@@ -65,19 +65,19 @@
                     <label for="juaraLomba" class="form-label">Juara Lomba <span style="color: red;">*</span></label>
                     <select class="form-select" id="juaraLomba" name="juara_lomba" required>
                         <option value="" disabled selected>Pilih Juara</option>
-                        <option value="1" <?php if ($daftarPrestasi[0]['juara_lomba'] === '1') {
+                        <option value="1" <?php if ($prestasi[0]['juara_lomba'] === '1') {
                             echo 'selected';
                         } ?>>Juara 1
                         </option>
-                        <option value="2" <?php if ($daftarPrestasi[0]['juara_lomba'] === '2') {
+                        <option value="2" <?php if ($prestasi[0]['juara_lomba'] === '2') {
                             echo 'selected';
                         } ?>>Juara 2
                         </option>
-                        <option value="3" <?php if ($daftarPrestasi[0]['juara_lomba'] === '3') {
+                        <option value="3" <?php if ($prestasi[0]['juara_lomba'] === '3') {
                             echo 'selected';
                         } ?>>Juara 3
                         </option>
-                        <option value="lainnya" <?php if ($daftarPrestasi[0]['juara_lomba'] === 'lainnya') {
+                        <option value="lainnya" <?php if ($prestasi[0]['juara_lomba'] === 'lainnya') {
                             echo 'selected';
                         } ?>>Kategori Lain</option>
                     </select>
@@ -87,27 +87,27 @@
                 <div class="mb-3">
                     <label for="jenisLomba" class="form-label">Jenis Lomba <span style="color: red;">*</span></label>
                     <input type="text" class="form-control" id="jenisLomba" name="jenis_lomba"
-                        value="<?php echo $daftarPrestasi[0]['jenis_lomba']; ?>" required>
+                        value="<?php echo $prestasi[0]['jenis_lomba']; ?>" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="penyelenggaraLomba" class="form-label">Penyelenggara Lomba <span
                             style="color: red;">*</span></label>
                     <input type="text" class="form-control" id="penyelenggaraLomba" name="penyelenggara_lomba"
-                        value="<?php echo $daftarPrestasi[0]['penyelenggara_lomba']; ?>" required>
+                        value="<?php echo $prestasi[0]['penyelenggara_lomba']; ?>" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="dosenPembimbing" class="form-label">Dosen Pembimbing</label>
                     <select class="form-select" id="DosenPembimbig" name="dosbim">
                         <option value="" disabled selected>Pilih Dosen</option>
-                        <?php getListDosen($daftarPrestasi); ?>
+                        <?php getListDosen($prestasi); ?>
                     </select>
                 </div>
 
                 <?php
                 // Pastikan waktu_pelaksanaan adalah objek DateTime
-                $waktuPelaksanaan = $daftarPrestasi[0]['waktu_pelaksanaan'];
+                $waktuPelaksanaan = $prestasi[0]['waktu_pelaksanaan'];
 
                 // Jika $waktuPelaksanaan sudah berupa objek DateTime, kita bisa langsung menggunakan format()
                 if ($waktuPelaksanaan instanceof DateTime) {
@@ -126,7 +126,8 @@
                 <div class="mb-3">
                     <label for="tempatLomba" class="form-label">Tempat Pelaksanaan <span
                             style="color: red;">*</span></label>
-                    <input type="text" class="form-control" id="tempatLomba" name="tempat_lomba" value="<?php echo $daftarPrestasi[0]['tempat_pelaksanaan']; ?>" required>
+                    <input type="text" class="form-control" id="tempatLomba" name="tempat_lomba"
+                        value="<?php echo $prestasi[0]['tempat_pelaksanaan']; ?>" required>
                 </div>
 
                 <!-- Sertifikat -->
@@ -153,10 +154,32 @@
                     <label for="suratTugas" class="form-label">Surat Tugas</label>
                     <input type="file" class="form-control" id="suratTugas" name="surat_tugas" accept="image/*">
                     <small class="text-muted">Maksimal ukuran file: 1MB</small>
+                </div><br>
+
+                <p>Proposal Sebelumnya:</p>
+                <div>
+                    <?php
+                    if (!empty($prestasi[0]['file_proposal'])) {
+                        // Tampilkan PDF menggunakan <embed>
+                        echo '<embed id="pdfProposal" src="data:application/pdf;base64,' . base64_encode($prestasi[0]['file_proposal']) . '"  width="100%" >';
+
+                        // Tautan untuk mengunduh file proposal
+                        $encodedProposal = base64_encode($prestasi[0]['file_proposal']);
+                        $downloadUrl = 'data:application/pdf;base64,' . $encodedProposal;
+                        ?>
+                        <a style="text-align: right; display: block;" href="<?php echo $downloadUrl; ?>"
+                            download="proposal_<?php echo $prestasi[0]['id']; ?>.pdf">
+                            Download Proposal
+                        </a>
+                        <?php
+                    } else {
+                        echo '<span id="noProposal">Tidak ada proposal</span>';
+                    }
+                    ?>
                 </div>
 
                 <div class="mb-3">
-                    <label for="proposal" class="form-label">Proposal</label>
+                    <label for="proposal" class="form-label">Ubah Proposal</label>
                     <input type="file" class="form-control" id="proposal" name="proposal" accept="application/pdf">
                     <small class="text-muted">Maksimal ukuran file: 4MB. Hanya file PDF yang diperbolehkan.</small>
                 </div>
@@ -173,6 +196,23 @@
         </div>
 
     </div>
+
+    <style>
+        /* Default: Tinggi 50% dari layar */
+        #pdfProposal {
+            height: 50vh;
+            /* 50% dari tinggi layar */
+        }
+
+        /* Untuk layar lebar: Tinggi 80% dari layar */
+        @media (min-width: 1024px) {
+            #pdfProposal {
+                height: 70vh;
+                /* 80% dari tinggi layar */
+            }
+        }
+    </style>
+
 
     <script>
         document.querySelector('form').addEventListener('submit', function (event) {
