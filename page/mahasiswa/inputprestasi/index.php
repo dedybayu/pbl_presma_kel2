@@ -26,6 +26,7 @@
         <div class="container">
             <h1 class="mb-4">Masukan Prestasimu Disini</h1>
             <form action="../fungsi/add_prestasi.php" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="aksi" id="">
                 <input type="hidden" name="nim" id="nim" value="<?php echo $_SESSION['nim'] ?>">
                 <!-- Nama Lomba -->
                 <div class="mb-3">

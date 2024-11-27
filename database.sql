@@ -149,6 +149,12 @@ CREATE TABLE [prestasi] (
     ON UPDATE CASCADE
 );
 
+ALTER TABLE [prestasi]
+ADD 
+    [status_verifikasi] VARCHAR(10) NOT NULL DEFAULT 'waiting', -- Kolom dengan nilai default 'waiting'
+    [message] VARCHAR(255) NULL; -- Kolom untuk pesan, bisa NULL
+
+SELECT * FROM prestasi;
 
 
 ALTER TABLE [prestasi] DROP COLUMN [nama_file_bukti_foto];

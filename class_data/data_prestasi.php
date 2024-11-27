@@ -32,7 +32,9 @@ class ListPrestasi
                 file_surat_tugas,
                 file_proposal,
                 poin,
-                upload_date
+                upload_date,
+                status_verifikasi,
+                message
                     FROM prestasi
                     WHERE NIM = $nim";
         $stmt = sqlsrv_query($this->db->conn, $query);

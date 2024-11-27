@@ -3,8 +3,8 @@
 <div class="content">
     <!-- Tampilan List Prestasi -->
     <?php
-    require_once "class_data/data_prestasi.php";
-    $listPrestasi = new ListPrestasi();
+    require_once "model/PrestasiModel.php";
+    $listPrestasi = new PrestasiModel();
     $daftarPrestasi = $listPrestasi->getListPrestasi($_SESSION['nim']);
     ?>
 
@@ -54,6 +54,7 @@
                             <th>Tanggal</th>
                             <th>Penyelenggara</th>
                             <th>Upload Date</th>
+                            <th>Status Verifikasi</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -67,6 +68,7 @@
                             echo "<td>" . $prestasi['waktu_pelaksanaan'] . "</td>";
                             echo "<td>" . $prestasi['penyelenggara_lomba'] . "</td>";
                             echo "<td>" . $prestasi['upload_date']->format('d-m-Y H:i') . "</td>";
+                            echo "<td>" . $prestasi['status_verifikasi']. "</td>";
                             ?>
                             <td style="text-align: center; vertical-align: middle;">
                                 <!-- Button to open modal, passing prestasi ID -->
