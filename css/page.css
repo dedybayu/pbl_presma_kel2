@@ -412,3 +412,51 @@ table.dataTable thead td {
   background-color: #364e5e !important;
   border: none;
 }
+
+
+
+
+
+
+/* HALAMAN DETAIL PRESTASI */
+.message {
+  width: 100%;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.dark-mode .message {
+  background-color: #5b878f4d; /* Dark background color */
+  color: white; /* White text in dark mode */
+}
+
+.kotak-konten {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Custom styles for the image grid */
+.row-cols-2 .col {
+  padding: 0 10px;
+  /* Add space between images */
+}
+
+.foto-box, .pdf-box, .message-box{
+  border: 5px solid #eeeeee;
+  padding: 15px;
+  border-radius: 25px;
+  background-color: rgba(39, 102, 121, 0.274);
+}
+
+.dark-mode .foto-box, .dark-mode .pdf-box, .dark-mode .message-box{
+  border: 5px solid #2c3036;
+
+}
+
+.FotoContainer{
+  margin: auto;
+}

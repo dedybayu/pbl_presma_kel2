@@ -11,9 +11,6 @@
         <p class="mb-0 flex-grow-1 text-center">Detail Prestasi</p>
     </div>
 
-
-
-
     <div class="kotak-konten">
         <div class="container">
             <p><strong>ID Lomba:</strong> <?php echo $prestasi['id']; ?></p>
@@ -26,86 +23,116 @@
                 <?php echo $prestasi['penyelenggara_lomba']; ?>
             </p>
 
-            <!-- Menampilkan Sertifikat jika ada -->
-            <p><strong>Sertifikat:</strong></p>
-            <div id="modalFotoContainer_<?php echo $prestasi['id']; ?>">
-                <?php
-                if (!empty($prestasi['file_sertifikat'])) {
-                    echo '<img id="modalFoto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_sertifikat']) . '" alt="Sertifikat" class="img-fluid">';
-                } else {
-                    echo '<span id="noFoto">Tidak ada foto</span>';
-                }
-                ?>
-            </div>
-
             <br>
 
-            <!-- Menampilkan foto jika ada -->
-            <p><strong>Bukti Foto:</strong></p>
-            <div id="modalFotoContainer_<?php echo $prestasi['id']; ?>">
-                <?php
-                if (!empty($prestasi['file_bukti_foto'])) {
-                    echo '<img id="modalFoto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_bukti_foto']) . '" alt="Foto Prestasi" class="img-fluid">';
-                } else {
-                    echo '<span id="noFoto">Tidak ada foto</span>';
-                }
-                ?>
+
+            <!-- Grid for 4 Photos with Responsive 1 Column on Small Screens -->
+            <div class="row g-4">
+                <!-- Photo 1 -->
+                <div class="col-12 col-md-6 foto-box">
+                    <p><strong>Sertifikat:</strong></p>
+                    <div class="FotoContainer">
+                        <?php
+                        if (!empty($prestasi['file_sertifikat'])) {
+                            echo '<img id="foto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_sertifikat']) . '" alt="Sertifikat" class="img-fluid">';
+                        } else {
+                            echo '<span id="noFoto">Tidak ada foto</span>';
+                        }
+                        ?>
+                    </div>
+                </div>
+
+                <!-- Photo 2 -->
+                <div class="col-12 col-md-6 foto-box">
+                    <p><strong>Foto Saat Perlombaan:</strong></p>
+                    <div class="FotoContainer">
+                        <?php
+                        if (!empty($prestasi['file_bukti_foto'])) {
+                            echo '<img id="foto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_bukti_foto']) . '" alt="Foto Prestasi" class="img-fluid">';
+                        } else {
+                            echo '<span id="noFoto">Tidak ada foto</span>';
+                        }
+                        ?>
+                    </div>
+                </div>
+
+                <!-- Photo 3 -->
+                <div class="col-12 col-md-6 foto-box">
+                    <p><strong>Surat Undangan:</strong></p>
+                    <div class="FotoContainer">
+                        <?php
+                        if (!empty($prestasi['file_surat_undangan'])) {
+                            echo '<img id="foto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_surat_undangan']) . '" alt="Foto Surat Undangan" class="img-fluid">';
+                        } else {
+                            echo '<span id="noFoto">Tidak ada surat undangan</span>';
+                        }
+                        ?>
+                    </div>
+                </div>
+
+                <!-- Photo 4 -->
+                <div class="col-12 col-md-6 foto-box">
+                    <p><strong>Surat Tugas:</strong></p>
+                    <div class="FotoContainer">
+                        <?php
+                        if (!empty($prestasi['file_surat_tugas'])) {
+                            echo '<img id="foto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_surat_tugas']) . '" alt="Foto Surat Undangan" class="img-fluid">';
+                        } else {
+                            echo '<span id="noFoto">Tidak ada surat tugas</span>';
+                        }
+                        ?>
+                    </div>
+                </div>
             </div>
 
-            <br>
-
-            <p><strong>Surat Undangan:</strong></p>
-            <div id="modalFotoContainer_<?php echo $prestasi['id']; ?>">
-                <?php
-                if (!empty($prestasi['file_surat_undangan'])) {
-                    echo '<img id="modalFoto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_surat_undangan']) . '" alt="Foto Surat Undangan" class="img-fluid">';
-                } else {
-                    echo '<span id="noFoto">Tidak ada surat undangan</span>';
-                }
-                ?>
-            </div>
-
-            <br>
-
-            <p><strong>Surat Tugas:</strong></p>
-            <div id="modalFotoContainer_<?php echo $prestasi['id']; ?>">
-                <?php
-                if (!empty($prestasi['file_surat_tugas'])) {
-                    echo '<img id="modalFoto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_surat_tugas']) . '" alt="Foto Surat Undangan" class="img-fluid">';
-                } else {
-                    echo '<span id="noFoto">Tidak ada surat undangan</span>';
-                }
-                ?>
-            </div>
-
-            <br>
-
-            <!-- Menampilkan proposal jika ada -->
-            <p><strong>Proposal:</strong></p>
-            <div id="modalProposalContainer" class="text-center">
-                <?php
-                if (!empty($prestasi['file_proposal'])) {
-                    // Tampilkan PDF menggunakan <embed>
-                    echo '<embed id="modalProposal" src="data:application/pdf;base64,' . base64_encode($prestasi['file_proposal']) . '" width="100%" height="600px">';
-
-                    // Tautan untuk mengunduh file proposal
-                    $encodedProposal = base64_encode($prestasi['file_proposal']);
-                    $downloadUrl = 'data:application/pdf;base64,' . $encodedProposal;
-
-                    // Menggunakan nama lomba sebagai nama file untuk diunduh
-                    $downloadFilename = 'Proposal_' . $prestasi['NIM'] . '-' . $prestasi['nama_lomba'] . '.pdf';
-                    ?>
-                    <a style="text-align: right; display: block;" href="<?php echo $downloadUrl; ?>"
-                        download="<?php echo $downloadFilename; ?>">
-                        Download Proposal
-                    </a>
-                    <?php
-                } else {
-                    echo '<span id="noProposal" style="text-align: left; display: block;">Tidak ada proposal</span>';
-                }
-                ?>
-            </div>
             <br><br>
+
+            <div class="row g-4 pdf-box">
+                <p><strong>Proposal:</strong></p>
+                <div class="ProposalContainer" class="text-center">
+                    <?php
+                    if (!empty($prestasi['file_proposal'])) {
+                        // Tampilkan PDF menggunakan <embed>
+                        echo '<embed id="Proposal" src="data:application/pdf;base64,' . base64_encode($prestasi['file_proposal']) . '" width="100%" height="650px">';
+
+                        // Tautan untuk mengunduh file proposal
+                        $encodedProposal = base64_encode($prestasi['file_proposal']);
+                        $downloadUrl = 'data:application/pdf;base64,' . $encodedProposal;
+
+                        // Menggunakan nama lomba sebagai nama file untuk diunduh
+                        $downloadFilename = 'Proposal_' . $prestasi['NIM'] . '-' . $prestasi['nama_lomba'] . '.pdf';
+                        ?>
+                        <a style="text-align: right; display: block;" href="<?php echo $downloadUrl; ?>"
+                            download="<?php echo $downloadFilename; ?>">
+                            Download Proposal
+                        </a>
+                        <?php
+                    } else {
+                        echo '<span id="noProposal" style="text-align: left; display: block;">Tidak ada proposal</span><br>';
+                    }
+                    ?>
+                </div>
+            </div>
+
+            <br><br>
+            <div class="row message-box">
+                <p><strong>Pesan:</strong></p>
+                <div class="message">
+                    <?php
+                    if ($prestasi['message'] != '') {
+                        echo "<p>" . $prestasi['message'] . "</p>";
+                    } else {
+                        echo '<span id="noProposal" style="text-align: left; display: block;">Tidak ada Pesan</span>';
+                    }
+                    ?>
+
+                </div>
+            </div>
+
+
+            <br><br>
+
+
 
             <div class="d-flex justify-content-between">
                 <!-- Tombol untuk membuka modal -->
@@ -119,7 +146,6 @@
             </div><br>
         </div>
     </div>
-
 
     <!-- Modal Konfirmasi -->
     <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
@@ -146,78 +172,11 @@
 
 </div>
 
-
-
-
-
 <style>
-    #modalFoto {
-        height: auto;
-        /* Menjaga proporsi tinggi */
-        display: block;
-        /* Menampilkan sebagai blok */
-        margin: 0 auto;
-        /* Mengatur margin otomatis untuk pusat */
-        border: 5px solid #00a7e1;
-        /* Menambahkan border dengan warna hitam */
-        border-radius: 8px;
-        /* Menambahkan sudut melengkung (opsional) */
-    }
-
-
-
-    .kotak-konten {
-        max-height: 80vh;
-        overflow-y: auto;
-    }
-
-
-    @media (max-width: 1100px) {
-
-
-        #modalFoto {
-            width: 95%;
-        }
-
-        #modalProposal {
-            width: 100%;
-        }
-
-    }
-
-    @media (min-width: 1101px) {
-        #modalFoto {
-            width: 75%;
-        }
-
-        #modalProposal {
-            width: 100%;
-        }
-    }
-
-
-
-    .dark-mode #modalFoto {
-        border: 5px solid #528fad;
-        /* Menambahkan border dengan warna hitam */
-    }
-
-
-    #modalProposal {
-        height: 600px;
-    }
-
-    /* Modal style untuk modal foto */
-    .kotak-konten #modalFotoContainer img {
-        width: 100%;
-        max-width: 800px;
-        border-radius: 8px;
-        border: 3px solid #ccc;
-    }
-
     /* Styling the 'Tidak ada foto' message */
-    .kotak-konten #noFoto,
-    .kotak-konten #noProposal {
+    #noFoto,
+    #noProposal,
+    #noMessage {
         color: #999;
         font-style: italic;
     }
