@@ -41,6 +41,69 @@ class PrestasiModel
         }
     }
 
+
+    function updatePrestasi($id_prestasi, $data)
+    {
+        // Query UPDATE untuk memperbarui data pada tabel `prestasi`
+        $sql = "UPDATE prestasi 
+                SET 
+                    NIM = ?, 
+                    nama_lomba = ?, 
+                    nip_dosbim = ?, 
+                    jenis_lomba = ?, 
+                    juara_lomba = ?, 
+                    tingkat_lomba = ?, 
+                    waktu_pelaksanaan = ?, 
+                    tempat_pelaksanaan = ?, 
+                    penyelenggara_lomba = ?, 
+                    file_bukti_foto = ISNULL(CONVERT(VARBINARY(MAX), ?), file_bukti_foto),
+                    file_sertifikat = ISNULL(CONVERT(VARBINARY(MAX), ?), file_sertifikat),
+                    file_surat_undangan = ISNULL(CONVERT(VARBINARY(MAX), ?), file_surat_undangan),
+                    file_surat_tugas = ISNULL(CONVERT(VARBINARY(MAX), ?), file_surat_tugas),
+                    file_proposal = ISNULL(CONVERT(VARBINARY(MAX), ?), file_proposal),
+                    poin = ?, 
+                    upload_date = ?
+                WHERE id = ?";
+    
+        // Parameter untuk query
+        $params = [
+            $data['nim'],
+            $data['nama_lomba'],
+            $data['dosbim'],
+            $data['jenis_lomba'],
+            $data['juara_lomba'],
+            $data['tingkat_lomba'],
+            $data['waktu_lomba'],
+            $data['tempat_lomba'],
+            $data['penyelenggara_lomba'],
+            $data['file_bukti_foto'], // File bukti foto (jika ada)
+            $data['file_sertifikat'], // Sertifikat (jika ada)
+            $data['file_surat_undangan'], // Surat undangan (jika ada)
+            $data['file_surat_tugas'], // Surat tugas (jika ada)
+            $data['file_proposal'], // Proposal (jika ada)
+            $data['poin'],
+            $data['upload_date'],
+            $id_prestasi // ID untuk menentukan baris yang akan diperbarui
+        ];
+    
+        // Mempersiapkan query
+        $stmt = sqlsrv_prepare($this->db, $sql, $params);
+    
+        // Cek apakah query berhasil dipersiapkan
+        if (!$stmt) {
+            throw new Exception("Gagal mempersiapkan query: " . print_r(sqlsrv_errors(), true));
+        }
+    
+        // Eksekusi query
+        if (!sqlsrv_execute($stmt)) {
+            throw new Exception("Gagal mengeksekusi query: " . print_r(sqlsrv_errors(), true));
+        }
+    }
+    
+
+
+
+
     public function getListPrestasi($nim)
     {
         $query = "SELECT 
@@ -89,20 +152,23 @@ class PrestasiModel
             die(print_r(sqlsrv_errors(), true));
         }
 
-        $listPrestasi = [];
-        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-            $listPrestasi[] = $row; // Menambahkan setiap baris data ke array
-        }
+        $listPrestasi = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+        // while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+        //     $listPrestasi[] = $row; // Menambahkan setiap baris data ke array
+        // }
         sqlsrv_free_stmt($stmt);
 
         return $listPrestasi;
     }
 
-    function hapusPrestasi($id_prestasi) {
+
+
+    function hapusPrestasi($id_prestasi)
+    {
         $id_prestasi = antiinjection($id_prestasi);
         $query = "DELETE FROM prestasi WHERE id = ?";
         $params = [$id_prestasi];
-        $stmt = sqlsrv_query($this->db,$query, $params);
+        $stmt = sqlsrv_query($this->db, $query, $params);
         if ($stmt === false) {
             // Set flash message
             $_SESSION['error_message'] = "Gagal menghapus prestasi.";

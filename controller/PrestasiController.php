@@ -16,8 +16,8 @@ class PrestasiController
             // Validasi dan olah data
             $data['file_bukti_foto'] = file_get_contents($files['foto_lomba']['tmp_name']);
             $data['file_sertifikat'] = file_get_contents($files['sertifikat']['tmp_name']);
-            $data['file_surat_undangan'] = !empty($files['suratUndangan']['tmp_name']) ? file_get_contents($files['suratUndangan']['tmp_name']) : null;
-            $data['file_surat_tugas'] = !empty($files['suratTugas']['tmp_name']) ? file_get_contents($files['suratTugas']['tmp_name']) : null;
+            $data['file_surat_undangan'] = !empty($files['surat_undangan']['tmp_name']) ? file_get_contents($files['surat_undangan']['tmp_name']) : null;
+            $data['file_surat_tugas'] = !empty($files['surat_tugas']['tmp_name']) ? file_get_contents($files['surat_tugas']['tmp_name']) : null;
             $data['file_proposal'] = !empty($files['proposal']['tmp_name']) ? file_get_contents($files['proposal']['tmp_name']) : null;
 
             // Kalkulasi poin
@@ -53,6 +53,33 @@ class PrestasiController
             echo "Error: " . $e->getMessage();
         }
     }
+
+    public function updatePrestasi($id, $data, $files)
+    {
+        try {
+            // Validasi dan olah data file
+            $data['file_bukti_foto'] = !empty($files['foto_lomba']['tmp_name']) ? file_get_contents($files['foto_lomba']['tmp_name']) : null;
+            $data['file_sertifikat'] = !empty($files['sertifikat']['tmp_name']) ? file_get_contents($files['sertifikat']['tmp_name']) : null;
+            $data['file_surat_undangan'] = !empty($files['surat_undangan']['tmp_name']) ? file_get_contents($files['surat_undangan']['tmp_name']) : null;
+            $data['file_surat_tugas'] = !empty($files['surat_tugas']['tmp_name']) ? file_get_contents($files['surat_tugas']['tmp_name']) : null;
+            $data['file_proposal'] = !empty($files['proposal']['tmp_name']) ? file_get_contents($files['proposal']['tmp_name']) : null;
+    
+            // Kalkulasi poin
+            $data['poin'] = $this->calculatePoints($data['tingkat_lomba'], $data['juara_lomba']);
+    
+            // Tambah waktu upload
+            $data['upload_date'] = date('Y-m-d H:i:s');
+    
+            // Kirim data ke model untuk pembaruan
+            $this->model->updatePrestasi($id, $data);
+    
+            // Redirect setelah pembaruan berhasil
+            header("Location: ../index.php?page=daftarprestasi");
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+    
 
     private function calculatePoints($tingkatLomba, $juaraLomba)
     {

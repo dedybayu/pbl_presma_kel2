@@ -42,11 +42,7 @@
         </div>
     </div>
 
-    <style>
-        #logoutModal .modal-dialog{
-            max-width: 550px;
-        }
-    </style>
+
 
 </body>
 

@@ -3,15 +3,16 @@
 
     <!-- Tampilan List Dosen -->
     <?php
+    require_once "model/PrestasiModel.php";
     require_once "class_data/data_user.php";
-    require_once "class_data/data_prestasi.php";
-    $listPrestasi = new ListPrestasi();
-    $prestasi = $listPrestasi->getPrestasiById($_GET['idPrestasi']);
+
+    $prestasiModel = new PrestasiModel();
+    $prestasi = $prestasiModel->getPrestasiById($_GET['idPrestasi']);
     function getListDosen($prestasi)
     {
         $listDosen = new ListDosen();
         $dosenList = $listDosen->getListDosen();
-        $nipDosbimPrestasi = $prestasi[0]['nip_dosbim'];
+        $nipDosbimPrestasi = $prestasi['nip_dosbim'];
         if (!empty($dosenList)) {
             foreach ($dosenList as $dosen) {
                 $selected = ($nipDosbimPrestasi === $dosen['nip']) ? 'selected' : '';
@@ -26,20 +27,21 @@
     ?>
 
     <div class="kotak-judul">
-        <p>EDIT Prestasi</p>
-    </div><br>
+        <p>Edit Prestasi</p>
+    </div>
 
     <div class="kotak-konten">
         <div class="container">
-            <h1 class="mb-4">Masukan Prestasimu Disini <?php echo $_GET['idPrestasi'] ?></h1>
-            <form action="../fungsi/add_prestasi.php" method="POST" enctype="multipart/form-data">
+            <h1 class="mb-4">Edit Prestasi <?php echo $prestasi['nama_lomba']; ?></h1>
+            <form action="../action/prestasi_action.php" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="action" id="action" value="update">
                 <input type="hidden" name="idPrestasi" id="idPrestasi" value="<?php echo $_GET['idPrestasi'] ?>">
                 <input type="hidden" name="nim" id="nim" value="<?php echo $_SESSION['nim'] ?>">
                 <!-- Nama Lomba -->
                 <div class="mb-3">
                     <label for="namaLomba" class="form-label">Nama Lomba <span style="color: red;">*</span></label>
                     <input type="text" class="form-control" id="namaLomba" name="nama_lomba"
-                        value="<?php echo $prestasi[0]['nama_lomba']; ?>" required>
+                        value="<?php echo $prestasi['nama_lomba']; ?>" required>
                 </div>
 
                 <div class="mb-3">
@@ -47,14 +49,14 @@
                             style="color: red;">*</span></label>
                     <select class="form-select" id="tingkatLomba" name="tingkat_lomba" required>
                         <option value="" disabled selected>Pilih Tingkatan</option>
-                        <option value="internasional" <?php if ($prestasi[0]['tingkat_lomba'] === 'internasional') {
+                        <option value="internasional" <?php if ($prestasi['tingkat_lomba'] === 'internasional') {
                             echo 'selected';
                         } ?>>Internasional
                         </option>
-                        <option value="nasional" <?php if ($prestasi[0]['tingkat_lomba'] === 'nasional') {
+                        <option value="nasional" <?php if ($prestasi['tingkat_lomba'] === 'nasional') {
                             echo 'selected';
                         } ?>>Nasional</option>
-                        <option value="regional" <?php if ($prestasi[0]['tingkat_lomba'] === 'regional') {
+                        <option value="regional" <?php if ($prestasi['tingkat_lomba'] === 'regional') {
                             echo 'selected';
                         } ?>>Regional</option>
                     </select>
@@ -65,19 +67,19 @@
                     <label for="juaraLomba" class="form-label">Juara Lomba <span style="color: red;">*</span></label>
                     <select class="form-select" id="juaraLomba" name="juara_lomba" required>
                         <option value="" disabled selected>Pilih Juara</option>
-                        <option value="1" <?php if ($prestasi[0]['juara_lomba'] === '1') {
+                        <option value="1" <?php if ($prestasi['juara_lomba'] === '1') {
                             echo 'selected';
                         } ?>>Juara 1
                         </option>
-                        <option value="2" <?php if ($prestasi[0]['juara_lomba'] === '2') {
+                        <option value="2" <?php if ($prestasi['juara_lomba'] === '2') {
                             echo 'selected';
                         } ?>>Juara 2
                         </option>
-                        <option value="3" <?php if ($prestasi[0]['juara_lomba'] === '3') {
+                        <option value="3" <?php if ($prestasi['juara_lomba'] === '3') {
                             echo 'selected';
                         } ?>>Juara 3
                         </option>
-                        <option value="lainnya" <?php if ($prestasi[0]['juara_lomba'] === 'lainnya') {
+                        <option value="lainnya" <?php if ($prestasi['juara_lomba'] === 'lainnya') {
                             echo 'selected';
                         } ?>>Kategori Lain</option>
                     </select>
@@ -87,14 +89,14 @@
                 <div class="mb-3">
                     <label for="jenisLomba" class="form-label">Jenis Lomba <span style="color: red;">*</span></label>
                     <input type="text" class="form-control" id="jenisLomba" name="jenis_lomba"
-                        value="<?php echo $prestasi[0]['jenis_lomba']; ?>" required>
+                        value="<?php echo $prestasi['jenis_lomba']; ?>" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="penyelenggaraLomba" class="form-label">Penyelenggara Lomba <span
                             style="color: red;">*</span></label>
                     <input type="text" class="form-control" id="penyelenggaraLomba" name="penyelenggara_lomba"
-                        value="<?php echo $prestasi[0]['penyelenggara_lomba']; ?>" required>
+                        value="<?php echo $prestasi['penyelenggara_lomba']; ?>" required>
                 </div>
 
                 <div class="mb-3">
@@ -107,7 +109,7 @@
 
                 <?php
                 // Pastikan waktu_pelaksanaan adalah objek DateTime
-                $waktuPelaksanaan = $prestasi[0]['waktu_pelaksanaan'];
+                $waktuPelaksanaan = $prestasi['waktu_pelaksanaan'];
 
                 // Jika $waktuPelaksanaan sudah berupa objek DateTime, kita bisa langsung menggunakan format()
                 if ($waktuPelaksanaan instanceof DateTime) {
@@ -127,7 +129,18 @@
                     <label for="tempatLomba" class="form-label">Tempat Pelaksanaan <span
                             style="color: red;">*</span></label>
                     <input type="text" class="form-control" id="tempatLomba" name="tempat_lomba"
-                        value="<?php echo $prestasi[0]['tempat_pelaksanaan']; ?>" required>
+                        value="<?php echo $prestasi['tempat_pelaksanaan']; ?>" required>
+                </div>
+
+                <p><strong>Sertifikat:</strong></p>
+                <div id="modalFotoContainer">
+                    <?php
+                    if (!empty($prestasi['file_sertifikat'])) {
+                        echo '<img id="modalFoto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_sertifikat']) . '" alt="Sertifikat" class="img-fluid">';
+                    } else {
+                        echo '<span id="noFoto">Tidak ada foto</span>';
+                    }
+                    ?>
                 </div>
 
                 <!-- Sertifikat -->
@@ -135,19 +148,53 @@
                     <label for="sertifikat" class="form-label">Sertifikat <span style="color: red;">*</span></label>
                     <input type="file" class="form-control" id="sertifikat" name="sertifikat" accept="image/*">
                     <small class="text-muted">Maksimal ukuran file: 1MB</small>
-                </div>
+                </div><br>
 
+                <!-- Menampilkan foto jika ada -->
+                <p><strong>Bukti Foto:</strong></p>
+                <div id="modalFotoContainer">
+                    <?php
+                    if (!empty($prestasi['file_bukti_foto'])) {
+                        echo '<img id="modalFoto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_bukti_foto']) . '" alt="Foto Prestasi" class="img-fluid">';
+                    } else {
+                        echo '<span id="noFoto">Tidak ada foto</span>';
+                    }
+                    ?>
+                </div>
                 <div class="mb-3">
                     <label for="fotoLomba" class="form-label">Foto Saat Perlombaan <span
                             style="color: red;">*</span></label>
                     <input type="file" class="form-control" id="fotoLomba" name="foto_lomba" accept="image/*">
                     <small class="text-muted">Maksimal ukuran file: 1MB</small>
+                </div><br>
+
+                <p><strong>Surat Undangan:</strong></p>
+                <div id="modalFotoContainer">
+                    <?php
+                    if (!empty($prestasi['file_surat_undangan'])) {
+                        echo '<img id="modalFoto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_surat_undangan']) . '" alt="Foto Surat Undangan" class="img-fluid">';
+                    } else {
+                        echo '<span id="noFoto">Tidak ada surat undangan</span>';
+                    }
+                    ?>
                 </div>
 
                 <div class="mb-3">
                     <label for="suratUndangan" class="form-label">Surat Undangan</label>
                     <input type="file" class="form-control" id="suratUndangan" name="surat_undangan" accept="image/*">
                     <small class="text-muted">Maksimal ukuran file: 1MB</small>
+                </div>
+                <br>
+
+                <p><strong>Surat Tugas:</strong></p>
+                <div id="modalFotoContainer">
+                    <?php
+                    if (!empty($prestasi['file_surat_tugas'])) {
+                        echo '<img id="modalFoto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_surat_tugas']) . '" alt="Foto Surat Undangan" class="img-fluid">';
+                    } else {
+                        echo '<span id="noFoto">Tidak ada surat undangan</span>';
+                    }
+                    ?>
                 </div>
 
                 <div class="mb-3">
@@ -159,16 +206,16 @@
                 <p>Proposal Sebelumnya:</p>
                 <div>
                     <?php
-                    if (!empty($prestasi[0]['file_proposal'])) {
+                    if (!empty($prestasi['file_proposal'])) {
                         // Tampilkan PDF menggunakan <embed>
-                        echo '<embed id="pdfProposal" src="data:application/pdf;base64,' . base64_encode($prestasi[0]['file_proposal']) . '"  width="100%" >';
+                        echo '<embed id="pdfProposal" src="data:application/pdf;base64,' . base64_encode($prestasi['file_proposal']) . '"  width="100%" >';
 
                         // Tautan untuk mengunduh file proposal
-                        $encodedProposal = base64_encode($prestasi[0]['file_proposal']);
+                        $encodedProposal = base64_encode($prestasi['file_proposal']);
                         $downloadUrl = 'data:application/pdf;base64,' . $encodedProposal;
                         ?>
                         <a style="text-align: right; display: block;" href="<?php echo $downloadUrl; ?>"
-                            download="proposal_<?php echo $prestasi[0]['id']; ?>.pdf">
+                            download="proposal_<?php echo $prestasi['id']; ?>.pdf">
                             Download Proposal
                         </a>
                         <?php
@@ -198,6 +245,78 @@
     </div>
 
     <style>
+        #modalFoto {
+            height: auto;
+            /* Menjaga proporsi tinggi */
+            display: block;
+            /* Menampilkan sebagai blok */
+            margin: 0 auto;
+            /* Mengatur margin otomatis untuk pusat */
+            border: 5px solid #00a7e1;
+            /* Menambahkan border dengan warna hitam */
+            border-radius: 8px;
+            /* Menambahkan sudut melengkung (opsional) */
+        }
+
+
+
+        .kotak-konten {
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+
+        @media (max-width: 1100px) {
+
+
+            #modalFoto {
+                width: 95%;
+            }
+
+            #modalProposal {
+                width: 100%;
+            }
+
+        }
+
+        @media (min-width: 1101px) {
+            #modalFoto {
+                width: 75%;
+            }
+
+            #modalProposal {
+                width: 80%;
+            }
+        }
+
+
+
+        .dark-mode #modalFoto {
+            border: 5px solid #528fad;
+            /* Menambahkan border dengan warna hitam */
+        }
+
+
+        #modalProposal {
+
+            height: 600px;
+        }
+
+        /* Modal style untuk modal foto */
+        .kotak-konten #modalFotoContainer img {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 8px;
+            border: 3px solid #ccc;
+        }
+
+        /* Styling the 'Tidak ada foto' message */
+        .kotak-konten #noFoto,
+        .kotak-konten #noProposal {
+            color: #999;
+            font-style: italic;
+        }
+
         /* Default: Tinggi 50% dari layar */
         #pdfProposal {
             height: 50vh;

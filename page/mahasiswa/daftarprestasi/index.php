@@ -1,12 +1,13 @@
-<!-- Content Area -->
+<!-- Tampilan List Prestasi -->
+<?php
+require_once "model/PrestasiModel.php";
+$listPrestasi = new PrestasiModel();
+$daftarPrestasi = $listPrestasi->getListPrestasi($_SESSION['nim']);
+?>
 
+<!-- Content Area -->
 <div class="content">
-    <!-- Tampilan List Prestasi -->
-    <?php
-    require_once "model/PrestasiModel.php";
-    $listPrestasi = new PrestasiModel();
-    $daftarPrestasi = $listPrestasi->getListPrestasi($_SESSION['nim']);
-    ?>
+
 
     <div class="kotak-judul">
         <p>Daftar Prestasi <?php echo $row['nama']; ?></p>
@@ -61,6 +62,7 @@
                     <tbody>
                         <?php
                         foreach ($daftarPrestasi as $prestasi) {
+                            // $modal_prestasi = $prestasi;
                             echo "<tr>";
                             echo "<td>" . $prestasi['nama_lomba'] . "</td>";
                             echo "<td>" . "Juara " . $prestasi['juara_lomba'] . "</td>";
@@ -68,115 +70,21 @@
                             echo "<td>" . $prestasi['waktu_pelaksanaan'] . "</td>";
                             echo "<td>" . $prestasi['penyelenggara_lomba'] . "</td>";
                             echo "<td>" . $prestasi['upload_date']->format('d-m-Y H:i') . "</td>";
-                            echo "<td>" . $prestasi['status_verifikasi']. "</td>";
+                            echo "<td>" . $prestasi['status_verifikasi'] . "</td>";
                             ?>
                             <td style="text-align: center; vertical-align: middle;">
-                                <!-- Button to open modal, passing prestasi ID -->
-                                <button class="btn btn-success btn-sm btn-detail" data-bs-toggle="modal"
-                                    data-bs-target="#detailModal_<?php echo $prestasi['id']; ?>">
+                                <!-- Button untuk menampilkan ID -->
+                                <a class="btn btn-success btn-sm btn-detail" href="index.php?page=detailprestasi&idPrestasi=<?php echo $prestasi['id']; ?>">
                                     <i class="fa fa-edit"></i> Detail
-                                </button>
+                                </a>
+
                             </td>
                             <?php
                             echo "</tr>";
 
                             // Modal for each prestasi
                             ?>
-                            <div class="modal fade" id="detailModal_<?php echo $prestasi['id']; ?>" tabindex="-1"
-                                aria-labelledby="detailModalLabel_<?php echo $prestasi['id']; ?>" aria-hidden="true">
-                                <div class="modal-dialog detail-prestasi">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="detailModalLabel_<?php echo $prestasi['id']; ?>">
-                                                Detail
-                                                Prestasi</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p><strong>ID Lomba:</strong> <?php echo $prestasi['id']; ?></p>
-                                            <p><strong>Nama Lomba:</strong> <?php echo $prestasi['nama_lomba']; ?></p>
-                                            <p><strong>Juara:</strong> <?php echo "Juara " . $prestasi['juara_lomba']; ?>
-                                            </p>
-                                            <p><strong>Tingkat:</strong> <?php echo $prestasi['tingkat_lomba']; ?></p>
-                                            <p><strong>Tanggal:</strong> <?php echo $prestasi['waktu_pelaksanaan']; ?></p>
-                                            <p><strong>Penyelenggara:</strong>
-                                                <?php echo $prestasi['penyelenggara_lomba']; ?>
-                                            </p>
 
-                                            <!-- Menampilkan Sertifikat jika ada -->
-                                            <p><strong>Sertifikat:</strong></p>
-                                            <div id="modalFotoContainer_<?php echo $prestasi['id']; ?>">
-                                                <?php
-                                                if (!empty($prestasi['file_sertifikat'])) {
-                                                    echo '<img id="modalFoto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_sertifikat']) . '" alt="Sertifikat" class="img-fluid">';
-                                                } else {
-                                                    echo '<span id="noFoto">Tidak ada foto</span>';
-                                                }
-                                                ?>
-                                            </div>
-
-                                            <br>
-
-                                            <!-- Menampilkan foto jika ada -->
-                                            <p><strong>Bukti Foto:</strong></p>
-                                            <div id="modalFotoContainer_<?php echo $prestasi['id']; ?>">
-                                                <?php
-                                                if (!empty($prestasi['file_bukti_foto'])) {
-                                                    echo '<img id="modalFoto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_bukti_foto']) . '" alt="Foto Prestasi" class="img-fluid">';
-                                                } else {
-                                                    echo '<span id="noFoto">Tidak ada foto</span>';
-                                                }
-                                                ?>
-                                            </div>
-
-                                            <br>
-
-                                            <!-- Menampilkan proposal jika ada -->
-                                            <p><strong>Proposal:</strong></p>
-                                            <div id="modalProposalContainer_<?php echo $prestasi['id']; ?>">
-                                                <?php
-                                                if (!empty($prestasi['file_proposal'])) {
-                                                    // Tampilkan PDF menggunakan <embed>
-                                                    echo '<embed id="modalProposal" src="data:application/pdf;base64,' . base64_encode($prestasi['file_proposal']) . '" width="100%" height="600px">';
-
-                                                    // Tautan untuk mengunduh file proposal
-                                                    $encodedProposal = base64_encode($prestasi['file_proposal']);
-                                                    $downloadUrl = 'data:application/pdf;base64,' . $encodedProposal;
-                                                    ?>
-                                                    <a style="text-align: right; display: block;" href="<?php echo $downloadUrl; ?>"
-                                                        download="proposal_<?php echo $prestasi['id']; ?>.pdf">
-                                                        Download Proposal
-                                                    </a>
-                                                    <?php
-                                                } else {
-                                                    echo '<span id="noProposal">Tidak ada proposal</span>';
-                                                }
-                                                ?>
-                                            </div>
-                                            <br><br><br>
-
-                                            <div class="d-flex justify-content-between">
-                                                <!-- Tombol untuk membuka modal -->
-                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#confirmDeleteModal"
-                                                    data-id="<?php echo $prestasi['id']; ?>">
-                                                    Hapus
-                                                </button>
-
-                                                <a href="index.php?page=editprestasi&idPrestasi=<?php echo $prestasi['id']; ?>"
-                                                    class="btn btn-primary">Edit</a>
-                                            </div><br>
-                                        </div>
-                                        <div class="modal-footer">
-
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Tutup</button>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
                             <?php
                         }
                         ?>
@@ -185,6 +93,102 @@
                 <?php
             }
             ?>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog detail-prestasi">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">
+                    Detail
+                    Prestasi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>ID Lomba:</strong> <?php echo $modal_prestasi[0]['id']; ?></p>
+                <p><strong>Nama Lomba:</strong> <?php echo $modal_prestasi[0]['nama_lomba']; ?></p>
+                <p><strong>Juara:</strong> <?php echo "Juara " . $modal_prestasi['juara_lomba']; ?>
+                </p>
+                <p><strong>Tingkat:</strong> <?php echo $modal_prestasi['tingkat_lomba']; ?></p>
+                <p><strong>Tanggal:</strong> <?php echo $modal_prestasi['waktu_pelaksanaan']; ?></p>
+                <p><strong>Penyelenggara:</strong>
+                    <?php echo $modal_prestasi['penyelenggara_lomba']; ?>
+                </p>
+
+                <!-- Menampilkan Sertifikat jika ada -->
+                <p><strong>Sertifikat:</strong></p>
+                <div id="modalFotoContainer_<?php echo $modal_prestasi['id']; ?>">
+                    <?php
+                    if (!empty($modal_prestasi['file_sertifikat'])) {
+                        echo '<img id="modalFoto" src="data:image/jpeg;base64,' . base64_encode($modal_prestasi['file_sertifikat']) . '" alt="Sertifikat" class="img-fluid">';
+                    } else {
+                        echo '<span id="noFoto">Tidak ada foto</span>';
+                    }
+                    ?>
+                </div>
+
+                <br>
+
+                <!-- Menampilkan foto jika ada -->
+                <p><strong>Bukti Foto:</strong></p>
+                <div id="modalFotoContainer_<?php echo $modal_prestasi['id']; ?>">
+                    <?php
+                    if (!empty($modal_prestasi['file_bukti_foto'])) {
+                        echo '<img id="modalFoto" src="data:image/jpeg;base64,' . base64_encode($modal_prestasi['file_bukti_foto']) . '" alt="Foto Prestasi" class="img-fluid">';
+                    } else {
+                        echo '<span id="noFoto">Tidak ada foto</span>';
+                    }
+                    ?>
+                </div>
+
+                <br>
+
+                <!-- Menampilkan proposal jika ada -->
+                <p><strong>Proposal:</strong></p>
+                <div id="modalProposalContainer_<?php echo $modal_prestasi['id']; ?>">
+                    <?php
+                    if (!empty($modal_prestasi['file_proposal'])) {
+                        // Tampilkan PDF menggunakan <embed>
+                        echo '<embed id="modalProposal" src="data:application/pdf;base64,' . base64_encode($modal_prestasi['file_proposal']) . '" width="100%" height="600px">';
+
+                        // Tautan untuk mengunduh file proposal
+                        $encodedProposal = base64_encode($modal_prestasi['file_proposal']);
+                        $downloadUrl = 'data:application/pdf;base64,' . $encodedProposal;
+                        ?>
+                        <a style="text-align: right; display: block;" href="<?php echo $downloadUrl; ?>"
+                            download="proposal_<?php echo $modal_prestasi['id']; ?>.pdf">
+                            Download Proposal
+                        </a>
+                        <?php
+                    } else {
+                        echo '<span id="noProposal">Tidak ada proposal</span>';
+                    }
+                    ?>
+                </div>
+                <br><br><br>
+
+                <div class="d-flex justify-content-between">
+                    <!-- Tombol untuk membuka modal -->
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#confirmDeleteModal" data-id="<?php echo $modal_prestasi['id']; ?>">
+                        Hapus
+                    </button>
+
+                    <a href="index.php?page=editprestasi&idPrestasi=<?php echo $modal_prestasi['id']; ?>"
+                        class="btn btn-primary">Edit</a>
+                </div><br>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+            </div>
 
         </div>
     </div>
@@ -205,7 +209,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <form id="deleteForm" action="fungsi/hapus_prestasi.php" method="POST">
+                <form id="deleteForm" action="../action/prestasi_action.php" method="POST">
+                    <input type="hidden" name="action" id="action" value="delete">
                     <input type="hidden" name="prestasiId" id="prestasiId" value="">
                     <button type="submit" class="btn btn-danger">Hapus</button>
                 </form>
@@ -213,6 +218,9 @@
         </div>
     </div>
 </div>
+
+
+
 
 
 <style>

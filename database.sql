@@ -150,6 +150,10 @@ CREATE TABLE [prestasi] (
 );
 
 ALTER TABLE [prestasi]
+ALTER COLUMN [upload_date] DATETIME NOT NULL;
+
+
+ALTER TABLE [prestasi]
 ADD 
     [status_verifikasi] VARCHAR(10) NOT NULL DEFAULT 'waiting', -- Kolom dengan nilai default 'waiting'
     [message] VARCHAR(255) NULL; -- Kolom untuk pesan, bisa NULL

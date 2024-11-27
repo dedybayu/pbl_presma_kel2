@@ -18,7 +18,15 @@ if (!empty($_SESSION['level'])) { // Cek jika session level ada dan tidak kosong
                     $_SESSION['page'] = "daftarprestasi";
                     include 'page/template/sidebar_mhs.php';
                     include 'page/' . $_GET['page'] . '/index.php';
-                } else {
+                } 
+                
+                else if ($_GET['page'] === "detailprestasi") {
+                    $_SESSION['page'] = "daftarprestasi";
+                    include 'page/template/sidebar_mhs.php';
+                    include 'page/' . $_GET['page'] . '/index.php';
+                }
+                
+                else {
                     $_SESSION['page'] = $_GET['page'];
                     include 'page/template/sidebar_mhs.php';
                     include 'page/mahasiswa/' . $_GET['page'] . '/index.php';

@@ -1,22 +1,64 @@
 <?php
 require_once '../controller/PrestasiController.php';
+include "../fungsi/anti_injection.php";
+
+$prestasiModel = new PrestasiModel();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    
-    $controller = new PrestasiController();
+    if ($_POST['action'] === 'add' || $_POST['action'] === 'update') {
+        // Terapkan antiinjection pada data POST
+        $nim = antiinjection($_POST['nim']);
+        $nama_lomba = antiinjection($_POST['nama_lomba']);
+        $tingkat_lomba = antiinjection($_POST['tingkat_lomba']);
+        $juara_lomba = antiinjection($_POST['juara_lomba']);
+        $jenis_lomba = antiinjection($_POST['jenis_lomba']);
+        $penyelenggara_lomba = antiinjection($_POST['penyelenggara_lomba']);
+        $dosbim = antiinjection($_POST['dosbim']);
+        $tempat_lomba = antiinjection($_POST['tempat_lomba']);
+        $waktu_lomba = antiinjection($_POST['waktu_lomba']);
+        $FILES = antiinjection_files($_FILES);
 
-    $data = [
-        'nim' => $_POST['nim'],
-        'nama_lomba' => $_POST['nama_lomba'],
-        'tingkat_lomba' => $_POST['tingkat_lomba'],
-        'juara_lomba' => $_POST['juara_lomba'],
-        'jenis_lomba' => $_POST['jenis_lomba'],
-        'penyelenggara_lomba' => $_POST['penyelenggara_lomba'],
-        'dosbim' => $_POST['dosbim'],
-        'tempat_lomba' => $_POST['tempat_lomba'],
-        'waktu_lomba' => $_POST['waktu_lomba']
-    ];
+        if ($_POST['action'] === 'add') {
+            $controller = new PrestasiController();
 
-    $controller->addPrestasi($data, $_FILES);
+            $data = [
+                'nim' => $nim,
+                'nama_lomba' => $nama_lomba,
+                'tingkat_lomba' => $tingkat_lomba,
+                'juara_lomba' => $juara_lomba,
+                'jenis_lomba' => $jenis_lomba,
+                'penyelenggara_lomba' => $penyelenggara_lomba,
+                'dosbim' => $dosbim,
+                'tempat_lomba' => $tempat_lomba,
+                'waktu_lomba' => $waktu_lomba
+            ];
+
+            $controller->addPrestasi($data, $FILES);
+        }
+
+        else if ($_POST['action'] === 'update') {
+            $id = antiinjection($_POST['idPrestasi']);
+            $controller = new PrestasiController();
+
+            $data = [
+                'nim' => $nim,
+                'nama_lomba' => $nama_lomba,
+                'tingkat_lomba' => $tingkat_lomba,
+                'juara_lomba' => $juara_lomba,
+                'jenis_lomba' => $jenis_lomba,
+                'penyelenggara_lomba' => $penyelenggara_lomba,
+                'dosbim' => $dosbim,
+                'tempat_lomba' => $tempat_lomba,
+                'waktu_lomba' => $waktu_lomba
+            ];
+
+            $controller->updatePrestasi($id, $data, $_FILES);
+        }
+    }
+
+    if ($_POST['action'] === 'delete'){
+        $prestasiModel->hapusPrestasi(id_prestasi: $_POST['prestasiId']);
+
+    }
 }
 ?>
