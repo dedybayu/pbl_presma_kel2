@@ -99,8 +99,9 @@ CREATE TABLE [mahasiswa] (
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
-ALTER TABLE [mahasiswa] DROP COLUMN [nama_file_foto_profile];
-
+ALTER TABLE [mahasiswa] DROP COLUMN [alamat];
+ALTER TABLE [mahasiswa]
+ADD [email] VARCHAR(100);
 
 DROP TABLE mahasiswa;
 SELECT * FROM mahasiswa;
@@ -198,18 +199,19 @@ CREATE TABLE [dosen] (
   [nama] VARCHAR(100) NOT NULL,
   [jabatan] VARCHAR(50) NOT NULL,
   [no_tlp] VARCHAR(15),
-  [alamat] VARCHAR(500),
+  [email] VARCHAR(100),
   [file_foto_profile] VARBINARY(MAX),
-  [nama_file_foto_profile] VARCHAR(255),
 );
 
-ALTER TABLE [dosen] DROP COLUMN [nama_file_foto_profile];
+ALTER TABLE [dosen] DROP COLUMN [alamat];
 
 SELECT * FROM dosen;
 DROP TABLE dosen;
 
 DROP TABLE [dosen_pembimbing];
 
+ALTER TABLE [dosen]
+ADD [email] VARCHAR(100);
 
 ALTER TABLE [prestasi]
 ADD [dosen_pembimbing] VARCHAR(50) NOT NULL DEFAULT '';

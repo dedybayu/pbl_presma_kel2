@@ -54,7 +54,6 @@ body {
   color: rgb(201, 221, 247) !important;
 }
 
-
 .logo-navbar {
   margin-left: 10px;
   order: 0; /* Posisi awal logo di kiri */
@@ -184,9 +183,9 @@ body {
   background-color: #eeeeee;
   border-radius: 15px;
   padding-top: 15px;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-bottom: 1px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: 25px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   margin-bottom: 20px;
 }
@@ -198,7 +197,6 @@ body {
   font-size: 18pt;
   font-weight: bold;
 }
-
 
 /* BUAT DATATABLE */
 
@@ -228,6 +226,9 @@ table.dataTable thead td {
 }
 
 /* BUAT MODAL */
+.modal {
+  border-radius: 15px;
+}
 
 /* DARK MODE */
 /* DARK MODE */
@@ -260,7 +261,6 @@ table.dataTable thead td {
 .dark-mode .tombol-dark:hover {
   background-color: #3b6896; /* Biru lebih gelap saat di-hover di dark mode */
 }
-
 
 /* DARK MODE */
 /* DARK MODE */
@@ -413,11 +413,6 @@ table.dataTable thead td {
   border: none;
 }
 
-
-
-
-
-
 /* HALAMAN DETAIL PRESTASI */
 .message {
   width: 100%;
@@ -445,18 +440,48 @@ table.dataTable thead td {
   /* Add space between images */
 }
 
-.foto-box, .pdf-box, .message-box{
+.foto-box,
+.pdf-box,
+.message-box {
   border: 5px solid #eeeeee;
   padding: 15px;
   border-radius: 25px;
   background-color: rgba(39, 102, 121, 0.274);
 }
 
-.dark-mode .foto-box, .dark-mode .pdf-box, .dark-mode .message-box{
-  border: 5px solid #2c3036;
-
+.box-transparen{
+  border: 5px solid #eeeeee00;
+  padding: 15px;
+  border-radius: 25px;
+  background-color: rgba(39, 102, 121, 0);
 }
 
-.FotoContainer{
+.edit-pdf-box {
+  border: 5px solid #eeeeee;
+  padding: 15px;
+  border-radius: 25px;
+  background-color: rgba(39, 102, 121, 0.274);
+}
+
+.dark-mode .foto-box,
+.dark-mode .pdf-box,
+.dark-mode .message-box {
+  border: 5px solid #2c3036;
+  display: flex;
+  flex-direction: column; /* Mengatur agar konten di dalam kolom berurutan secara vertikal */
+  align-items: flex-start;
+}
+
+.FotoContainer {
+  margin-bottom: 1rem; /* Memberikan jarak bawah setelah gambar atau teks */
+}
+.mb-3, .mt-2, .mt-3 {
+  width: 100%; /* Memastikan form input mengambil lebar penuh */
+  margin-bottom: 1rem !important;
+  margin-top: 1rem;
+  /* margin-top: 0.5rem; */
+}
+
+.FotoContainer {
   margin: auto;
 }

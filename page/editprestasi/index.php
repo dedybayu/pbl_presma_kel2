@@ -32,209 +32,252 @@
 
     <div class="kotak-konten">
         <div class="container">
+
             <h1 class="mb-4">Edit Prestasi <?php echo $prestasi['nama_lomba']; ?></h1>
             <form action="../action/prestasi_action.php" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="action" id="action" value="update">
+                <input type="hidden" name="action" id="action" value="update">
                 <input type="hidden" name="idPrestasi" id="idPrestasi" value="<?php echo $_GET['idPrestasi'] ?>">
                 <input type="hidden" name="nim" id="nim" value="<?php echo $_SESSION['nim'] ?>">
-                <!-- Nama Lomba -->
-                <div class="mb-3">
-                    <label for="namaLomba" class="form-label">Nama Lomba <span style="color: red;">*</span></label>
-                    <input type="text" class="form-control" id="namaLomba" name="nama_lomba"
-                        value="<?php echo $prestasi['nama_lomba']; ?>" required>
-                </div>
 
-                <div class="mb-3">
-                    <label for="tingkatLomba" class="form-label">Tingkatan Lomba <span
-                            style="color: red;">*</span></label>
-                    <select class="form-select" id="tingkatLomba" name="tingkat_lomba" required>
-                        <option value="" disabled selected>Pilih Tingkatan</option>
-                        <option value="internasional" <?php if ($prestasi['tingkat_lomba'] === 'internasional') {
-                            echo 'selected';
-                        } ?>>Internasional
-                        </option>
-                        <option value="nasional" <?php if ($prestasi['tingkat_lomba'] === 'nasional') {
-                            echo 'selected';
-                        } ?>>Nasional</option>
-                        <option value="regional" <?php if ($prestasi['tingkat_lomba'] === 'regional') {
-                            echo 'selected';
-                        } ?>>Regional</option>
-                    </select>
-                </div>
+                <div class="row g-4">
+                    <!-- Photo 1 -->
+                    <div class="col-12 col-md-6">
+                        <!-- Nama Lomba -->
+                        <div class="mb-3">
+                            <label for="namaLomba" class="form-label">Nama Lomba <span
+                                    style="color: red;">*</span></label>
+                            <input type="text" class="form-control" id="namaLomba" name="nama_lomba"
+                                value="<?php echo $prestasi['nama_lomba']; ?>" required>
+                        </div>
+                    </div>
 
-                <!-- Juara Lomba -->
-                <div class="mb-3">
-                    <label for="juaraLomba" class="form-label">Juara Lomba <span style="color: red;">*</span></label>
-                    <select class="form-select" id="juaraLomba" name="juara_lomba" required>
-                        <option value="" disabled selected>Pilih Juara</option>
-                        <option value="1" <?php if ($prestasi['juara_lomba'] === '1') {
-                            echo 'selected';
-                        } ?>>Juara 1
-                        </option>
-                        <option value="2" <?php if ($prestasi['juara_lomba'] === '2') {
-                            echo 'selected';
-                        } ?>>Juara 2
-                        </option>
-                        <option value="3" <?php if ($prestasi['juara_lomba'] === '3') {
-                            echo 'selected';
-                        } ?>>Juara 3
-                        </option>
-                        <option value="lainnya" <?php if ($prestasi['juara_lomba'] === 'lainnya') {
-                            echo 'selected';
-                        } ?>>Kategori Lain</option>
-                    </select>
-                </div>
+                    <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            <label for="tingkatLomba" class="form-label">Tingkatan Lomba <span
+                                    style="color: red;">*</span></label>
+                            <select class="form-select" id="tingkatLomba" name="tingkat_lomba" required>
+                                <option value="" disabled selected>Pilih Tingkatan</option>
+                                <option value="internasional" <?php if ($prestasi['tingkat_lomba'] === 'internasional') {
+                                    echo 'selected';
+                                } ?>>Internasional
+                                </option>
+                                <option value="nasional" <?php if ($prestasi['tingkat_lomba'] === 'nasional') {
+                                    echo 'selected';
+                                } ?>>Nasional</option>
+                                <option value="regional" <?php if ($prestasi['tingkat_lomba'] === 'regional') {
+                                    echo 'selected';
+                                } ?>>Regional</option>
+                            </select>
+                        </div>
+                    </div>
 
-                <!-- Jenis Lomba -->
-                <div class="mb-3">
-                    <label for="jenisLomba" class="form-label">Jenis Lomba <span style="color: red;">*</span></label>
-                    <input type="text" class="form-control" id="jenisLomba" name="jenis_lomba"
-                        value="<?php echo $prestasi['jenis_lomba']; ?>" required>
-                </div>
+                    <div class="col-12 col-md-6">
+                        <!-- Juara Lomba -->
+                        <div class="mb-3">
+                            <label for="juaraLomba" class="form-label">Juara Lomba <span
+                                    style="color: red;">*</span></label>
+                            <select class="form-select" id="juaraLomba" name="juara_lomba" required>
+                                <option value="" disabled selected>Pilih Juara</option>
+                                <option value="1" <?php if ($prestasi['juara_lomba'] === '1') {
+                                    echo 'selected';
+                                } ?>>Juara 1
+                                </option>
+                                <option value="2" <?php if ($prestasi['juara_lomba'] === '2') {
+                                    echo 'selected';
+                                } ?>>Juara 2
+                                </option>
+                                <option value="3" <?php if ($prestasi['juara_lomba'] === '3') {
+                                    echo 'selected';
+                                } ?>>Juara 3
+                                </option>
+                                <option value="lainnya" <?php if ($prestasi['juara_lomba'] === 'lainnya') {
+                                    echo 'selected';
+                                } ?>>Kategori Lain</option>
+                            </select>
+                        </div>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="penyelenggaraLomba" class="form-label">Penyelenggara Lomba <span
-                            style="color: red;">*</span></label>
-                    <input type="text" class="form-control" id="penyelenggaraLomba" name="penyelenggara_lomba"
-                        value="<?php echo $prestasi['penyelenggara_lomba']; ?>" required>
-                </div>
+                    <div class="col-12 col-md-6">
+                        <!-- Jenis Lomba -->
+                        <div class="mb-3">
+                            <label for="jenisLomba" class="form-label">Jenis Lomba <span
+                                    style="color: red;">*</span></label>
+                            <input type="text" class="form-control" id="jenisLomba" name="jenis_lomba"
+                                value="<?php echo $prestasi['jenis_lomba']; ?>" required>
+                        </div>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="dosenPembimbing" class="form-label">Dosen Pembimbing</label>
-                    <select class="form-select" id="DosenPembimbig" name="dosbim">
-                        <option value="" disabled selected>Pilih Dosen</option>
-                        <?php getListDosen($prestasi); ?>
-                    </select>
-                </div>
+                    <div class="col-12 col-md-6">
 
-                <?php
-                // Pastikan waktu_pelaksanaan adalah objek DateTime
-                $waktuPelaksanaan = $prestasi['waktu_pelaksanaan'];
+                        <div class="mb-3">
+                            <label for="penyelenggaraLomba" class="form-label">Penyelenggara Lomba <span
+                                    style="color: red;">*</span></label>
+                            <input type="text" class="form-control" id="penyelenggaraLomba" name="penyelenggara_lomba"
+                                value="<?php echo $prestasi['penyelenggara_lomba']; ?>" required>
+                        </div>
+                    </div>
 
-                // Jika $waktuPelaksanaan sudah berupa objek DateTime, kita bisa langsung menggunakan format()
-                if ($waktuPelaksanaan instanceof DateTime) {
-                    $waktuPelaksanaan = $waktuPelaksanaan->format('Y-m-d');
-                }
-                ?>
+                    <div class="col-12 col-md-6">
 
-                <div class="mb-3">
-                    <label for="waktuLomba" class="form-label">Waktu Pelaksanaan <span
-                            style="color: red;">*</span></label>
-                    <input type="date" class="form-control" id="waktuLomba" name="waktu_lomba"
-                        value="<?php echo $waktuPelaksanaan; ?>" required>
-                </div>
+                        <div class="mb-3">
+                            <label for="dosenPembimbing" class="form-label">Dosen Pembimbing</label>
+                            <select class="form-select" id="DosenPembimbig" name="dosbim">
+                                <option value="" disabled selected>Pilih Dosen</option>
+                                <?php getListDosen($prestasi); ?>
+                            </select>
+                        </div>
+                    </div>
 
-
-                <div class="mb-3">
-                    <label for="tempatLomba" class="form-label">Tempat Pelaksanaan <span
-                            style="color: red;">*</span></label>
-                    <input type="text" class="form-control" id="tempatLomba" name="tempat_lomba"
-                        value="<?php echo $prestasi['tempat_pelaksanaan']; ?>" required>
-                </div>
-
-                <p><strong>Sertifikat:</strong></p>
-                <div id="modalFotoContainer">
-                    <?php
-                    if (!empty($prestasi['file_sertifikat'])) {
-                        echo '<img id="modalFoto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_sertifikat']) . '" alt="Sertifikat" class="img-fluid">';
-                    } else {
-                        echo '<span id="noFoto">Tidak ada foto</span>';
-                    }
-                    ?>
-                </div>
-
-                <!-- Sertifikat -->
-                <div class="mb-3">
-                    <label for="sertifikat" class="form-label">Sertifikat <span style="color: red;">*</span></label>
-                    <input type="file" class="form-control" id="sertifikat" name="sertifikat" accept="image/*">
-                    <small class="text-muted">Maksimal ukuran file: 1MB</small>
-                </div><br>
-
-                <!-- Menampilkan foto jika ada -->
-                <p><strong>Bukti Foto:</strong></p>
-                <div id="modalFotoContainer">
-                    <?php
-                    if (!empty($prestasi['file_bukti_foto'])) {
-                        echo '<img id="modalFoto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_bukti_foto']) . '" alt="Foto Prestasi" class="img-fluid">';
-                    } else {
-                        echo '<span id="noFoto">Tidak ada foto</span>';
-                    }
-                    ?>
-                </div>
-                <div class="mb-3">
-                    <label for="fotoLomba" class="form-label">Foto Saat Perlombaan <span
-                            style="color: red;">*</span></label>
-                    <input type="file" class="form-control" id="fotoLomba" name="foto_lomba" accept="image/*">
-                    <small class="text-muted">Maksimal ukuran file: 1MB</small>
-                </div><br>
-
-                <p><strong>Surat Undangan:</strong></p>
-                <div id="modalFotoContainer">
-                    <?php
-                    if (!empty($prestasi['file_surat_undangan'])) {
-                        echo '<img id="modalFoto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_surat_undangan']) . '" alt="Foto Surat Undangan" class="img-fluid">';
-                    } else {
-                        echo '<span id="noFoto">Tidak ada surat undangan</span>';
-                    }
-                    ?>
-                </div>
-
-                <div class="mb-3">
-                    <label for="suratUndangan" class="form-label">Surat Undangan</label>
-                    <input type="file" class="form-control" id="suratUndangan" name="surat_undangan" accept="image/*">
-                    <small class="text-muted">Maksimal ukuran file: 1MB</small>
-                </div>
-                <br>
-
-                <p><strong>Surat Tugas:</strong></p>
-                <div id="modalFotoContainer">
-                    <?php
-                    if (!empty($prestasi['file_surat_tugas'])) {
-                        echo '<img id="modalFoto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_surat_tugas']) . '" alt="Foto Surat Undangan" class="img-fluid">';
-                    } else {
-                        echo '<span id="noFoto">Tidak ada surat undangan</span>';
-                    }
-                    ?>
-                </div>
-
-                <div class="mb-3">
-                    <label for="suratTugas" class="form-label">Surat Tugas</label>
-                    <input type="file" class="form-control" id="suratTugas" name="surat_tugas" accept="image/*">
-                    <small class="text-muted">Maksimal ukuran file: 1MB</small>
-                </div><br>
-
-                <p>Proposal Sebelumnya:</p>
-                <div>
-                    <?php
-                    if (!empty($prestasi['file_proposal'])) {
-                        // Tampilkan PDF menggunakan <embed>
-                        echo '<embed id="pdfProposal" src="data:application/pdf;base64,' . base64_encode($prestasi['file_proposal']) . '"  width="100%" >';
-
-                        // Tautan untuk mengunduh file proposal
-                        $encodedProposal = base64_encode($prestasi['file_proposal']);
-                        $downloadUrl = 'data:application/pdf;base64,' . $encodedProposal;
-                        ?>
-                        <a style="text-align: right; display: block;" href="<?php echo $downloadUrl; ?>"
-                            download="proposal_<?php echo $prestasi['id']; ?>.pdf">
-                            Download Proposal
-                        </a>
+                    <div class="col-12 col-md-6">
                         <?php
-                    } else {
-                        echo '<span id="noProposal">Tidak ada proposal</span>';
-                    }
-                    ?>
+                        // Pastikan waktu_pelaksanaan adalah objek DateTime
+                        $waktuPelaksanaan = $prestasi['waktu_pelaksanaan'];
+
+                        // Jika $waktuPelaksanaan sudah berupa objek DateTime, kita bisa langsung menggunakan format()
+                        if ($waktuPelaksanaan instanceof DateTime) {
+                            $waktuPelaksanaan = $waktuPelaksanaan->format('Y-m-d');
+                        }
+                        ?>
+
+                        <div class="mb-3">
+                            <label for="waktuLomba" class="form-label">Waktu Pelaksanaan <span
+                                    style="color: red;">*</span></label>
+                            <input type="date" class="form-control" id="waktuLomba" name="waktu_lomba"
+                                value="<?php echo $waktuPelaksanaan; ?>" required>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            <label for="tempatLomba" class="form-label">Tempat Pelaksanaan <span
+                                    style="color: red;">*</span></label>
+                            <input type="text" class="form-control" id="tempatLomba" name="tempat_lomba"
+                                value="<?php echo $prestasi['tempat_pelaksanaan']; ?>" required>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 foto-box">
+                        <p><strong>Sertifikat:</strong></p>
+                        <div class="FotoContainer">
+                            <?php
+                            if (!empty($prestasi['file_sertifikat'])) {
+                                echo '<img class="foto-modal-trigger img-fluid" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_sertifikat']) . '" alt="Sertifikat" data-title="Sertifikat">';
+                            } else {
+                                echo '<span id="noFoto">Tidak ada foto</span>';
+                            }
+                            ?>
+                        </div>
+
+                        <!-- Sertifikat -->
+                        <div class="mb-3 mt-2">
+                            <label for="sertifikat" class="form-label">Sertifikat <span
+                                    style="color: red;">*</span></label>
+                            <input type="file" class="form-control" id="sertifikat" name="sertifikat" accept="image/*">
+                            <small class="text-muted">Maksimal ukuran file: 1MB</small>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 foto-box">
+                        <p><strong>Foto Saat Perlombaan:</strong></p>
+                        <div class="FotoContainer">
+                            <?php
+                            if (!empty($prestasi['file_bukti_foto'])) {
+                                echo '<img class="foto-modal-trigger img-fluid" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_bukti_foto']) . '" alt="Foto Prestasi" data-title="Foto Saat Perlombaan">';
+                            } else {
+                                echo '<span id="noFoto">Tidak ada foto</span>';
+                            }
+                            ?>
+                        </div>
+
+                        <!-- Form input foto -->
+                        <div class="mb-3 mt-2">
+                            <label for="fotoLomba" class="form-label">Foto Saat Perlombaan <span
+                                    style="color: red;">*</span></label>
+                            <input type="file" class="form-control" id="fotoLomba" name="foto_lomba" accept="image/*">
+                            <small class="text-muted">Maksimal ukuran file: 1MB</small>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-12 col-md-6 foto-box">
+                        <p><strong>Surat Undangan:</strong></p>
+                        <div class="FotoContainer">
+                            <?php
+                            if (!empty($prestasi['file_surat_undangan'])) {
+                                echo '<img class="foto-modal-trigger img-fluid" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_surat_undangan']) . '" alt="Surat Undangan" data-title="Surat Undangan">';
+                            } else {
+                                echo '<span id="noFoto">Tidak ada surat undangan</span>';
+                            }
+                            ?>
+                        </div>
+
+                        <div class="mb-3 mt-2">
+                            <label for="suratUndangan" class="form-label">Surat Undangan</label>
+                            <input type="file" class="form-control" id="suratUndangan" name="surat_undangan"
+                                accept="image/*">
+                            <small class="text-muted">Maksimal ukuran file: 1MB</small>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 foto-box">
+                        <p><strong>Surat Tugas:</strong></p>
+                        <div class="FotoContainer">
+                            <?php
+                            if (!empty($prestasi['file_surat_tugas'])) {
+                                echo '<img class="foto-modal-trigger img-fluid" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_surat_tugas']) . '" alt="Surat Tugas" data-title="Surat Tugas">';
+                            } else {
+                                echo '<span id="noFoto">Tidak ada surat tugas</span>';
+                            }
+                            ?>
+                        </div>
+
+                        <div class="mb-3 mt-2">
+                            <label for="suratTugas" class="form-label">Surat Tugas</label>
+                            <input type="file" class="form-control" id="suratTugas" name="surat_tugas" accept="image/*">
+                            <small class="text-muted">Maksimal ukuran file: 1MB</small>
+                        </div>
+                    </div>
+
+                    <div class="edit-pdf-box">
+                        <p><strong>Proposal:</strong></p>
+                        <div class="ProposalContainer" class="text-center">
+                            <?php
+                            if (!empty($prestasi['file_proposal'])) {
+                                // Tampilkan PDF menggunakan <embed>
+                                echo '<embed id="Proposal" src="data:application/pdf;base64,' . base64_encode($prestasi['file_proposal']) . '" width="100%" height="650px">';
+
+                                // Tautan untuk mengunduh file proposal
+                                $encodedProposal = base64_encode($prestasi['file_proposal']);
+                                $downloadUrl = 'data:application/pdf;base64,' . $encodedProposal;
+
+                                // Menggunakan nama lomba sebagai nama file untuk diunduh
+                                $downloadFilename = 'Proposal_' . $prestasi['NIM'] . '-' . $prestasi['nama_lomba'] . '.pdf';
+                                ?>
+                                <a style="text-align: right; display: block;" href="<?php echo $downloadUrl; ?>"
+                                    download="<?php echo $downloadFilename; ?>">
+                                    Download Proposal
+                                </a>
+                                <?php
+                            } else {
+                                echo '<span id="noProposal" style="text-align: left; display: block;">Tidak ada proposal</span><br>';
+                            }
+                            ?>
+                        </div>
+                        <div class="mb-3">
+                            <label for="proposal" class="form-label">Ubah Proposal</label>
+                            <input type="file" class="form-control" id="proposal" name="proposal"
+                                accept="application/pdf">
+                            <small class="text-muted">Maksimal ukuran file: 4MB. Hanya file PDF yang
+                                diperbolehkan.</small>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <label for="proposal" class="form-label">Ubah Proposal</label>
-                    <input type="file" class="form-control" id="proposal" name="proposal" accept="application/pdf">
-                    <small class="text-muted">Maksimal ukuran file: 4MB. Hanya file PDF yang diperbolehkan.</small>
-                </div>
-
+                <br><br>
                 <!-- Submit Button -->
                 <div class="d-flex justify-content-between">
                     <!-- Tombol Batal -->
-                    <a href="index.php?page=daftarprestasi" class="btn btn-secondary">Batal</a>
+                    <a href="index.php?page=detailprestasi&idPrestasi=<?php echo $prestasi['id']; ?>" class="btn btn-secondary">Batal</a>
                     <!-- Tombol Submit -->
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>

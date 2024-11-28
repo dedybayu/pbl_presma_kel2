@@ -34,7 +34,7 @@
                     <div class="FotoContainer">
                         <?php
                         if (!empty($prestasi['file_sertifikat'])) {
-                            echo '<img id="foto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_sertifikat']) . '" alt="Sertifikat" class="img-fluid">';
+                            echo '<img class="foto-modal-trigger img-fluid" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_sertifikat']) . '" alt="Sertifikat" data-title="Sertifikat">';
                         } else {
                             echo '<span id="noFoto">Tidak ada foto</span>';
                         }
@@ -48,7 +48,7 @@
                     <div class="FotoContainer">
                         <?php
                         if (!empty($prestasi['file_bukti_foto'])) {
-                            echo '<img id="foto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_bukti_foto']) . '" alt="Foto Prestasi" class="img-fluid">';
+                            echo '<img class="foto-modal-trigger img-fluid" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_bukti_foto']) . '" alt="Foto Prestasi" data-title="Foto Saat Perlombaan">';
                         } else {
                             echo '<span id="noFoto">Tidak ada foto</span>';
                         }
@@ -62,7 +62,7 @@
                     <div class="FotoContainer">
                         <?php
                         if (!empty($prestasi['file_surat_undangan'])) {
-                            echo '<img id="foto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_surat_undangan']) . '" alt="Foto Surat Undangan" class="img-fluid">';
+                            echo '<img class="foto-modal-trigger img-fluid" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_surat_undangan']) . '" alt="Surat Undangan" data-title="Surat Undangan">';
                         } else {
                             echo '<span id="noFoto">Tidak ada surat undangan</span>';
                         }
@@ -76,7 +76,7 @@
                     <div class="FotoContainer">
                         <?php
                         if (!empty($prestasi['file_surat_tugas'])) {
-                            echo '<img id="foto" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_surat_tugas']) . '" alt="Foto Surat Undangan" class="img-fluid">';
+                            echo '<img class="foto-modal-trigger img-fluid" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_surat_tugas']) . '" alt="Surat Tugas" data-title="Surat Tugas">';
                         } else {
                             echo '<span id="noFoto">Tidak ada surat tugas</span>';
                         }
@@ -172,17 +172,114 @@
 
 </div>
 
+<!-- Modal khusus untuk foto -->
+<div class="modal fade" id="fotoModal" tabindex="-1" aria-labelledby="fotoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="fotoModalLabel">Detail Foto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="modalFoto" src="" alt="Gambar Detail" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 <style>
-    /* Styling the 'Tidak ada foto' message */
     #noFoto,
     #noProposal,
     #noMessage {
         color: #999;
         font-style: italic;
     }
+
+    #fotoModal .modal-body.text-center {
+        background-color: white;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .dark-mode #fotoModal .modal-body.text-center {
+        background-color: #364e5e;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    #fotoModal .modal-dialog {
+        max-width: 70%;
+        width: auto;
+        height: 60vh;
+        margin: 0 auto;
+    }
+
+    #fotoModal .modal-content {
+        height: 90%;
+    }
+
+    #fotoModal .modal-content .modal-body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #fotoModal .modal-content img {
+        height: 100%;
+        width: auto;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 720px) {
+        #fotoModal .modal-dialog {
+            max-width: 95%;
+            height: 20vh;
+            margin: 0 auto;
+        }
+
+        #fotoModal .modal-content {
+            height: 90%;
+        }
+
+
+        #fotoModal .modal-content .modal-body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #fotoModal .modal-content img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            margin: 0 auto;
+        }
+    }
 </style>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const modalFoto = document.getElementById("modalFoto");
+        const modalTitle = document.getElementById("fotoModalLabel");
+        const fotoTriggers = document.querySelectorAll(".foto-modal-trigger");
+
+        fotoTriggers.forEach((foto) => {
+            foto.addEventListener("click", function () {
+                modalFoto.src = this.src; // Setel sumber gambar modal
+                modalTitle.textContent = this.getAttribute("data-title"); // Perbarui judul modal
+                const modal = new bootstrap.Modal(document.getElementById("fotoModal"));
+                modal.show(); // Tampilkan modal
+            });
+        });
+    });
+
+
     // Ambil elemen modal
     const confirmDeleteModal = document.getElementById('confirmDeleteModal');
 

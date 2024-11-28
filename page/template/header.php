@@ -61,7 +61,7 @@ $_SESSION['LAST_ACTIVITY'] = time();
         </div>
     </nav>
     <?php
-    require_once "class_data/profile.php";
+    require_once "model/Profile.php";
     $profile = new Profile();
     $key;
     if ($_SESSION['level'] === 'mahasiswa') {

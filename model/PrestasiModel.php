@@ -100,7 +100,21 @@ class PrestasiModel
         }
     }
     
+    public function getTopPrestasi($nim){
+        $query = "SELECT TOP 1 * FROM prestasi WHERE NIM = ? ORDER BY poin DESC;";
+        $params = [$nim];
+        $stmt = sqlsrv_query($this->db, $query, $params);
 
+        if ($stmt === false) {
+            die(print_r(sqlsrv_errors(), true));
+        }
+
+        $Prestasi = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+
+        sqlsrv_free_stmt($stmt);
+
+        return $Prestasi;
+    }
 
 
 
@@ -127,8 +141,9 @@ class PrestasiModel
                 status_verifikasi,
                 message
                     FROM prestasi
-                    WHERE NIM = $nim";
-        $stmt = sqlsrv_query($this->db, $query);
+                    WHERE NIM = ?";
+        $params = [$nim];
+        $stmt = sqlsrv_query($this->db, $query,$params);
 
         if ($stmt === false) {
             die(print_r(sqlsrv_errors(), true));
@@ -152,13 +167,11 @@ class PrestasiModel
             die(print_r(sqlsrv_errors(), true));
         }
 
-        $listPrestasi = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-        // while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-        //     $listPrestasi[] = $row; // Menambahkan setiap baris data ke array
-        // }
+        $Prestasi = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+
         sqlsrv_free_stmt($stmt);
 
-        return $listPrestasi;
+        return $Prestasi;
     }
 
 
@@ -170,12 +183,9 @@ class PrestasiModel
         $params = [$id_prestasi];
         $stmt = sqlsrv_query($this->db, $query, $params);
         if ($stmt === false) {
-            // Set flash message
-            $_SESSION['error_message'] = "Gagal menghapus prestasi.";
+            return false;
         } else {
-            $_SESSION['success_message'] = "Prestasi berhasil dihapus.";
+            return true;
         }
-        header("Location: ../index.php?page=daftarprestasi");
-        exit();
     }
 }

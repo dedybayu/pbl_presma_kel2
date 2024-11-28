@@ -20,7 +20,7 @@
 
     <div class="kotak-judul">
         <p>Input Prestasi</p>
-    </div><br>
+    </div>
 
     <div class="kotak-konten">
         <div class="container">
@@ -28,97 +28,128 @@
             <form action="../action/prestasi_action.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="action" id="action" value="add">
                 <input type="hidden" name="nim" id="nim" value="<?php echo $_SESSION['nim'] ?>">
-                <!-- Nama Lomba -->
-                <div class="mb-3">
-                    <label for="namaLomba" class="form-label">Nama Lomba <span style="color: red;">*</span></label>
-                    <input type="text" class="form-control" id="namaLomba" name="nama_lomba" required>
-                </div>
 
-                <div class="mb-3">
-                    <label for="tingkatLomba" class="form-label">Tingkatan Lomba <span
-                            style="color: red;">*</span></label>
-                    <select class="form-select" id="tingkatLomba" name="tingkat_lomba" required>
-                        <option value="" disabled selected>Pilih Tingkatan</option>
-                        <option value="internasional">Internasional</option>
-                        <option value="nasional">Nasional</option>
-                        <option value="regional">Regional</option>
-                    </select>
-                </div>
+                <div class="row g-4">
+                    <div class="col-12 col-md-6">
+                        <!-- Nama Lomba -->
+                        <div class="mb-3">
+                            <label for="namaLomba" class="form-label">Nama Lomba <span
+                                    style="color: red;">*</span></label>
+                            <input type="text" class="form-control" id="namaLomba" name="nama_lomba" required>
+                        </div>
+                    </div>
 
-                <!-- Juara Lomba -->
-                <div class="mb-3">
-                    <label for="juaraLomba" class="form-label">Juara Lomba <span style="color: red;">*</span></label>
-                    <select class="form-select" id="juaraLomba" name="juara_lomba" required>
-                        <option value="" disabled selected>Pilih Juara</option>
-                        <option value="1">Juara 1</option>
-                        <option value="2">Juara 2</option>
-                        <option value="3">Juara 3</option>
-                        <option value="lainnya">Kategori Lain</option>
-                    </select>
-                </div>
+                    <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            <label for="tingkatLomba" class="form-label">Tingkatan Lomba <span
+                                    style="color: red;">*</span></label>
+                            <select class="form-select" id="tingkatLomba" name="tingkat_lomba" required>
+                                <option value="" disabled selected>Pilih Tingkatan</option>
+                                <option value="internasional">Internasional</option>
+                                <option value="nasional">Nasional</option>
+                                <option value="regional">Regional</option>
+                            </select>
+                        </div>
+                    </div>
 
-                <!-- Jenis Lomba -->
-                <div class="mb-3">
-                    <label for="jenisLomba" class="form-label">Jenis Lomba <span style="color: red;">*</span></label>
-                    <input type="text" class="form-control" id="jenisLomba" name="jenis_lomba" required>
-                </div>
+                    <div class="col-12 col-md-6">
+                        <!-- Juara Lomba -->
+                        <div class="mb-3">
+                            <label for="juaraLomba" class="form-label">Juara Lomba <span
+                                    style="color: red;">*</span></label>
+                            <select class="form-select" id="juaraLomba" name="juara_lomba" required>
+                                <option value="" disabled selected>Pilih Juara</option>
+                                <option value="1">Juara 1</option>
+                                <option value="2">Juara 2</option>
+                                <option value="3">Juara 3</option>
+                                <option value="lainnya">Kategori Lain</option>
+                            </select>
+                        </div>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="penyelenggaraLomba" class="form-label">Penyelenggara Lomba <span
-                            style="color: red;">*</span></label>
-                    <input type="text" class="form-control" id="penyelenggaraLomba" name="penyelenggara_lomba" required>
-                </div>
+                    <div class="col-12 col-md-6">
+                        <!-- Jenis Lomba -->
+                        <div class="mb-3">
+                            <label for="jenisLomba" class="form-label">Jenis Lomba <span
+                                    style="color: red;">*</span></label>
+                            <input type="text" class="form-control" id="jenisLomba" name="jenis_lomba" required>
+                        </div>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="dosenPembimbing" class="form-label">Dosen Pembimbing</label>
-                    <select class="form-select" id="DosenPembimbig" name="dosbim">
-                        <option value="" disabled selected>Pilih Dosen</option>
-                        <?php getListDosen(); ?>
-                    </select>
-                </div>
+                    <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            <label for="penyelenggaraLomba" class="form-label">Penyelenggara Lomba <span
+                                    style="color: red;">*</span></label>
+                            <input type="text" class="form-control" id="penyelenggaraLomba" name="penyelenggara_lomba"
+                                required>
+                        </div>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="waktuLomba" class="form-label">Waktu Pelaksanaan <span
-                            style="color: red;">*</span></label>
-                    <input type="date" class="form-control" id="waktuLomba" name="waktu_lomba" required>
-                </div>
+                    <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            <label for="dosenPembimbing" class="form-label">Dosen Pembimbing</label>
+                            <select class="form-select" id="DosenPembimbig" name="dosbim">
+                                <option value="" disabled selected>Pilih Dosen</option>
+                                <?php getListDosen(); ?>
+                            </select>
+                        </div>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="tempatLomba" class="form-label">Tempat Pelaksanaan <span
-                            style="color: red;">*</span></label>
-                    <input type="text" class="form-control" id="tempatLomba" name="tempat_lomba" required>
-                </div>
+                    <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            <label for="waktuLomba" class="form-label">Waktu Pelaksanaan <span
+                                    style="color: red;">*</span></label>
+                            <input type="date" class="form-control" id="waktuLomba" name="waktu_lomba" required>
+                        </div>
+                    </div>
 
-                <!-- Sertifikat -->
-                <div class="mb-3">
-                    <label for="sertifikat" class="form-label">Sertifikat <span style="color: red;">*</span></label>
-                    <input type="file" class="form-control" id="sertifikat" name="sertifikat" accept="image/*" required>
-                    <small class="text-muted">Maksimal ukuran file: 1MB</small>
-                </div>
+                    <div class="col-12 col-md-6">
+                        <!-- Sertifikat -->
+                        <div class="mb-3">
+                            <label for="sertifikat" class="form-label">Sertifikat <span
+                                    style="color: red;">*</span></label>
+                            <input type="file" class="form-control" id="sertifikat" name="sertifikat" accept="image/*"
+                                required>
+                            <small class="text-muted">Maksimal ukuran file: 1MB</small>
+                        </div>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="fotoLomba" class="form-label">Foto Saat Perlombaan <span
-                            style="color: red;">*</span></label>
-                    <input type="file" class="form-control" id="fotoLomba" name="foto_lomba" accept="image/*" required>
-                    <small class="text-muted">Maksimal ukuran file: 1MB</small>
-                </div>
+                    <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            <label for="fotoLomba" class="form-label">Foto Saat Perlombaan <span
+                                    style="color: red;">*</span></label>
+                            <input type="file" class="form-control" id="fotoLomba" name="foto_lomba" accept="image/*"
+                                required>
+                            <small class="text-muted">Maksimal ukuran file: 1MB</small>
+                        </div>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="suratUndangan" class="form-label">Surat Undangan</label>
-                    <input type="file" class="form-control" id="suratUndangan" name="surat_undangan" accept="image/*">
-                    <small class="text-muted">Maksimal ukuran file: 1MB</small>
-                </div>
+                    <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            <label for="suratUndangan" class="form-label">Surat Undangan</label>
+                            <input type="file" class="form-control" id="suratUndangan" name="surat_undangan"
+                                accept="image/*">
+                            <small class="text-muted">Maksimal ukuran file: 1MB</small>
+                        </div>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="suratTugas" class="form-label">Surat Tugas</label>
-                    <input type="file" class="form-control" id="suratTugas" name="surat_tugas" accept="image/*">
-                    <small class="text-muted">Maksimal ukuran file: 1MB</small>
-                </div>
+                    <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            <label for="suratTugas" class="form-label">Surat Tugas</label>
+                            <input type="file" class="form-control" id="suratTugas" name="surat_tugas" accept="image/*">
+                            <small class="text-muted">Maksimal ukuran file: 1MB</small>
+                        </div>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="proposal" class="form-label">Proposal</label>
-                    <input type="file" class="form-control" id="proposal" name="proposal" accept="application/pdf">
-                    <small class="text-muted">Maksimal ukuran file: 4MB. Hanya file PDF yang diperbolehkan.</small>
+                    <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            <label for="proposal" class="form-label">Proposal</label>
+                            <input type="file" class="form-control" id="proposal" name="proposal"
+                                accept="application/pdf">
+                            <small class="text-muted">Maksimal ukuran file: 4MB. Hanya file PDF yang
+                                diperbolehkan.</small>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Submit Button -->

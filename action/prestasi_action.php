@@ -2,6 +2,7 @@
 require_once '../controller/PrestasiController.php';
 include "../fungsi/anti_injection.php";
 
+session_start();
 $prestasiModel = new PrestasiModel();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -57,8 +58,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if ($_POST['action'] === 'delete'){
-        $prestasiModel->hapusPrestasi(id_prestasi: $_POST['prestasiId']);
+        $status = $prestasiModel->hapusPrestasi($_POST['prestasiId']);
 
+        if ($status === true) {
+            $_SESSION['success_message'] = "Prestasi berhasil dihapus.";
+        } else {
+            $_SESSION['error_message'] = "Gagal menghapus prestasi.";
+        }
+        header("Location: ../index.php?page=daftarprestasi");
     }
 }
 ?>

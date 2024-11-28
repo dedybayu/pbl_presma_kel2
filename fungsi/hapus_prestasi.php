@@ -6,7 +6,16 @@ include '../model/PrestasiModel.php';
 include "anti_injection.php";
 
 $prestasi = new PrestasiModel();
-$prestasi->hapusPrestasi($_POST['prestasiId']);
+$status = $prestasi->hapusPrestasi($_POST['prestasiId']);
+
+if ($status === true) {
+    $_SESSION['success_message'] = "Prestasi berhasil dihapus.";
+    header("Location: ../index.php?page=daftarprestasi");
+} else {
+    $_SESSION['error_message'] = "Gagal menghapus prestasi.";
+    header("Location: ../index.php?page=daftarprestasi");
+}
+
 // hapusPrestasi( $_POST['prestasiId']);
 
 // function hapusPrestasi($koneksi, $id_prestasi) {
