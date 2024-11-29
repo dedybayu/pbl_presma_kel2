@@ -144,7 +144,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <form id="deleteForm" action="../action/prestasi_action.php" method="POST">
+                    <form id="deleteForm" action="action/prestasi_action.php" method="POST">
                         <input type="hidden" name="action" id="action" value="delete">
                         <input type="hidden" name="prestasiId" id="prestasiId" value="">
                         <button type="submit" class="btn btn-danger">Hapus</button>

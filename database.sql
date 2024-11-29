@@ -90,6 +90,7 @@ CREATE TABLE [mahasiswa] (
   [password] VARCHAR(100) NOT NULL,
   [salt] VARCHAR(50) NOT NULL,
   [id_prodi] INT NOT NULL,
+  [jenis_kelamin] VARCHAR(10) NOT NULL,
   [no_tlp] VARCHAR(15),
   [alamat] VARCHAR(500),
   [file_foto_profile] VARBINARY(MAX),
@@ -99,7 +100,10 @@ CREATE TABLE [mahasiswa] (
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
-ALTER TABLE [mahasiswa] DROP COLUMN [alamat];
+ALTER TABLE [mahasiswa] ADD [jenis_kelamin] VARCHAR(10);
+ALTER TABLE [mahasiswa] DROP COLUMN [jenis_kelamin];
+
+
 ALTER TABLE [mahasiswa]
 ADD [email] VARCHAR(100);
 
@@ -198,12 +202,15 @@ CREATE TABLE [dosen] (
   [salt] VARCHAR(50) NOT NULL,
   [nama] VARCHAR(100) NOT NULL,
   [jabatan] VARCHAR(50) NOT NULL,
+  [jenis_kelamin] VARCHAR(10) NOT NULL,
   [no_tlp] VARCHAR(15),
   [email] VARCHAR(100),
   [file_foto_profile] VARBINARY(MAX),
 );
 
 ALTER TABLE [dosen] DROP COLUMN [alamat];
+ALTER TABLE [dosen] ADD [jenis_kelamin] VARCHAR(10);
+
 
 SELECT * FROM dosen;
 DROP TABLE dosen;

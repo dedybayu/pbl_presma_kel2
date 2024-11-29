@@ -1,8 +1,6 @@
 <?php
 if (file_exists('../config/database.php')) {
     require_once '../config/database.php';
-} else {
-    // die("File database.php tidak ditemukan.");
 }
 
 class PrestasiModel
@@ -116,32 +114,45 @@ class PrestasiModel
         return $Prestasi;
     }
 
+    public function getTopAllPrestasi(){
+        $query = "SELECT m.nama AS nama_mhs, p.nama_lomba, p.juara_lomba, p.tingkat_lomba, p.waktu_pelaksanaan, p.penyelenggara_lomba, p.poin, p.upload_date, p.status_verifikasi, p.file_sertifikat
+         FROM prestasi p JOIN mahasiswa m ON p.NIM = m.NIM ORDER BY p.upload_date DESC;";        
+         
+         $stmt = sqlsrv_query($this->db, $query);
 
+        if ($stmt === false) {
+            die(print_r(sqlsrv_errors(), true));
+        }
 
-    public function getListPrestasi($nim)
+        $Prestasi = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+
+        sqlsrv_free_stmt($stmt);
+
+        return $Prestasi;
+    }
+
+    public function getAllPrestasi()
     {
-        $query = "SELECT 
-                id,
-                NIM,
-                nama_lomba,
-                nip_dosbim,
-                jenis_lomba,
-                juara_lomba,
-                tingkat_lomba,
-                FORMAT(waktu_pelaksanaan, 'dd MMMM yyyy', 'id-ID') AS waktu_pelaksanaan,
-                tempat_pelaksanaan,
-                penyelenggara_lomba,
-                file_bukti_foto,
-                file_sertifikat,
-                file_surat_undangan,
-                file_surat_tugas,
-                file_proposal,
-                poin,
-                upload_date,
-                status_verifikasi,
-                message
-                    FROM prestasi
-                    WHERE NIM = ?";
+        $query = "SELECT m.nama AS nama_mhs, p.id, p.nama_lomba, p.juara_lomba, p.tingkat_lomba, p.waktu_pelaksanaan, p.penyelenggara_lomba, p.poin, p.upload_date, p.status_verifikasi
+         FROM prestasi p JOIN mahasiswa m ON p.NIM = m.NIM ORDER BY p.upload_date DESC;";
+        $stmt = sqlsrv_query($this->db, $query);
+
+        if ($stmt === false) {
+            die(print_r(sqlsrv_errors(), true));
+        }
+
+        $listPrestasi = [];
+        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+            $listPrestasi[] = $row; // Menambahkan setiap baris data ke array
+        }
+        sqlsrv_free_stmt($stmt);
+
+        return $listPrestasi;
+    }
+
+    public function getPrestasiByNim($nim)
+    {
+        $query = "SELECT * FROM prestasi WHERE NIM = ?";
         $params = [$nim];
         $stmt = sqlsrv_query($this->db, $query,$params);
 
@@ -160,7 +171,8 @@ class PrestasiModel
 
     public function getPrestasiById($id)
     {
-        $query = "SELECT * FROM prestasi WHERE id = $id";
+        $query = "SELECT p.*, m.nama AS nama_mhs FROM prestasi p JOIN mahasiswa m ON p.NIM = m.NIM WHERE p.id = $id";
+        
         $stmt = sqlsrv_query($this->db, $query);
 
         if ($stmt === false) {
@@ -173,8 +185,6 @@ class PrestasiModel
 
         return $Prestasi;
     }
-
-
 
     function hapusPrestasi($id_prestasi)
     {

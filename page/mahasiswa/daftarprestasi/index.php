@@ -2,7 +2,7 @@
 <?php
 require_once "model/PrestasiModel.php";
 $listPrestasi = new PrestasiModel();
-$daftarPrestasi = $listPrestasi->getListPrestasi($_SESSION['nim']);
+$daftarPrestasi = $listPrestasi->getPrestasiByNim($_SESSION['nim']);
 ?>
 
 <!-- Content Area -->
@@ -76,18 +76,19 @@ $daftarPrestasi = $listPrestasi->getListPrestasi($_SESSION['nim']);
                             echo "<td>" . $prestasi['nama_lomba'] . "</td>";
                             echo "<td>" . "Juara " . $prestasi['juara_lomba'] . "</td>";
                             echo "<td>" . $prestasi['tingkat_lomba'] . "</td>";
-                            echo "<td>" . $prestasi['waktu_pelaksanaan'] . "</td>";
+                            echo "<td>" . $prestasi['waktu_pelaksanaan']->format('j F Y') . "</td>";
                             echo "<td>" . $prestasi['penyelenggara_lomba'] . "</td>";
                             echo "<td>" . $prestasi['poin'] . "</td>";
                             echo "<td>" . $prestasi['upload_date']->format('d-m-Y H:i') . "</td>";
                             echo "<td>" . $prestasi['status_verifikasi'] . "</td>";
                             ?>
                             <td style="text-align: center; vertical-align: middle;">
-                                <!-- Button untuk menampilkan ID -->
-                                <a class="btn btn-success btn-sm btn-detail"
-                                    href="index.php?page=detailprestasi&idPrestasi=<?php echo $prestasi['id']; ?>">
-                                    <i class="fa fa-edit"></i> Detail
-                                </a>
+                            <form action="index.php?page=detailprestasi" method="POST">
+                                    <input type="hidden" name="idPrestasi" value="<?php echo $prestasi['id']; ?>">
+                                    <button type="submit" class="btn btn-success btn-sm btn-detail">
+                                        <i class="fa fa-edit"></i> Detail
+                                    </button>
+                                </form>
 
                             </td>
                             <?php

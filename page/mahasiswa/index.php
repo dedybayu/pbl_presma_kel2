@@ -50,7 +50,7 @@
                             <tr>
                                 <td class="text-nowrap"><strong>Tanggal Lomba</strong></td>
                                 <td class="colon">:</td>
-                                <td><strong><?= $prestasi['upload_date']->format('j F Y'); ?></strong></td>
+                                <td><strong><?= $prestasi['waktu_pelaksanaan']->format('j F Y'); ?></strong></td>
                             </tr>
                             <tr>
                                 <td class="text-nowrap"><strong>Penyelenggara</strong></td>

@@ -6,7 +6,7 @@
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
     <!-- Custom JS -->
-    <script src="../js/script.js"> </script>
+    <script src="js/script.js"> </script>
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <a href="../fungsi/logout.php" type="button" class="btn btn-danger">Keluar</a>
+                    <a href="fungsi/logout.php" type="button" class="btn btn-danger">Keluar</a>
                 </div>
             </div>
         </div>

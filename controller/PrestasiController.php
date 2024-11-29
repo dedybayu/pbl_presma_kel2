@@ -24,7 +24,9 @@ class PrestasiController
             $data['poin'] = $this->calculatePoints($data['tingkat_lomba'], $data['juara_lomba']);
 
             // Tambah waktu upload
-            $data['upload_date'] = date('Y-m-d H:i');
+            date_default_timezone_set('Asia/Jakarta'); // Mengatur timezone ke WIB
+            date_default_timezone_get(); // Tidak perlu jika tidak digunakan lebih lanjut
+            $data['upload_date'] = date('Y-m-d H:i:s');
 
             // Susun parameter untuk query
             $params = [
@@ -63,23 +65,25 @@ class PrestasiController
             $data['file_surat_undangan'] = !empty($files['surat_undangan']['tmp_name']) ? file_get_contents($files['surat_undangan']['tmp_name']) : null;
             $data['file_surat_tugas'] = !empty($files['surat_tugas']['tmp_name']) ? file_get_contents($files['surat_tugas']['tmp_name']) : null;
             $data['file_proposal'] = !empty($files['proposal']['tmp_name']) ? file_get_contents($files['proposal']['tmp_name']) : null;
-    
+
             // Kalkulasi poin
             $data['poin'] = $this->calculatePoints($data['tingkat_lomba'], $data['juara_lomba']);
-    
+
             // Tambah waktu upload
-            $data['upload_date'] = date('Y-m-d H:i:s');
-    
+            date_default_timezone_set('Asia/Jakarta');
+            date_default_timezone_get();
+            $data['upload_date'] = date('Y-m-d H:i:s'); // Waktu saat ini dalam zona waktu WIB
+
             // Kirim data ke model untuk pembaruan
             $this->model->updatePrestasi($id, $data);
-    
+
             // Redirect setelah pembaruan berhasil
             header("Location: ../index.php?page=daftarprestasi");
         } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
         }
     }
-    
+
 
     private function calculatePoints($tingkatLomba, $juaraLomba)
     {

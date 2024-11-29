@@ -7,7 +7,7 @@
     require_once "class_data/data_user.php";
 
     $prestasiModel = new PrestasiModel();
-    $prestasi = $prestasiModel->getPrestasiById($_GET['idPrestasi']);
+    $prestasi = $prestasiModel->getPrestasiById($_POST['idPrestasi']);
     function getListDosen($prestasi)
     {
         $listDosen = new ListDosen();
@@ -34,10 +34,10 @@
         <div class="container">
 
             <h1 class="mb-4">Edit Prestasi <?php echo $prestasi['nama_lomba']; ?></h1>
-            <form action="../action/prestasi_action.php" method="POST" enctype="multipart/form-data">
+            <form action="action/prestasi_action.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="action" id="action" value="update">
-                <input type="hidden" name="idPrestasi" id="idPrestasi" value="<?php echo $_GET['idPrestasi'] ?>">
-                <input type="hidden" name="nim" id="nim" value="<?php echo $_SESSION['nim'] ?>">
+                <input type="hidden" name="idPrestasi" id="idPrestasi" value="<?php echo $_POST['idPrestasi'] ?>">
+                <input type="hidden" name="nim" id="nim" value="<?php echo $prestasi['NIM'] ?>">
 
                 <div class="row g-4">
                     <!-- Photo 1 -->
@@ -155,9 +155,10 @@
                                 value="<?php echo $prestasi['tempat_pelaksanaan']; ?>" required>
                         </div>
                     </div>
+
                     <div class="col-12 col-md-6 foto-box">
                         <p><strong>Sertifikat:</strong></p>
-                        <div class="FotoContainer">
+                        <div class="FotoContainer d-flex flex-column align-items-center">
                             <?php
                             if (!empty($prestasi['file_sertifikat'])) {
                                 echo '<img class="foto-modal-trigger img-fluid" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_sertifikat']) . '" alt="Sertifikat" data-title="Sertifikat">';
@@ -178,7 +179,7 @@
 
                     <div class="col-12 col-md-6 foto-box">
                         <p><strong>Foto Saat Perlombaan:</strong></p>
-                        <div class="FotoContainer">
+                        <div class="FotoContainer d-flex flex-column align-items-center">
                             <?php
                             if (!empty($prestasi['file_bukti_foto'])) {
                                 echo '<img class="foto-modal-trigger img-fluid" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_bukti_foto']) . '" alt="Foto Prestasi" data-title="Foto Saat Perlombaan">';
@@ -196,7 +197,6 @@
                             <small class="text-muted">Maksimal ukuran file: 1MB</small>
                         </div>
                     </div>
-
 
 
                     <div class="col-12 col-md-6 foto-box">
@@ -277,7 +277,12 @@
                 <!-- Submit Button -->
                 <div class="d-flex justify-content-between">
                     <!-- Tombol Batal -->
-                    <a href="index.php?page=detailprestasi&idPrestasi=<?php echo $prestasi['id']; ?>" class="btn btn-secondary">Batal</a>
+                    <form action="index.php?page=detailprestasi" method="POST">
+                        <input type="hidden" name="idPrestasi" value="<?php echo $prestasi['id']; ?>">
+                        <button type="submit" class="btn btn-secondary">
+                            Batal
+                        </button>
+                    </form>
                     <!-- Tombol Submit -->
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>

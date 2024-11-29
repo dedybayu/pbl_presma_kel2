@@ -3,7 +3,7 @@
     <?php
     require_once "model/PrestasiModel.php";
     $prestasiModel = new PrestasiModel();
-    $prestasi = $prestasiModel->getPrestasiById($_GET['idPrestasi']);
+    $prestasi = $prestasiModel->getPrestasiById($_POST['idPrestasi']);
     ?>
 
     <div class="kotak-judul d-flex align-items-center justify-content-between" style="padding-bottom: 15px">
@@ -13,7 +13,12 @@
 
     <div class="kotak-konten">
         <div class="container">
-            <p><strong>ID Lomba:</strong> <?php echo $prestasi['id']; ?></p>
+            <?php
+            if ($_SESSION['level'] === 'admin' || $_SESSION['level'] === 'dosen') {
+               echo "<p><strong>Nama Mahasiswa:</strong> ". $prestasi['nama_mhs']."</p>";
+
+            }
+            ?>
             <p><strong>Nama Lomba:</strong> <?php echo $prestasi['nama_lomba']; ?></p>
             <p><strong>Juara:</strong> <?php echo "Juara " . $prestasi['juara_lomba']; ?>
             </p>
@@ -141,8 +146,11 @@
                     Hapus
                 </button>
 
-                <a href="index.php?page=editprestasi&idPrestasi=<?php echo $prestasi['id']; ?>"
-                    class="btn btn-primary">Edit</a>
+                <form action="index.php?page=editprestasi" method="POST" style="display:inline;">
+                    <input type="hidden" name="idPrestasi" value="<?php echo $prestasi['id']; ?>">
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                </form>
+
             </div><br>
         </div>
     </div>
@@ -160,7 +168,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <form id="deleteForm" action="../action/prestasi_action.php" method="POST">
+                    <form id="deleteForm" action="action/prestasi_action.php" method="POST">
                         <input type="hidden" name="action" id="action" value="delete">
                         <input type="hidden" name="prestasiId" id="prestasiId" value="">
                         <button type="submit" class="btn btn-danger">Hapus</button>

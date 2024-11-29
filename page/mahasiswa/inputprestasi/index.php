@@ -25,7 +25,7 @@
     <div class="kotak-konten">
         <div class="container">
             <h1 class="mb-4">Masukan Prestasimu Disini</h1>
-            <form action="../action/prestasi_action.php" method="POST" enctype="multipart/form-data">
+            <form action="action/prestasi_action.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="action" id="action" value="add">
                 <input type="hidden" name="nim" id="nim" value="<?php echo $_SESSION['nim'] ?>">
 
@@ -102,7 +102,13 @@
                             <input type="date" class="form-control" id="waktuLomba" name="waktu_lomba" required>
                         </div>
                     </div>
-
+                    <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            <label for="tempatLomba" class="form-label">Tempat Pelaksanaan <span
+                                    style="color: red;">*</span></label>
+                            <input type="text" class="form-control" id="tempatLomba" name="tempat_lomba" required>
+                        </div>
+                    </div>
                     <div class="col-12 col-md-6">
                         <!-- Sertifikat -->
                         <div class="mb-3">
@@ -141,7 +147,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-6">
+                    <div class="">
                         <div class="mb-3">
                             <label for="proposal" class="form-label">Proposal</label>
                             <input type="file" class="form-control" id="proposal" name="proposal"

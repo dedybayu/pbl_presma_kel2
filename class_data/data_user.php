@@ -15,7 +15,6 @@ class ListDosen
 
     public function getListDosen()
     {
-        if ($_SESSION['level'] === 'mahasiswa') {
             $query = "SELECT * FROM dosen";
             $stmt = sqlsrv_query($this->db->conn, $query);
 
@@ -30,7 +29,6 @@ class ListDosen
             sqlsrv_free_stmt($stmt);
 
             return $dosenList; // Mengembalikan array dosen
-        }
     }
 }
 
