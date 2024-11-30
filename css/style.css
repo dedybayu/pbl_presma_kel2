@@ -276,6 +276,7 @@ div.fixed {
 
 .dark-mode #floatingInput.form-control {
   color: white;
+  background-color: #2a7baa;
 }
 
 .dark-mode .form-control:focus {
@@ -332,3 +333,6 @@ div.fixed {
 .dark-mode .btn-cancel:hover {
   background-color: #c62828; /* Merah lebih gelap saat hover */
 }
+
+
+

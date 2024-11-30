@@ -13,21 +13,6 @@ $daftarPrestasi = $listPrestasi->getPrestasiByNim($_SESSION['nim']);
         <p>Daftar Prestasi <?php echo $row['nama']; ?></p>
     </div>
 
-    <?php
-    if (isset($_SESSION['success_message'])) {
-        echo '<div id="success-alert" class="alert alert-success text-center alert-delete" role="alert">';
-        echo $_SESSION['success_message'];
-        echo '</div>';
-        unset($_SESSION['success_message']); // Hapus pesan setelah ditampilkan
-    }
-
-    if (isset($_SESSION['error_message'])) {
-        echo '<div id="error-alert" class="alert alert-danger text-center alert-delete" role="alert">';
-        echo $_SESSION['error_message'];
-        echo '</div>';
-        unset($_SESSION['error_message']); // Hapus pesan setelah ditampilkan
-    }
-    ?>
     <style>
         .alert-delete {
             max-width: 70%;
@@ -36,6 +21,41 @@ $daftarPrestasi = $listPrestasi->getPrestasiByNim($_SESSION['nim']);
         }
     </style>
     <div class="kotak-konten">
+        <?php
+        if (isset($_SESSION['success_message'])) {
+            echo '<div id="success-alert" class="alert alert-success text-center alert-delete" role="alert">';
+            echo $_SESSION['success_message'];
+            echo '</div>';
+            unset($_SESSION['success_message']); // Hapus pesan setelah ditampilkan
+        }
+
+        if (isset($_SESSION['error_message'])) {
+            echo '<div id="error-alert" class="alert alert-danger text-center alert-delete" role="alert">';
+            echo $_SESSION['error_message'];
+            echo '</div>';
+            unset($_SESSION['error_message']); // Hapus pesan setelah ditampilkan
+        }
+        ?>
+
+        <script>
+            setTimeout(function () {
+                let successAlert = document.getElementById('success-alert');
+                let errorAlert = document.getElementById('error-alert');
+
+                if (successAlert) {
+                    successAlert.style.transition = 'opacity 0.5s';
+                    successAlert.style.opacity = '0';
+                    setTimeout(() => successAlert.remove(), 500);
+                }
+                if (errorAlert) {
+                    errorAlert.style.transition = 'opacity 0.5s';
+                    errorAlert.style.opacity = '0';
+                    setTimeout(() => errorAlert.remove(), 500); 
+                }
+            }, 3000);
+        </script>
+
+
 
         <?php
         if (empty($daftarPrestasi)) {
@@ -83,7 +103,7 @@ $daftarPrestasi = $listPrestasi->getPrestasiByNim($_SESSION['nim']);
                             echo "<td>" . $prestasi['status_verifikasi'] . "</td>";
                             ?>
                             <td style="text-align: center; vertical-align: middle;">
-                            <form action="index.php?page=detailprestasi" method="POST">
+                                <form action="index.php?page=detailprestasi" method="POST">
                                     <input type="hidden" name="idPrestasi" value="<?php echo $prestasi['id']; ?>">
                                     <button type="submit" class="btn btn-success btn-sm btn-detail">
                                         <i class="fa fa-edit"></i> Detail
@@ -109,12 +129,6 @@ $daftarPrestasi = $listPrestasi->getPrestasiByNim($_SESSION['nim']);
 
     </div>
 </div>
-</div>
-
-
-
-
-
 
 <style>
     /* Modal style untuk detailModal */
@@ -192,6 +206,16 @@ $daftarPrestasi = $listPrestasi->getPrestasiByNim($_SESSION['nim']);
         color: #999;
         font-style: italic;
     }
+
+    .alert-delete {
+        max-width: 70%;
+        margin: 0 auto;
+        text-align: center;
+        transition: opacity 0.5s ease-in-out;
+        /* Menambahkan efek transisi */
+        opacity: 1;
+        /* Mulai dengan visibilitas penuh */
+    }
 </style>
 
 <script>
@@ -210,20 +234,4 @@ $daftarPrestasi = $listPrestasi->getPrestasiByNim($_SESSION['nim']);
         const inputPrestasiId = confirmDeleteModal.querySelector('#prestasiId');
         inputPrestasiId.value = prestasiId;
     });
-
-    // Fungsi untuk menyembunyikan alert setelah 5 detik
-    setTimeout(function () {
-        let successAlert = document.getElementById('success-alert');
-        let errorAlert = document.getElementById('error-alert');
-        if (successAlert) {
-            successAlert.style.transition = 'opacity 0.5s';
-            successAlert.style.opacity = '0';
-            setTimeout(() => successAlert.remove(), 500); // Hapus elemen setelah transisi selesai
-        }
-        if (errorAlert) {
-            errorAlert.style.transition = 'opacity 0.5s';
-            errorAlert.style.opacity = '0';
-            setTimeout(() => errorAlert.remove(), 500); // Hapus elemen setelah transisi selesai
-        }
-    }, 3000);// Waktu tunggu 5 detik
 </script>

@@ -171,6 +171,16 @@
 
     </div>
 
+    <style>
+        .dark-mode .form-control,
+        .dark-mode .form-select {
+            background-color: #6087aa7a;
+            /* Warna latar belakang */
+            color: white;
+            /* Warna teks */
+        }
+    </style>
+
     <script>
         document.querySelector('form').addEventListener('submit', function (event) {
             const MAX_IMAGE_SIZE = 1 * 1024 * 1024; // 1MB untuk file gambar
