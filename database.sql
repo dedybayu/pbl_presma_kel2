@@ -45,6 +45,7 @@ CREATE TABLE [admin] (
 );
 GO
 
+SELECT * FROM admin;
 
 
 CREATE TABLE [jurusan] (
@@ -85,22 +86,43 @@ SELECT * FROM prodi;
 
 
 CREATE TABLE [mahasiswa] (
-  [NIM] VARCHAR(10) NOT NULL PRIMARY KEY,
+  [NIM] VARCHAR(12) NOT NULL PRIMARY KEY,
   [nama] VARCHAR(100) NOT NULL,
   [password] VARCHAR(100) NOT NULL,
   [salt] VARCHAR(50) NOT NULL,
   [id_prodi] INT NOT NULL,
   [jenis_kelamin] VARCHAR(10) NOT NULL,
   [no_tlp] VARCHAR(15),
-  [alamat] VARCHAR(500),
+  [email] VARCHAR(100),
   [file_foto_profile] VARBINARY(MAX),
-  [nama_file_foto_profile] VARCHAR(255),
   CONSTRAINT FK_mahasiswa_prodi FOREIGN KEY ([id_prodi])
     REFERENCES [prodi]([id])
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
-ALTER TABLE [mahasiswa] ADD [jenis_kelamin] VARCHAR(10);
+
+SELECT c.name AS ColumnName,
+       t.name AS DataType,
+       c.max_length AS MaxLength,
+       c.is_nullable AS IsNullable
+FROM sys.columns c
+JOIN sys.types t ON c.user_type_id = t.user_type_id
+WHERE c.object_id = OBJECT_ID('mahasiswa');
+
+
+EXEC sp_help 'mahasiswa';
+
+
+ALTER TABLE [mahasiswa] 
+ALTER COLUMN [NIM] VARCHAR(12);
+
+ALTER TABLE [mahasiswa]
+ALTER COLUMN [NIM] VARCHAR(12);
+
+ALTER TABLE [mahasiswa]
+ALTER COLUMN [NIM] VARCHAR(12);
+
+
 ALTER TABLE [mahasiswa] DROP COLUMN [jenis_kelamin];
 
 
@@ -111,10 +133,10 @@ DROP TABLE mahasiswa;
 SELECT * FROM mahasiswa;
 DELETE FROM mahasiswa WHERE nama = 'Ines Sandika';
 
-SELECT NIM, salt, password AS hashed_password FROM [mahasiswa] WHERE NIM = '123456';
+SELECT NIM, salt, password AS hashed_password FROM [mahasiswa] WHERE NIM = '1111111111';
 
 CREATE TABLE [message] (
-    [NIM] VARCHAR(10) NOT NULL,
+    [NIM] VARCHAR(12) NOT NULL,
     [message] VARCHAR(500) NOT NULL,
     CONSTRAINT FK_message_mahasiswa FOREIGN KEY ([NIM])
     REFERENCES [mahasiswa]([NIM])
@@ -122,13 +144,16 @@ CREATE TABLE [message] (
     ON UPDATE CASCADE
 );
 
+ALTER TABLE [prestasi] DROP CONSTRAINT FK_prestasi_mahasiswa;
+
+
 DROP TABLE message;
 
 
 
 CREATE TABLE [prestasi] (
   [id] INT IDENTITY(1,1) PRIMARY KEY,
-  [NIM] VARCHAR(10) NOT NULL,
+  [NIM] VARCHAR(12) NOT NULL,
   [nama_lomba] VARCHAR(50) NOT NULL,
   [nip_dosbim] VARCHAR(20),
   [jenis_lomba] VARCHAR(50) NOT NULL,
@@ -143,7 +168,9 @@ CREATE TABLE [prestasi] (
   [file_surat_tugas] VARBINARY(MAX),
   [file_proposal] VARBINARY(MAX),
   [poin] INT NOT NULL,
-  [upload_date] DATE NOT NULL,
+  [status_verifikasi] VARCHAR(10) NOT NULL DEFAULT 'waiting', -- Kolom dengan nilai default 'waiting'
+  [message] VARCHAR(255) NULL,
+  [upload_date] DATETIME NOT NULL,
   CONSTRAINT FK_prestasi_mahasiswa FOREIGN KEY ([NIM])
     REFERENCES [mahasiswa]([NIM])
     ON DELETE CASCADE
@@ -153,6 +180,17 @@ CREATE TABLE [prestasi] (
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
+
+
+
+ALTER TABLE [prestasi] DROP CONSTRAINT FK_prestasi_mahasiswa;
+
+ALTER TABLE [prestasi]
+ADD CONSTRAINT FK_prestasi_mahasiswa FOREIGN KEY ([NIM])
+REFERENCES [mahasiswa]([NIM])
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
 
 ALTER TABLE [prestasi]
 ALTER COLUMN [upload_date] DATETIME NOT NULL;

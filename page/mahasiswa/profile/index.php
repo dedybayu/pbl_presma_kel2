@@ -8,5 +8,327 @@
         <h2>Nama : <?php echo $row['nama']; ?></h2>
         <h2>NIM : <?php echo $row['NIM']; ?></h2>
         <br>
+
+        <div class="row g-4">
+            <!-- Sertifikat -->
+            <div class="col-12 col-md-6 foto-profile-box">
+                <div class="FotoContainer">
+                    <?php
+                    if (!empty($row['file_foto_profile'])) {
+                        echo '<img class="foto_profile" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_foto_profile']) . '" alt="fotoProfile" data-title="fotoProfile">';
+                    } else {
+                        echo '<span class="foto_profile" id="noFoto">Tidak ada foto profile</span>';
+                    }
+                    ?>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 box-transparen">
+
+                <table class="table table-borderless align-middle">
+                    <tbody>
+                        <tr>
+                            <td class="text-nowrap"><strong>Nama</strong></td>
+                            <td class="colon">:</td>
+                            <td><strong><?= $row['nama']; ?></strong></td>
+                        </tr>
+                        <tr>
+                            <td class="text-nowrap"><strong>NIM</strong></td>
+                            <td class="colon">:</td>
+                            <td><strong><?= $row['NIM']; ?></strong></td>
+                        </tr>
+                        <tr>
+                            <td class="text-nowrap"><strong>Jenis Kelamin</strong></td>
+                            <td class="colon">:</td>
+                            <td><strong><?= ucfirst(strtolower($row['jenis_kelamin'])); ?>
+                                </strong></td>
+                        </tr>
+                        <tr>
+                            <td class="text-nowrap"><strong>No. Telp</strong></td>
+                            <td class="colon">:</td>
+                            <td><strong><?= $row['no_tlp'] ?></strong></td>
+                        </tr>
+                        <tr>
+                            <td class="text-nowrap"><strong>Email</strong></td>
+                            <td class="colon">:</td>
+                            <td><strong><?= $row['email']; ?></strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div><br>
+
+        <div class="d-flex justify-content-center">
+            <button id="ubahPassword" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#ubahPasswordModal">Ubah Password</button>
+            <button id="editProfile" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#editProfileModal">Edit Biodata</button>
+        </div>
     </div><br>
 </div>
+
+<!-- Modal untuk Ubah Password -->
+<div class="modal fade" id="ubahPasswordModal" tabindex="-1" aria-labelledby="ubahPasswordModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ubahPasswordModalLabel">Ubah Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form untuk ubah password -->
+                <form id="passwordForm">
+                    <input type="hidden" name="action" id="action" value="ubah_password">
+                    <input type="hidden" name="nim" id="nim" value="<?= $row['NIM']; ?>">
+                    <div class="mb-3">
+                        <label for="currentPassword" class="form-label">Password Lama</label>
+                        <input type="password" class="form-control" id="currentPassword"
+                            placeholder="Masukkan password lama">
+                    </div>
+                    <div id="currentPasswordError" class="text-danger mt-2" style="display: none;">Password lama salah.
+                    </div>
+                    <div class="mb-3">
+                        <label for="newPassword" class="form-label">Password Baru</label>
+                        <input type="password" class="form-control" id="newPassword"
+                            placeholder="Masukkan password baru">
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Konfirmasi Password Baru</label>
+                        <input type="password" class="form-control" id="confirmPassword"
+                            placeholder="Konfirmasi password baru">
+                        <div id="passwordError" class="text-danger mt-2" style="display: none;">Password baru dan
+                            konfirmasi tidak cocok.</div>
+                        <div id="passwordMinimal" class="text-danger mt-2" style="display: none;">Password baru dan
+                            konfirmasi tidak cocok.</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-primary" id="saveChangesBtn">Simpan Perubahan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Fungsi untuk memeriksa kecocokan password baru dan konfirmasi
+    function checkPasswords() {
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const passwordError = document.getElementById('passwordError');
+
+        if (newPassword !== confirmPassword) {
+            passwordError.style.display = 'block'; // Tampilkan peringatan
+            return false;
+        } else {
+            passwordError.style.display = 'none'; // Sembunyikan peringatan
+            return true;
+        }
+    }
+
+    document.getElementById('saveChangesBtn').addEventListener('click', function () {
+        const currentPassword = document.getElementById('currentPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        // Kirim data ke server menggunakan AJAX
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'ubah_password.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                const response = xhr.responseText;
+
+                // Jika password lama salah
+                if (response === 'Password lama salah.') {
+                    document.getElementById('currentPasswordError').innerHTML = response;
+                    document.getElementById('currentPasswordError').style.display = 'block';
+                } else if (response === 'Password baru harus memiliki minimal 8 karakter.') {
+                    document.getElementById('passwordMinimal').innerHTML = response;
+                    document.getElementById('passwordMinimal').style.display = 'block';
+                } else if (response === 'Password berhasil diubah.') {
+                    // Tutup modal Ubah Password
+                    $('#ubahPasswordModal').modal('hide');
+
+                    // Menampilkan modal Password Berhasil Dirubah
+                    $('#passwordSuccessModal').modal('show');
+                } else {
+                    document.getElementById('currentPasswordError').style.display = 'none'; // Sembunyikan error password lama
+                    alert(response); // Tampilkan respon dari server
+                    // Jika berhasil, tutup modal
+                    $('#ubahPasswordModal').modal('hide');
+                }
+            }
+        };
+        xhr.send(`currentPassword=${encodeURIComponent(currentPassword)}&newPassword=${encodeURIComponent(newPassword)}&confirmPassword=${encodeURIComponent(confirmPassword)}`);
+    });
+
+    $('#passwordSuccessModal').on('hidden.bs.modal', function () {
+        // Reset form dan sembunyikan pesan error setelah modal ditutup
+        document.getElementById('passwordForm').reset();
+        document.getElementById('currentPasswordError').style.display = 'none';
+        document.getElementById('passwordError').style.display = 'none';
+        document.getElementById('passwordMinimal').style.display = 'none';
+        document.getElementById('currentPasswordError').innerHTML = '';
+        document.getElementById('passwordError').innerHTML = '';
+        document.getElementById('passwordMinimal').innerHTML = '';
+    });
+
+</script>
+
+<!-- Modal untuk Password Berhasil Dirubah -->
+<div class="modal fade" id="passwordSuccessModal" tabindex="-1" aria-labelledby="passwordSuccessModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="passwordSuccessModalLabel">Password Berhasil Dirubah</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Password Anda telah berhasil diubah.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal untuk Edit Biodata -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProfileModalLabel">Edit Biodata</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form untuk edit biodata -->
+                <form>
+                    <div class="mb-3">
+                        <label for="nama" class="form-label">Nama Lengkap</label>
+                        <input type="text" class="form-control" id="nama" placeholder="Masukkan nama lengkap"
+                            value="<?= $row['nama']; ?>" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Masukkan email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="noTlp" class="form-label">Nomor Telepon</label>
+                        <input type="text" class="form-control" id="noTlp" placeholder="Masukkan nomor telepon">
+                    </div>
+                </form>
+                <!-- Menampilkan pesan error jika ada -->
+                <?php
+                if ($error_message = get_flashdata('error')) {
+                    echo '
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    ' . $error_message . '
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
+                }
+                ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-primary">Simpan Perubahan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn-primary {
+        margin: 10px !important;
+    }
+
+    .foto_profile {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    /* Membuat foto-profile-box berbentuk kotak */
+    .foto-profile-box {
+        border: 2px solid #ddd;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: rgba(39, 102, 121, 0.274);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    @media (max-width: 766px) {
+        .foto-profile-box {
+            width: auto;
+            margin: auto;
+        }
+
+
+    }
+
+    @media (min-width: 767px) {
+        .foto-profile-box {
+            width: auto;
+        }
+
+    }
+
+    /* Opsional: Gaya teks jika tidak ada foto */
+    #noFoto {
+        color: #555;
+        /* Warna teks */
+        font-style: italic;
+        /* Gaya miring */
+    }
+
+    .table td {
+        padding: 8px 12px;
+        /* Menambahkan padding antar elemen */
+    }
+
+    .dark-mode table {
+        color: white;
+    }
+
+    .table td.colon {
+        width: auto;
+        text-align: center;
+        padding: 0 8px;
+        /* Memberikan spasi horizontal */
+    }
+
+    .table td.text-nowrap {
+        white-space: nowrap;
+        /* Pastikan teks tidak terpotong */
+    }
+
+    .foto-box img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .dark-mode .form-control,
+    .dark-mode .form-select {
+        background-color: #355470;
+        color: white;
+    }
+
+    /* Ganti warna placeholder di mode gelap */
+    .dark-mode .form-control::placeholder,
+    .dark-mode .form-select::placeholder {
+        color: #aaa;
+        /* Warna placeholder */
+    }
+</style>

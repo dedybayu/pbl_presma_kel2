@@ -8,28 +8,27 @@ include "../fungsi/anti_injection.php";
 // $level = $_POST['level'];  // Misalnya 'admin' atau 'user'
 
 $password = "dosen";
-$nip = "54321";
-$nama = "Ines ";
-$jabatan = "Dosen Kimia";
-
+$nip = "00000";
+$nama = "Budi";
+$jenis_kelamin = "laki-laki";
 // Membuat koneksi ke database
 $db = new Database();
 $koneksi = $db->conn;
 
 // Memanggil fungsi tambahUser untuk menambahkan user baru
-$message = tambahUser($koneksi, $nip, $password, $nama, $jabatan);
+$message = tambahUser($koneksi, $nip, $password, $nama, $jenis_kelamin);
 
 // Menampilkan pesan
 echo $message;
 
 
 
-function tambahUser($koneksi, $nip, $password, $nama, $jabatan) {
+function tambahUser($koneksi, $nip, $password, $nama, $jenis_kelamin) {
     // Mengamankan input
     $nip = antiinjection($nip);
     $password = antiinjection($password);
     $nama = antiinjection($nama);
-    $jabatan = antiinjection($jabatan);
+    $jenis_kelamin = antiinjection($jenis_kelamin);
 
     // Membuat salt acak
     $salt = bin2hex(random_bytes(16));
@@ -41,8 +40,8 @@ function tambahUser($koneksi, $nip, $password, $nama, $jabatan) {
     $hashed_password = password_hash($combined_password, PASSWORD_BCRYPT);
 
     // Query untuk memasukkan data ke dalam tabel admin
-    $query = "INSERT INTO [dosen] (nip, password, salt, nama, jabatan) VALUES (?, ?, ?, ?, ?)";
-    $params = array($nip, $hashed_password, $salt, $nama, $jabatan);
+    $query = "INSERT INTO [dosen] (nip, password, salt, nama, jenis_kelamin) VALUES (?, ?, ?, ?,?)";
+    $params = array($nip, $hashed_password, $salt, $nama, $jenis_kelamin);
     $stmt = sqlsrv_query($koneksi, $query, $params);
 
     if ($stmt === false) {

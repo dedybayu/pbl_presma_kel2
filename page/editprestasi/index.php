@@ -289,142 +289,168 @@
 
             </form><br>
         </div>
-
     </div>
+</div>
 
-    <style>
+<style>
+    .dark-mode .form-control,
+    .dark-mode .form-select {
+        background-color: #355470;
+        color: white;
+    }
+
+    /* Ganti warna placeholder di mode gelap */
+    .dark-mode .form-control::placeholder,
+    .dark-mode .form-select::placeholder {
+        color: #aaa;
+        /* Warna placeholder */
+    }
+
+    .dark-mode small.text-muted {
+        color: rgba(255, 255, 255, 0.700) !important;
+    }
+
+    #modalFoto {
+        height: auto;
+        /* Menjaga proporsi tinggi */
+        display: block;
+        /* Menampilkan sebagai blok */
+        margin: 0 auto;
+        /* Mengatur margin otomatis untuk pusat */
+        border: 5px solid #00a7e1;
+        /* Menambahkan border dengan warna hitam */
+        border-radius: 8px;
+        /* Menambahkan sudut melengkung (opsional) */
+    }
+
+
+
+    .kotak-konten {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+
+    @media (max-width: 1100px) {
+
+
         #modalFoto {
-            height: auto;
-            /* Menjaga proporsi tinggi */
-            display: block;
-            /* Menampilkan sebagai blok */
-            margin: 0 auto;
-            /* Mengatur margin otomatis untuk pusat */
-            border: 5px solid #00a7e1;
-            /* Menambahkan border dengan warna hitam */
-            border-radius: 8px;
-            /* Menambahkan sudut melengkung (opsional) */
+            width: 95%;
         }
-
-
-
-        .kotak-konten {
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-
-        @media (max-width: 1100px) {
-
-
-            #modalFoto {
-                width: 95%;
-            }
-
-            #modalProposal {
-                width: 100%;
-            }
-
-        }
-
-        @media (min-width: 1101px) {
-            #modalFoto {
-                width: 75%;
-            }
-
-            #modalProposal {
-                width: 80%;
-            }
-        }
-
-
-
-        .dark-mode #modalFoto {
-            border: 5px solid #528fad;
-            /* Menambahkan border dengan warna hitam */
-        }
-
 
         #modalProposal {
-
-            height: 600px;
-        }
-
-        /* Modal style untuk modal foto */
-        .kotak-konten #modalFotoContainer img {
             width: 100%;
-            max-width: 800px;
-            border-radius: 8px;
-            border: 3px solid #ccc;
         }
 
-        /* Styling the 'Tidak ada foto' message */
-        .kotak-konten #noFoto,
-        .kotak-konten #noProposal {
-            color: #999;
-            font-style: italic;
+    }
+
+    @media (min-width: 1101px) {
+        #modalFoto {
+            width: 75%;
         }
 
-        /* Default: Tinggi 50% dari layar */
+        #modalProposal {
+            width: 80%;
+        }
+    }
+
+
+
+    .dark-mode #modalFoto {
+        border: 5px solid #528fad;
+        /* Menambahkan border dengan warna hitam */
+    }
+
+
+    #modalProposal {
+
+        height: 600px;
+    }
+
+    /* Modal style untuk modal foto */
+    .kotak-konten #modalFotoContainer img {
+        width: 100%;
+        max-width: 800px;
+        border-radius: 8px;
+        border: 3px solid #ccc;
+    }
+
+    /* Styling the 'Tidak ada foto' message */
+    .kotak-konten #noFoto,
+    .kotak-konten #noProposal {
+        color: #999;
+        font-style: italic;
+    }
+
+    /* Default: Tinggi 50% dari layar */
+    #pdfProposal {
+        height: 50vh;
+        /* 50% dari tinggi layar */
+    }
+
+    /* Untuk layar lebar: Tinggi 80% dari layar */
+    @media (min-width: 1024px) {
         #pdfProposal {
-            height: 50vh;
-            /* 50% dari tinggi layar */
+            height: 70vh;
+            /* 80% dari tinggi layar */
+        }
+    }
+</style>
+<script>
+
+    document.querySelector('form').addEventListener('submit', function (event) {
+        const MAX_IMAGE_SIZE = 1 * 1024 * 1024; // 1MB untuk file gambar
+        const MAX_PDF_SIZE = 4 * 1024 * 1024; // 4MB untuk file PDF
+        let isValid = true;
+
+        // Bersihkan pesan error sebelumnya
+        document.querySelectorAll('.error-message').forEach(el => el.remove());
+
+        // Ambil elemen file
+        const sertifikat = document.getElementById('sertifikat').files[0];
+        const fotoLomba = document.getElementById('fotoLomba').files[0];
+        const suratUndangan = document.getElementById('suratUndangan').files[0];
+        const suratTugas = document.getElementById('suratTugas').files[0];
+        const proposal = document.getElementById('proposal').files[0];
+
+        // Fungsi untuk menampilkan pesan error
+        const showError = (element, message) => {
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'error-message text-danger';
+            errorMessage.textContent = message;
+            element.parentElement.appendChild(errorMessage);
         }
 
-        /* Untuk layar lebar: Tinggi 80% dari layar */
-        @media (min-width: 1024px) {
-            #pdfProposal {
-                height: 70vh;
-                /* 80% dari tinggi layar */
-            }
-        }
-    </style>
+            ;
 
+        // Validasi ukuran gambar
+        [sertifikat, fotoLomba, suratUndangan, suratTugas].forEach((file, index) => {
+            if (file && file.size > MAX_IMAGE_SIZE) {
 
-    <script>
-        document.querySelector('form').addEventListener('submit', function (event) {
-            const MAX_IMAGE_SIZE = 1 * 1024 * 1024; // 1MB untuk file gambar
-            const MAX_PDF_SIZE = 4 * 1024 * 1024; // 4MB untuk file PDF
-            let isValid = true;
+                showError(document.querySelectorAll('input[type="file"]')[index],
+                    `File $ {
+                                    file.name
+                                }
 
-            // Bersihkan pesan error sebelumnya
-            document.querySelectorAll('.error-message').forEach(el => el.remove());
-
-            // Ambil elemen file
-            const sertifikat = document.getElementById('sertifikat').files[0];
-            const fotoLomba = document.getElementById('fotoLomba').files[0];
-            const suratUndangan = document.getElementById('suratUndangan').files[0];
-            const suratTugas = document.getElementById('suratTugas').files[0];
-            const proposal = document.getElementById('proposal').files[0];
-
-            // Fungsi untuk menampilkan pesan error
-            const showError = (element, message) => {
-                const errorMessage = document.createElement('div');
-                errorMessage.className = 'error-message text-danger';
-                errorMessage.textContent = message;
-                element.parentElement.appendChild(errorMessage);
-            };
-
-            // Validasi ukuran gambar
-            [sertifikat, fotoLomba, suratUndangan, suratTugas].forEach((file, index) => {
-                if (file && file.size > MAX_IMAGE_SIZE) {
-                    showError(document.querySelectorAll('input[type="file"]')[index],
-                        `File ${file.name} melebihi ukuran maksimal 1MB.`);
-                    isValid = false;
-                }
-            });
-
-            // Validasi ukuran proposal (PDF)
-            if (proposal && proposal.size > MAX_PDF_SIZE) {
-                showError(document.getElementById('proposal'),
-                    `File ${proposal.name} melebihi ukuran maksimal 4MB.`);
+                                melebihi ukuran maksimal 1MB.`);
                 isValid = false;
             }
-
-            if (!isValid) {
-                event.preventDefault(); // Batalkan pengiriman formulir
-            }
         });
-    </script>
 
-</div>
+        // Validasi ukuran proposal (PDF)
+        if (proposal && proposal.size > MAX_PDF_SIZE) {
+
+            showError(document.getElementById('proposal'),
+                `File $ {
+                            proposal.name
+                        }
+
+                        melebihi ukuran maksimal 4MB.`);
+            isValid = false;
+        }
+
+        if (!isValid) {
+            event.preventDefault(); // Batalkan pengiriman formulir
+        }
+    });
+</script>

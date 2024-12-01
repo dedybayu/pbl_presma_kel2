@@ -174,10 +174,15 @@
     <style>
         .dark-mode .form-control,
         .dark-mode .form-select {
-            background-color: #6087aa7a;
-            /* Warna latar belakang */
+            background-color: #355470;
             color: white;
-            /* Warna teks */
+        }
+
+        /* Ganti warna placeholder di mode gelap */
+        .dark-mode .form-control::placeholder,
+        .dark-mode .form-select::placeholder {
+            color: #aaa;
+            /* Warna placeholder */
         }
     </style>
 

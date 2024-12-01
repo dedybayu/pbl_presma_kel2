@@ -31,4 +31,11 @@ class MahasiswaModel
 
         return $daftarMahasiswa;
     }
+
+    function updateBiodata($data){
+        $query = "UPDATE mahasiswa SET nama = ?, email = ?, no_telp = ? WHERE NIM = ?";
+        $stmt = sqlsrv_prepare($this->db, $query, $data);
+    }
+
+    
 }
