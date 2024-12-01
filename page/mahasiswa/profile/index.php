@@ -83,27 +83,27 @@
                     <div class="mb-3">
                         <label for="currentPassword" class="form-label">Password Lama</label>
                         <input type="password" class="form-control" id="currentPassword"
-                            placeholder="Masukkan password lama">
+                            placeholder="Masukkan password lama" required>
                     </div>
                     <div id="currentPasswordError" class="text-danger mt-2" style="display: none;">Password lama salah.
                     </div>
                     <div class="mb-3">
                         <label for="newPassword" class="form-label">Password Baru</label>
                         <input type="password" class="form-control" id="newPassword"
-                            placeholder="Masukkan password baru">
+                            placeholder="Masukkan password baru" required>
                     </div>
                     <div class="mb-3">
                         <label for="confirmPassword" class="form-label">Konfirmasi Password Baru</label>
                         <input type="password" class="form-control" id="confirmPassword"
-                            placeholder="Konfirmasi password baru">
+                            placeholder="Konfirmasi password baru" required>
                         <div id="passwordError" class="text-danger mt-2" style="display: none;">Password baru dan
                             konfirmasi tidak cocok.</div>
-                        <div id="passwordMinimal" class="text-danger mt-2" style="display: none;">Password baru dan
-                            konfirmasi tidak cocok.</div>
+                        <div id="passwordMinimal" class="text-danger mt-2" style="display: none;"></div>
+                        <div id="fieldRequired" class="text-danger mt-2" style="display: none;"></div>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer d-flex justify-content-between">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                 <button type="button" class="btn btn-primary" id="saveChangesBtn">Simpan Perubahan</button>
             </div>
@@ -111,71 +111,6 @@
     </div>
 </div>
 
-<script>
-    // Fungsi untuk memeriksa kecocokan password baru dan konfirmasi
-    function checkPasswords() {
-        const newPassword = document.getElementById('newPassword').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-        const passwordError = document.getElementById('passwordError');
-
-        if (newPassword !== confirmPassword) {
-            passwordError.style.display = 'block'; // Tampilkan peringatan
-            return false;
-        } else {
-            passwordError.style.display = 'none'; // Sembunyikan peringatan
-            return true;
-        }
-    }
-
-    document.getElementById('saveChangesBtn').addEventListener('click', function () {
-        const currentPassword = document.getElementById('currentPassword').value;
-        const newPassword = document.getElementById('newPassword').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-
-        // Kirim data ke server menggunakan AJAX
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'ubah_password.php', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                const response = xhr.responseText;
-
-                // Jika password lama salah
-                if (response === 'Password lama salah.') {
-                    document.getElementById('currentPasswordError').innerHTML = response;
-                    document.getElementById('currentPasswordError').style.display = 'block';
-                } else if (response === 'Password baru harus memiliki minimal 8 karakter.') {
-                    document.getElementById('passwordMinimal').innerHTML = response;
-                    document.getElementById('passwordMinimal').style.display = 'block';
-                } else if (response === 'Password berhasil diubah.') {
-                    // Tutup modal Ubah Password
-                    $('#ubahPasswordModal').modal('hide');
-
-                    // Menampilkan modal Password Berhasil Dirubah
-                    $('#passwordSuccessModal').modal('show');
-                } else {
-                    document.getElementById('currentPasswordError').style.display = 'none'; // Sembunyikan error password lama
-                    alert(response); // Tampilkan respon dari server
-                    // Jika berhasil, tutup modal
-                    $('#ubahPasswordModal').modal('hide');
-                }
-            }
-        };
-        xhr.send(`currentPassword=${encodeURIComponent(currentPassword)}&newPassword=${encodeURIComponent(newPassword)}&confirmPassword=${encodeURIComponent(confirmPassword)}`);
-    });
-
-    $('#passwordSuccessModal').on('hidden.bs.modal', function () {
-        // Reset form dan sembunyikan pesan error setelah modal ditutup
-        document.getElementById('passwordForm').reset();
-        document.getElementById('currentPasswordError').style.display = 'none';
-        document.getElementById('passwordError').style.display = 'none';
-        document.getElementById('passwordMinimal').style.display = 'none';
-        document.getElementById('currentPasswordError').innerHTML = '';
-        document.getElementById('passwordError').innerHTML = '';
-        document.getElementById('passwordMinimal').innerHTML = '';
-    });
-
-</script>
 
 <!-- Modal untuk Password Berhasil Dirubah -->
 <div class="modal fade" id="passwordSuccessModal" tabindex="-1" aria-labelledby="passwordSuccessModalLabel"
@@ -208,7 +143,7 @@
             </div>
             <div class="modal-body">
                 <!-- Form untuk edit biodata -->
-                <form>
+                <form id="editProfileForm">
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama Lengkap</label>
                         <input type="text" class="form-control" id="nama" placeholder="Masukkan nama lengkap"
@@ -222,25 +157,57 @@
                         <label for="noTlp" class="form-label">Nomor Telepon</label>
                         <input type="text" class="form-control" id="noTlp" placeholder="Masukkan nomor telepon">
                     </div>
+                    <div class="mb-3">
+                        <label for="fileFotoProfile" class="form-label">Foto Profile</label>
+                        <input type="file" class="form-control" id="fileFotoProfile" name="file_foto_profile"
+                            accept="image/*">
+                        <small class="text-muted">Maksimal ukuran file: 1MB</small>
+                    </div>
                 </form>
-                <!-- Menampilkan pesan error jika ada -->
-                <?php
-                if ($error_message = get_flashdata('error')) {
-                    echo '
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    ' . $error_message . '
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>';
-                }
-                ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary">Simpan Perubahan</button>
+                <!-- Tombol submit yang terhubung ke form -->
+                <button type="submit" class="btn btn-primary" form="editProfileForm" id="submitBtn">Simpan
+                    Perubahan</button>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('editProfileForm').addEventListener('submit', function (event) {
+        const MAX_IMAGE_SIZE = 1 * 1024 * 1024; // 1MB
+        let isValid = true;
+
+        // Bersihkan pesan error sebelumnya
+        document.querySelectorAll('.error-message').forEach(el => el.remove());
+
+        // Fungsi untuk menampilkan pesan error
+        const showError = (element, message) => {
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'error-message text-danger mt-2';
+            errorMessage.textContent = message;
+            element.parentElement.appendChild(errorMessage);
+        };
+
+        // Validasi file foto
+        const fileInput = document.getElementById('fileFotoProfile');
+        const file = fileInput.files[0];
+
+        if (file) {
+            if (file.size > MAX_IMAGE_SIZE) {
+                showError(fileInput, `File ${file.name} melebihi ukuran maksimal 1MB.`);
+                isValid = false;
+            }
+        }
+
+        // Jika validasi gagal, batalkan submit
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+</script>
 
 <style>
     .btn-primary {
@@ -332,3 +299,76 @@
         /* Warna placeholder */
     }
 </style>
+
+
+
+<script>
+    // Fungsi untuk memeriksa kecocokan password baru dan konfirmasi
+    function checkPasswords() {
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const passwordError = document.getElementById('passwordError');
+
+        if (newPassword !== confirmPassword) {
+            passwordError.style.display = 'block'; // Tampilkan peringatan
+            return false;
+        } else {
+            passwordError.style.display = 'none'; // Sembunyikan peringatan
+            return true;
+        }
+    }
+
+    document.getElementById('saveChangesBtn').addEventListener('click', function () {
+        const currentPassword = document.getElementById('currentPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        // Kirim data ke server menggunakan AJAX
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'ubah_password.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                const response = xhr.responseText;
+
+                // Jika password lama salah
+                if (response === 'Password lama salah.') {
+                    document.getElementById('fieldRequired').style.display = 'none';
+                    document.getElementById('currentPasswordError').innerHTML = response;
+                    document.getElementById('currentPasswordError').style.display = 'block';
+                } else if (response === 'Password baru harus memiliki minimal 8 karakter.') {
+                    document.getElementById('fieldRequired').style.display = 'none';
+                    document.getElementById('passwordMinimal').innerHTML = response;
+                    document.getElementById('passwordMinimal').style.display = 'block';
+                } else if (response === 'Password berhasil diubah.') {
+                    // Tutup modal Ubah Password
+                    $('#ubahPasswordModal').modal('hide');
+
+                    // Menampilkan modal Password Berhasil Dirubah
+                    $('#passwordSuccessModal').modal('show');
+                } else if (response === 'Semua field harus diisi.') {
+                    document.getElementById('fieldRequired').innerHTML = response;
+                    document.getElementById('fieldRequired').style.display = 'block';
+                } else {
+                    document.getElementById('currentPasswordError').style.display = 'none'; // Sembunyikan error password lama
+                    alert(response); // Tampilkan respon dari server
+                    // Jika berhasil, tutup modal
+                    $('#ubahPasswordModal').modal('hide');
+                }
+            }
+        };
+        xhr.send(`currentPassword=${encodeURIComponent(currentPassword)}&newPassword=${encodeURIComponent(newPassword)}&confirmPassword=${encodeURIComponent(confirmPassword)}`);
+    });
+
+    $('#passwordSuccessModal').on('hidden.bs.modal', function () {
+        // Reset form dan sembunyikan pesan error setelah modal ditutup
+        document.getElementById('passwordForm').reset();
+        document.getElementById('currentPasswordError').style.display = 'none';
+        document.getElementById('passwordError').style.display = 'none';
+        document.getElementById('passwordMinimal').style.display = 'none';
+        document.getElementById('currentPasswordError').innerHTML = '';
+        document.getElementById('passwordError').innerHTML = '';
+        document.getElementById('passwordMinimal').innerHTML = '';
+    });
+
+</script>
