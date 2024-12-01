@@ -25,6 +25,7 @@
     <div class="kotak-konten">
         <div class="container">
             <h1 class="mb-4">Masukan Prestasimu Disini</h1>
+            <hr><br>
             <form action="action/prestasi_action.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="action" id="action" value="add">
                 <input type="hidden" name="nim" id="nim" value="<?php echo $_SESSION['nim'] ?>">
@@ -116,7 +117,7 @@
                                     style="color: red;">*</span></label>
                             <input type="file" class="form-control" id="sertifikat" name="sertifikat" accept="image/*"
                                 required>
-                            <small class="text-muted">Maksimal ukuran file: 1MB</small>
+                            <small class="text-infoFile">Maksimal ukuran file: 1MB</small>
                         </div>
                     </div>
 
@@ -126,7 +127,7 @@
                                     style="color: red;">*</span></label>
                             <input type="file" class="form-control" id="fotoLomba" name="foto_lomba" accept="image/*"
                                 required>
-                            <small class="text-muted">Maksimal ukuran file: 1MB</small>
+                            <small class="text-infoFile">Maksimal ukuran file: 1MB</small>
                         </div>
                     </div>
 
@@ -135,7 +136,7 @@
                             <label for="suratUndangan" class="form-label">Surat Undangan</label>
                             <input type="file" class="form-control" id="suratUndangan" name="surat_undangan"
                                 accept="image/*">
-                            <small class="text-muted">Maksimal ukuran file: 1MB</small>
+                            <small class="text-infoFile">Maksimal ukuran file: 1MB</small>
                         </div>
                     </div>
 
@@ -143,18 +144,15 @@
                         <div class="mb-3">
                             <label for="suratTugas" class="form-label">Surat Tugas</label>
                             <input type="file" class="form-control" id="suratTugas" name="surat_tugas" accept="image/*">
-                            <small class="text-muted">Maksimal ukuran file: 1MB</small>
+                            <small class="text-infoFile">Maksimal ukuran file: 1MB</small>
                         </div>
                     </div>
 
-                    <div class="">
-                        <div class="mb-3">
-                            <label for="proposal" class="form-label">Proposal</label>
-                            <input type="file" class="form-control" id="proposal" name="proposal"
-                                accept="application/pdf">
-                            <small class="text-muted">Maksimal ukuran file: 4MB. Hanya file PDF yang
-                                diperbolehkan.</small>
-                        </div>
+                    <div class="mb-3">
+                        <label for="proposal" class="form-label">Proposal</label>
+                        <input type="file" class="form-control" id="proposal" name="proposal" accept="application/pdf">
+                        <small class="text-infoFile">Maksimal ukuran file: 4MB. Hanya file PDF yang
+                            diperbolehkan.</small>
                     </div>
                 </div>
 

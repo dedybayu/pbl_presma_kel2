@@ -484,3 +484,11 @@ table.dataTable thead td {
 .FotoContainer {
   margin: auto;
 }
+
+
+small.text-infoFile {
+  color: #000000bd;
+}
+.dark-mode small.text-infoFile {
+  color: #ffffffbd;
+}

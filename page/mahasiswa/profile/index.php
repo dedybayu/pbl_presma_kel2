@@ -4,11 +4,9 @@
         <p>Profile Mahasiswa</p>
     </div>
     <div class="kotak-konten">
-        <h1>Biodata</h1>
-        <h2>Nama : <?php echo $row['nama']; ?></h2>
-        <h2>NIM : <?php echo $row['NIM']; ?></h2>
+        <h1>Biodata Mahasiswa</h1>
+        <hr>
         <br>
-
         <div class="row g-4">
             <!-- Sertifikat -->
             <div class="col-12 col-md-6 foto-profile-box">
@@ -145,9 +143,19 @@
                 <!-- Form untuk edit biodata -->
                 <form id="editProfileForm">
                     <div class="mb-3">
+                        <label for="nim" class="form-label">NIM</label>
+                        <input type="text" class="form-control" id="nim"
+                            value="<?= $row['NIM']; ?>" disabled>
+                    </div>
+                    <div class="mb-3">
                         <label for="nama" class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="nama" placeholder="Masukkan nama lengkap"
+                        <input type="text" class="form-control" id="nama" 
                             value="<?= $row['nama']; ?>" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nim" class="form-label">Jenis Kelamin</label>
+                        <input type="text" class="form-control" id="nim"
+                            value="<?= ucfirst(strtolower($row['jenis_kelamin'])); ?>" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
@@ -161,7 +169,7 @@
                         <label for="fileFotoProfile" class="form-label">Foto Profile</label>
                         <input type="file" class="form-control" id="fileFotoProfile" name="file_foto_profile"
                             accept="image/*">
-                        <small class="text-muted">Maksimal ukuran file: 1MB</small>
+                        <small class="text-infoFile">Maksimal ukuran file: 1MB</small>
                     </div>
                 </form>
             </div>
@@ -174,40 +182,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    document.getElementById('editProfileForm').addEventListener('submit', function (event) {
-        const MAX_IMAGE_SIZE = 1 * 1024 * 1024; // 1MB
-        let isValid = true;
-
-        // Bersihkan pesan error sebelumnya
-        document.querySelectorAll('.error-message').forEach(el => el.remove());
-
-        // Fungsi untuk menampilkan pesan error
-        const showError = (element, message) => {
-            const errorMessage = document.createElement('div');
-            errorMessage.className = 'error-message text-danger mt-2';
-            errorMessage.textContent = message;
-            element.parentElement.appendChild(errorMessage);
-        };
-
-        // Validasi file foto
-        const fileInput = document.getElementById('fileFotoProfile');
-        const file = fileInput.files[0];
-
-        if (file) {
-            if (file.size > MAX_IMAGE_SIZE) {
-                showError(fileInput, `File ${file.name} melebihi ukuran maksimal 1MB.`);
-                isValid = false;
-            }
-        }
-
-        // Jika validasi gagal, batalkan submit
-        if (!isValid) {
-            event.preventDefault();
-        }
-    });
-</script>
 
 <style>
     .btn-primary {
@@ -303,6 +277,38 @@
 
 
 <script>
+    document.getElementById('editProfileForm').addEventListener('submit', function (event) {
+        const MAX_IMAGE_SIZE = 1 * 1024 * 1024; // 1MB
+        let isValid = true;
+
+        // Bersihkan pesan error sebelumnya
+        document.querySelectorAll('.error-message').forEach(el => el.remove());
+
+        // Fungsi untuk menampilkan pesan error
+        const showError = (element, message) => {
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'error-message text-danger mt-2';
+            errorMessage.textContent = message;
+            element.parentElement.appendChild(errorMessage);
+        };
+
+        // Validasi file foto
+        const fileInput = document.getElementById('fileFotoProfile');
+        const file = fileInput.files[0];
+
+        if (file) {
+            if (file.size > MAX_IMAGE_SIZE) {
+                showError(fileInput, `File ${file.name} melebihi ukuran maksimal 1MB.`);
+                isValid = false;
+            }
+        }
+
+        // Jika validasi gagal, batalkan submit
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+
     // Fungsi untuk memeriksa kecocokan password baru dan konfirmasi
     function checkPasswords() {
         const newPassword = document.getElementById('newPassword').value;
