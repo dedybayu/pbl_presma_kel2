@@ -37,5 +37,8 @@ class MahasiswaModel
         $stmt = sqlsrv_prepare($this->db, $query, $data);
     }
 
+    function changePassword(){
+        
+    }
     
 }

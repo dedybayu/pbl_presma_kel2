@@ -17,6 +17,7 @@ CREATE TABLE [prodi] (
   [nama_prodi] VARCHAR(50) NOT NULL
 );
 
+
 CREATE TABLE [mahasiswa] (
   [NIM] VARCHAR(12) NOT NULL PRIMARY KEY,
   [nama] VARCHAR(100) NOT NULL,
