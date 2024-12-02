@@ -52,6 +52,7 @@ CREATE TABLE [jurusan] (
   [id] INT IDENTITY(1,1) PRIMARY KEY,
   [nama_jurusan] VARCHAR(50) NOT NULL
 );
+DROP TABLE jurusan;
 
 CREATE TABLE [prodi] (
   [id] INT IDENTITY(1,1) PRIMARY KEY,
@@ -63,6 +64,11 @@ CREATE TABLE [prodi] (
     ON UPDATE CASCADE
 );
 
+-- Hapus foreign key constraint
+ALTER TABLE [prodi] DROP CONSTRAINT FK_prodi_jurusan;
+
+-- Hapus kolom id_jurusan
+ALTER TABLE [prodi] DROP COLUMN [id_jurusan];
 
 -- Menambahkan data ke tabel jurusan
 INSERT INTO [jurusan] (nama_jurusan)
@@ -247,7 +253,7 @@ CREATE TABLE [dosen] (
 );
 
 ALTER TABLE [dosen] DROP COLUMN [alamat];
-ALTER TABLE [dosen] ADD [jenis_kelamin] VARCHAR(10);
+ALTER TABLE [prestasi] ADD [status_tim] VARCHAR(10) NOT NULL DEFAULT 'individu';
 
 
 SELECT * FROM dosen;
