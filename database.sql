@@ -74,7 +74,7 @@ ALTER TABLE [prodi] DROP COLUMN [id_jurusan];
 INSERT INTO [jurusan] (nama_jurusan)
 VALUES ('Teknologi Informasi');
 
-SELECT * FROM jurusan;
+SELECT * FROM prodi;
 
 -- Menambahkan data ke tabel prodi
 -- Ambil ID jurusan yang sesuai dengan nama "Teknologi Informasi"
