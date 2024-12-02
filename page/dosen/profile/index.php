@@ -98,6 +98,7 @@
                             konfirmasi tidak cocok.</div>
                         <div id="passwordMinipal" class="text-danger mt-2" style="display: none;"></div>
                         <div id="fieldRequired" class="text-danger mt-2" style="display: none;"></div>
+                        <div id="peringatanPassword" class="text-danger mt-2" style="display: none;"></div>
                     </div>
                 </form>
             </div>
@@ -144,13 +145,11 @@
                 <form id="editProfileForm">
                     <div class="mb-3">
                         <label for="nip" class="form-label">NIP</label>
-                        <input type="text" class="form-control" id="nip"
-                            value="<?= $row['nip']; ?>" disabled>
+                        <input type="text" class="form-control" id="nip" value="<?= $row['nip']; ?>" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="nama" 
-                            value="<?= $row['nama']; ?>" disabled>
+                        <input type="text" class="form-control" id="nama" value="<?= $row['nama']; ?>" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="nip" class="form-label">Jenis Kelamin</label>
@@ -328,10 +327,12 @@
         const currentPassword = document.getElementById('currentPassword').value;
         const newPassword = document.getElementById('newPassword').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
+        const action = document.getElementById('action').value;
+        const nip = document.getElementById('nip').value;
 
         // Kirim data ke server menggunakan AJAX
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'ubah_password.php', true);
+        xhr.open('POST', 'action/dosen_action.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function () {
             if (xhr.status === 200) {
@@ -342,10 +343,10 @@
                     document.getElementById('fieldRequired').style.display = 'none';
                     document.getElementById('currentPasswordError').innerHTML = response;
                     document.getElementById('currentPasswordError').style.display = 'block';
-                } else if (response === 'Password baru harus memiliki minipal 8 karakter.') {
+                } else if (response === 'Password baru harus memiliki minimal 8 karakter.') {
                     document.getElementById('fieldRequired').style.display = 'none';
-                    document.getElementById('passwordMinipal').innerHTML = response;
-                    document.getElementById('passwordMinipal').style.display = 'block';
+                    document.getElementById('passwordMinimal').innerHTML = response;
+                    document.getElementById('passwordMinimal').style.display = 'block';
                 } else if (response === 'Password berhasil diubah.') {
                     // Tutup modal Ubah Password
                     $('#ubahPasswordModal').modal('hide');
@@ -356,14 +357,20 @@
                     document.getElementById('fieldRequired').innerHTML = response;
                     document.getElementById('fieldRequired').style.display = 'block';
                 } else {
-                    document.getElementById('currentPasswordError').style.display = 'none'; // Sembunyikan error password lama
-                    alert(response); // Tampilkan respon dari server
-                    // Jika berhasil, tutup modal
-                    $('#ubahPasswordModal').modal('hide');
+                    document.getElementById('peringatanPassword').innerHTML = response;
+                    document.getElementById('peringatanPassword').style.display = 'block';
                 }
+
+
+                // else {
+                //     document.getElementById('currentPasswordError').style.display = 'none'; // Sembunyikan error password lama
+                //     alert(response); // Tampilkan respon dari server
+                //     // Jika berhasil, tutup modal
+                //     $('#ubahPasswordModal').modal('hide');
+                // }
             }
         };
-        xhr.send(`currentPassword=${encodeURIComponent(currentPassword)}&newPassword=${encodeURIComponent(newPassword)}&confirmPassword=${encodeURIComponent(confirmPassword)}`);
+        xhr.send(`action=${encodeURIComponent(action)}&nip=${encodeURIComponent(nip)}&currentPassword=${encodeURIComponent(currentPassword)}&newPassword=${encodeURIComponent(newPassword)}&confirmPassword=${encodeURIComponent(confirmPassword)}`);
     });
 
     $('#passwordSuccessModal').on('hidden.bs.modal', function () {

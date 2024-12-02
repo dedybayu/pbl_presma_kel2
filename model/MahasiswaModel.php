@@ -73,7 +73,7 @@ class MahasiswaModel
                         return "Password baru dan konfirmasi tidak cocok.";
                     }
                 } else {
-                    return "Password Salah";
+                    return "Password Lama Salah";
                 }
             }
         }
