@@ -12,8 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($_POST['action'] === 'ubah_password') {
         $nim = $_POST['nim'];
-        
-        $storedPassword = '123';
         $currentPassword = $_POST['currentPassword'];
         $newPassword = $_POST['newPassword'];
         $confirmPassword = $_POST['confirmPassword'];
@@ -29,19 +27,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo 'Password baru harus memiliki minimal 8 karakter.';
             exit;
         }
-    
-        // Cek password lama
-        if ($currentPassword === $storedPassword) {
-            if ($newPassword === $confirmPassword) {
-                $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-                echo 'Password berhasil diubah.';
-            } else {
-                echo 'Password baru dan konfirmasi tidak cocok.';
-            }
-        } else {
-            echo 'Password lama salah.';
-        }
-    }
+        
+        $data = [
+            'nim' => $nim,
+            'currentPassword' => $currentPassword,
+            'newPassword' => $newPassword,
+            'confirmPassword' => $confirmPassword
+        ];        // Cek password lama
 
+        $result = $mahasiswaModel->changePassword($data);
+        echo $result;
+        // if ($currentPassword === $storedPassword) {
+        //     if ($newPassword === $confirmPassword) {
+        //         $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        //         echo 'Password berhasil diubah.';
+        //     } else {
+        //         echo 'Password baru dan konfirmasi tidak cocok.';
+        //     }
+        // } else {
+        //     echo 'Password lama salah.';
+        // }
+    }
 }
 ?>
