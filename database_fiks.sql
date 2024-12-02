@@ -33,6 +33,17 @@ CREATE TABLE [mahasiswa] (
     ON UPDATE CASCADE
 );
 
+CREATE TABLE [dosen] (
+  [nip] VARCHAR(20) NOT NULL PRIMARY KEY,
+  [password] VARCHAR(100) NOT NULL,
+  [salt] VARCHAR(50) NOT NULL,
+  [nama] VARCHAR(100) NOT NULL,
+  [jenis_kelamin] VARCHAR(10) NOT NULL,
+  [no_tlp] VARCHAR(15),
+  [email] VARCHAR(100),
+  [file_foto_profile] VARBINARY(MAX),
+);
+
 
 
 CREATE TABLE [prestasi] (
@@ -64,16 +75,4 @@ CREATE TABLE [prestasi] (
     REFERENCES [dosen]([nip])
     ON DELETE CASCADE
     ON UPDATE CASCADE
-);
-
-
-CREATE TABLE [dosen] (
-  [nip] VARCHAR(20) NOT NULL PRIMARY KEY,
-  [password] VARCHAR(100) NOT NULL,
-  [salt] VARCHAR(50) NOT NULL,
-  [nama] VARCHAR(100) NOT NULL,
-  [jenis_kelamin] VARCHAR(10) NOT NULL,
-  [no_tlp] VARCHAR(15),
-  [email] VARCHAR(100),
-  [file_foto_profile] VARBINARY(MAX),
 );
