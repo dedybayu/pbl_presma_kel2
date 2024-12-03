@@ -85,11 +85,11 @@ if (!empty($_SESSION['level'])) { // Cek jika session level ada dan tidak kosong
                     include 'page/' . $_GET['page'] . '/index.php';
                 } else {
                     $_SESSION['page'] = $_GET['page'];
-                    include 'page/template/sidebar_admin.php';
+                    include 'page/template/sidebar_dosen.php';
                     include 'page/dosen/' . $_GET['page'] . '/index.php';
                 }
             } else {
-                include 'page/template/sidebar_admin.php';
+                include 'page/template/sidebar_dosen.php';
                 include 'page/admin/index.php';
             }
             include 'page/template/footer.php';

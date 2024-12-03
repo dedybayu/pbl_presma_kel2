@@ -40,7 +40,7 @@ $daftarMahasiswa = $mahasiswaModel->getMahasiswaByDosbim($_SESSION['nip']);
                             <td style="text-align: center; vertical-align: middle;">
                                 <!-- Button untuk menampilkan ID -->
                                 <form action="index.php?page=detailmahasiswa" method="POST">
-                                    <input type="hidden" name="idPrestasi" value="<?php echo $mahasiswa['NIM']; ?>">
+                                    <input type="hidden" name="idPrestasi" value="<?php echo $mahasiswa['NIM'];?>">
                                     <button type="submit" class="btn btn-success btn-sm btn-detail">
                                         <i class="fa fa-edit"></i> Detail
                                     </button>
