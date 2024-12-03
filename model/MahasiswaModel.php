@@ -110,4 +110,25 @@ class MahasiswaModel
         return "Password berhasil diubah.";
     }
 
+    function getMahasiswaByDosbim($nip)
+    {
+        $query = "SELECT DISTINCT m.*, p.nama_prodi FROM mahasiswa m
+            JOIN prodi p ON m.id_prodi = p.id JOIN prestasi pr ON m.NIM = pr.NIM
+            WHERE pr.nip_dosbim = ?";
+        $params = array($nip);
+        $stmt = sqlsrv_query($this->db, $query, $params);
+
+        if ($stmt === false) {
+            die(print_r(sqlsrv_errors(), true));
+        }
+
+        $daftarMahasiswa = [];
+        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+            $daftarMahasiswa[] = $row; // Menambahkan setiap baris data ke array
+        }
+        sqlsrv_free_stmt($stmt);
+
+        return $daftarMahasiswa;
+    }
+
 }

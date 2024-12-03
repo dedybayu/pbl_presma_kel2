@@ -77,3 +77,8 @@ CREATE TABLE [prestasi] (
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
+
+
+SELECT DISTINCT m.*, p.nama_prodi FROM mahasiswa m
+JOIN prodi p ON m.id_prodi = p.id JOIN prestasi pr ON m.NIM = pr.NIM
+WHERE pr.nip_dosbim = '00000';
