@@ -8,7 +8,7 @@ $daftarMahasiswa = $mahasiswaModel->getMahasiswaByDosbim($_SESSION['nip']);
 <!-- Content Area -->
 <div class="content">
     <div class="kotak-judul">
-        <p>Daftar Mahasiswa</p>
+        <p>Daftar Mahasiswa Bimbingan Anda</p>
     </div>
     
     <div class="kotak-konten">

@@ -75,11 +75,22 @@ if (!empty($_SESSION['level'])) { // Cek jika session level ada dan tidak kosong
             require 'fungsi/pesan_kilat.php';
 
             include 'page/template/header.php';
-            include 'page/template/sidebar_dosen.php';
             if (!empty($_GET['page'])) {
-                include 'page/dosen/' . $_GET['page'] . '/index.php';
+                if ($_GET['page'] === "editprestasi") {
+                    // $_SESSION['page'] = "daftarprestasi";
+                    include 'page/template/sidebar_dosen.php';
+                    include 'page/' . $_GET['page'] . '/index.php';
+                } else if ($_GET['page'] === "detailprestasi") {
+                    include 'page/template/sidebar_dosen.php';
+                    include 'page/' . $_GET['page'] . '/index.php';
+                } else {
+                    $_SESSION['page'] = $_GET['page'];
+                    include 'page/template/sidebar_admin.php';
+                    include 'page/dosen/' . $_GET['page'] . '/index.php';
+                }
             } else {
-                include 'page/dosen/index.php';
+                include 'page/template/sidebar_admin.php';
+                include 'page/admin/index.php';
             }
             include 'page/template/footer.php';
             exit();

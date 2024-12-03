@@ -284,3 +284,7 @@ SELECT DISTINCT m.* FROM mahasiswa m
 JOIN prestasi p ON m.NIM = p.NIM WHERE p.nip_dosbim = '54321'; -- Ganti 'NIP_DOSEN' dengan NIP dosen tertentu
 
 SELECT * From dosen;
+
+
+UPDATE prestasi SET status_verifikasi = 'valid' WHERE id = 4;
+SELECT * FROM prestasi;

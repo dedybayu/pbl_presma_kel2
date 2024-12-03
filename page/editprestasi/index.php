@@ -41,7 +41,7 @@
 
                 <div class="row g-4">
                     <!-- Photo 1 -->
-                    <div class="col-12 col-md-6">
+                    <div class="">
                         <!-- Nama Lomba -->
                         <div class="mb-3">
                             <label for="namaLomba" class="form-label">Nama Lomba <span

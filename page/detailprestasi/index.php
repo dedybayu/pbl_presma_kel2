@@ -2,8 +2,17 @@
     <!-- Tampilan List Prestasi -->
     <?php
     require_once "model/PrestasiModel.php";
+    $idPrestasi;
+    if (!empty($_POST['idPrestasi'])) {
+        $idPrestasi = $_POST['idPrestasi'];
+    } else if (isset($_SESSION['edit_prestasi_id'])) {
+        $idPrestasi = $_SESSION['edit_prestasi_id'];
+    } else {
+        $idPrestasi = null;
+    }
+
     $prestasiModel = new PrestasiModel();
-    $prestasi = $prestasiModel->getPrestasiById($_POST['idPrestasi']);
+    $prestasi = $prestasiModel->getPrestasiById($idPrestasi);
     ?>
 
     <div class="kotak-judul d-flex align-items-center justify-content-between" style="padding-bottom: 15px">
@@ -14,8 +23,42 @@
     <div class="kotak-konten">
         <div class="container">
             <?php
+            if (isset($_SESSION['success_message'])) {
+                echo '<div id="success-alert" class="alert alert-success text-center alert-delete" role="alert">';
+                echo $_SESSION['success_message'];
+                echo '</div>';
+                unset($_SESSION['success_message']); // Hapus pesan setelah ditampilkan
+            }
+
+            if (isset($_SESSION['error_message'])) {
+                echo '<div id="error-alert" class="alert alert-danger text-center alert-delete" role="alert">';
+                echo $_SESSION['error_message'];
+                echo '</div>';
+                unset($_SESSION['error_message']); // Hapus pesan setelah ditampilkan
+            }
+            ?>
+
+            <script>
+                setTimeout(function () {
+                    let successAlert = document.getElementById('success-alert');
+                    let errorAlert = document.getElementById('error-alert');
+
+                    if (successAlert) {
+                        successAlert.style.transition = 'opacity 0.5s';
+                        successAlert.style.opacity = '0';
+                        setTimeout(() => successAlert.remove(), 500);
+                    }
+                    if (errorAlert) {
+                        errorAlert.style.transition = 'opacity 0.5s';
+                        errorAlert.style.opacity = '0';
+                        setTimeout(() => errorAlert.remove(), 500);
+                    }
+                }, 3000);
+            </script>
+
+            <?php
             if ($_SESSION['level'] === 'admin' || $_SESSION['level'] === 'dosen') {
-               echo "<p><strong>Nama Mahasiswa:</strong> ". $prestasi['nama_mhs']."</p>";
+                echo "<p><strong>Nama Mahasiswa:</strong> " . $prestasi['nama_mhs'] . "</p>";
 
             }
             ?>
@@ -30,7 +73,6 @@
             </p>
 
             <br>
-
 
             <!-- Grid for 4 Photos with Responsive 1 Column on Small Screens -->
             <div class="row g-4">
@@ -122,7 +164,7 @@
 
             <br><br>
             <div class="row message-box">
-                <p><strong>Pesan:</strong></p>
+                <p><strong>Pesan dari Admin:</strong></p>
                 <div class="message">
                     <?php
                     if ($prestasi['message'] != '') {
@@ -130,29 +172,137 @@
                     } else {
                         echo '<span id="noProposal" style="text-align: left; display: block;">Tidak ada Pesan</span>';
                     }
+
+                    if ($_SESSION['level'] == 'admin') {
+                        ?>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-success ms-auto" data-bs-toggle="modal"
+                                data-bs-target="#editMessageModal"><i class="fa fa-edit"></i> Edit</button>
+                        </div>
+
+                        <!-- Modal Edit Pesan -->
+                        <div class="modal fade" id="editMessageModal" tabindex="-1" aria-labelledby="editMessageModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editMessageModalLabel">Edit Pesan untuk Mahasiswa</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="updateMessage" action="action/prestasi_action.php" method="POST">
+                                            <input type="hidden" name="action" id="action" value="editPesan">
+                                            <input type="hidden" name="prestasiId" value="<?= $prestasi['id'] ?>">
+                                            <div class="mb-3">
+                                                <label for="message" class="form-label">Pesan</label>
+                                                <textarea class="form-control" id="message" name="message" rows="4"
+                                                    placeholder="Masukkan Pesan"><?php echo $prestasi['message']; ?></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer d-flex justify-content-between">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Batal</button>
+                                        <button type="button" class="btn btn-primary"
+                                            onclick="document.getElementById('updateMessage').submit();">Simpan</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <?php
+                    }
                     ?>
 
+
                 </div>
-            </div>
+            </div><br><br>
+            <?php
+            if ($_SESSION['level'] == 'admin') {
+                ?>
+                <div class="d-flex justify-content-center">
+                    <!-- Tombol Verifikasi -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verifikasiModal">
+                        Verifikasi Prestasi
+                    </button>
+                </div>
+
+                <!-- Modal Konfirmasi -->
+                <div class="modal fade" id="verifikasiModal" tabindex="-1" aria-labelledby="verifikasiModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="verifikasiModalLabel">Verifikasi Data Prestasi Ini</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="formVerifikasi" action="action/prestasi_action.php" method="POST">
+                                    <input type="hidden" name="action" id="action" value="updateValidasi">
+                                    <input type="hidden" name="prestasiId" value="<?= $prestasi['id'] ?>">
+
+                                    <label class="form-label">Verifikasi Prestasi <span style="color: red;">*</span></label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="statusVerifikasi" id="valid"
+                                            value="valid" checked required>
+                                        <label class="form-check-label" for="valid">
+                                            Valid
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="statusVerifikasi" id="invalid"
+                                            value="invalid" required>
+                                        <label class="form-check-label" for="invalid">
+                                            Invalid
+                                        </label>
+                                    </div>
+
+                                    <br>
+                                    <label for="message" class="form-label">Pesan Untuk Mahasiswa</label>
+                                    <label for="message" class="form-label">Pesan Untuk Mahasiswa</label>
+                                    <textarea class="form-control" id="message" name="message" placeholder="Masukkan Pesan"
+                                        rows="3"><?= $prestasi['message'] ?></textarea>
+                                </form>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-between">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <button type="button" class="btn btn-primary" onclick="document.getElementById('formVerifikasi').submit();">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }
+            ?>
+
+
+
+
 
 
             <br><br>
+            <?php
+            if ($_SESSION['level'] != 'dosen') {
+                ?>
+                <div class="d-flex justify-content-between">
+                    <!-- Tombol untuk membuka modal -->
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                        data-id="<?= $prestasi['id'] ?>">
+                        Hapus
+                    </button>
+
+                    <form action="index.php?page=editprestasi" method="POST" style="display:inline;">
+                        <input type="hidden" name="idPrestasi" value="<?= $prestasi['id'] ?>">
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </form>
+                </div><br>
+                <?php
+            }
+            ?>
 
 
 
-            <div class="d-flex justify-content-between">
-                <!-- Tombol untuk membuka modal -->
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
-                    data-id="<?php echo $prestasi['id']; ?>">
-                    Hapus
-                </button>
-
-                <form action="index.php?page=editprestasi" method="POST" style="display:inline;">
-                    <input type="hidden" name="idPrestasi" value="<?php echo $prestasi['id']; ?>">
-                    <button type="submit" class="btn btn-primary">Edit</button>
-                </form>
-
-            </div><br>
         </div>
     </div>
 
