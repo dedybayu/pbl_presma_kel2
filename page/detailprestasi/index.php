@@ -23,6 +23,7 @@
             <p><strong>Juara:</strong> <?php echo "Juara " . $prestasi['juara_lomba']; ?>
             </p>
             <p><strong>Tingkat:</strong> <?php echo $prestasi['tingkat_lomba']; ?></p>
+            <p><strong>Status Tim:</strong> <?php echo $prestasi['status_tim']; ?></p>
             <p><strong>Tanggal:</strong> <?php echo $prestasi['waktu_pelaksanaan']->format('j F Y'); ?></p>
             <p><strong>Penyelenggara:</strong>
                 <?php echo $prestasi['penyelenggara_lomba']; ?>

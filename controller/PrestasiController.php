@@ -35,6 +35,7 @@ class PrestasiController
                 $data['dosbim'],
                 $data['jenis_lomba'],
                 $data['juara_lomba'],
+                $data['status_tim'],
                 $data['tingkat_lomba'],
                 $data['waktu_lomba'],
                 $data['tempat_lomba'],

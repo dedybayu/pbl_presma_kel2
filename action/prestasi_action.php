@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $nim = antiinjection($_POST['nim']);
         $nama_lomba = antiinjection($_POST['nama_lomba']);
         $tingkat_lomba = antiinjection($_POST['tingkat_lomba']);
+        $status_tim = antiinjection($_POST['status_tim']);
         $juara_lomba = antiinjection($_POST['juara_lomba']);
         $jenis_lomba = antiinjection($_POST['jenis_lomba']);
         $penyelenggara_lomba = antiinjection($_POST['penyelenggara_lomba']);
@@ -27,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'nama_lomba' => $nama_lomba,
                 'tingkat_lomba' => $tingkat_lomba,
                 'juara_lomba' => $juara_lomba,
+                'status_tim' => $status_tim,
                 'jenis_lomba' => $jenis_lomba,
                 'penyelenggara_lomba' => $penyelenggara_lomba,
                 'dosbim' => $dosbim,
@@ -46,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'nama_lomba' => $nama_lomba,
                 'tingkat_lomba' => $tingkat_lomba,
                 'juara_lomba' => $juara_lomba,
+                'status_tim' => $status_tim,
                 'jenis_lomba' => $jenis_lomba,
                 'penyelenggara_lomba' => $penyelenggara_lomba,
                 'dosbim' => $dosbim,

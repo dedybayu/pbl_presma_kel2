@@ -72,6 +72,18 @@
                     </div>
 
                     <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            <label for="statusTim" class="form-label">Individu/Tim?<span
+                                    style="color: red;">*</span></label>
+                            <select class="form-select" id="statusTim" name="status_tim" required>
+                                <option value="" disabled selected>Pilih Kategori</option>
+                                <option value="tim" <?php if ($prestasi['status_tim'] === 'tim') { echo 'selected'; } ?>>Tim</option>
+                                <option value="individu" <?php if ($prestasi['status_tim'] === 'individu') { echo 'selected'; } ?>>Individu</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
                         <!-- Juara Lomba -->
                         <div class="mb-3">
                             <label for="juaraLomba" class="form-label">Juara Lomba <span

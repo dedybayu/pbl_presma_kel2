@@ -54,6 +54,18 @@
                     </div>
 
                     <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            <label for="statusTim" class="form-label">Individu/Tim?<span
+                                    style="color: red;">*</span></label>
+                            <select class="form-select" id="statusTim" name="status_tim" required>
+                                <option value="" disabled selected>Pilih Kategori</option>
+                                <option value="tim">Tim</option>
+                                <option value="individu">Individu</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
                         <!-- Juara Lomba -->
                         <div class="mb-3">
                             <label for="juaraLomba" class="form-label">Juara Lomba <span
@@ -148,7 +160,7 @@
                         </div>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="col-12 col-md-6">
                         <label for="proposal" class="form-label">Proposal</label>
                         <input type="file" class="form-control" id="proposal" name="proposal" accept="application/pdf">
                         <small class="text-infoFile">Maksimal ukuran file: 4MB. Hanya file PDF yang

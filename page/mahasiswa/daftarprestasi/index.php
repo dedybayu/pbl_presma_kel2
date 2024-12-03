@@ -80,6 +80,7 @@ $daftarPrestasi = $listPrestasi->getPrestasiByNim($_SESSION['nim']);
                             <th>Nama</th>
                             <th>Juara</th>
                             <th>Tingkat</th>
+                            <th>Tim</th>
                             <th>Tanggal</th>
                             <th>Penyelenggara</th>
                             <th>Poin</th>
@@ -96,6 +97,7 @@ $daftarPrestasi = $listPrestasi->getPrestasiByNim($_SESSION['nim']);
                             echo "<td>" . $prestasi['nama_lomba'] . "</td>";
                             echo "<td>" . "Juara " . $prestasi['juara_lomba'] . "</td>";
                             echo "<td>" . $prestasi['tingkat_lomba'] . "</td>";
+                            echo "<td>" . $prestasi['status_tim'] . "</td>";
                             echo "<td>" . $prestasi['waktu_pelaksanaan']->format('j F Y') . "</td>";
                             echo "<td>" . $prestasi['penyelenggara_lomba'] . "</td>";
                             echo "<td>" . $prestasi['poin'] . "</td>";

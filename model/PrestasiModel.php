@@ -16,13 +16,13 @@ class PrestasiModel
     public function insertPrestasi($data)
     {
         $sql = "INSERT INTO prestasi (
-                    NIM, nama_lomba, nip_dosbim, jenis_lomba, juara_lomba, tingkat_lomba, 
+                    NIM, nama_lomba, nip_dosbim, jenis_lomba, juara_lomba, status_tim, tingkat_lomba, 
                     waktu_pelaksanaan, tempat_pelaksanaan, penyelenggara_lomba, 
                     file_bukti_foto, file_sertifikat,
                     file_surat_undangan, file_surat_tugas, 
                     file_proposal, poin, upload_date
                 ) VALUES (
-                    ?, ?, ?, ?, ?, ?, ?, ?, ?, 
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
                     CONVERT(VARBINARY(MAX), ?), CONVERT(VARBINARY(MAX), ?), 
                     CONVERT(VARBINARY(MAX), ?), CONVERT(VARBINARY(MAX), ?), 
                     CONVERT(VARBINARY(MAX), ?), ?, ?
@@ -50,6 +50,7 @@ class PrestasiModel
                     nip_dosbim = ?, 
                     jenis_lomba = ?, 
                     juara_lomba = ?, 
+                    status_tim = ?,
                     tingkat_lomba = ?, 
                     waktu_pelaksanaan = ?, 
                     tempat_pelaksanaan = ?, 
@@ -70,6 +71,7 @@ class PrestasiModel
             $data['dosbim'],
             $data['jenis_lomba'],
             $data['juara_lomba'],
+            $data['status_tim'],
             $data['tingkat_lomba'],
             $data['waktu_lomba'],
             $data['tempat_lomba'],

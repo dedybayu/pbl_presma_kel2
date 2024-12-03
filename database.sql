@@ -113,7 +113,7 @@ SELECT c.name AS ColumnName,
        c.is_nullable AS IsNullable
 FROM sys.columns c
 JOIN sys.types t ON c.user_type_id = t.user_type_id
-WHERE c.object_id = OBJECT_ID('mahasiswa');
+WHERE c.object_id = OBJECT_ID('prestasi');
 
 
 EXEC sp_help 'mahasiswa';
@@ -204,8 +204,7 @@ ALTER COLUMN [upload_date] DATETIME NOT NULL;
 
 ALTER TABLE [prestasi]
 ADD 
-    [status_verifikasi] VARCHAR(10) NOT NULL DEFAULT 'waiting', -- Kolom dengan nilai default 'waiting'
-    [message] VARCHAR(255) NULL; -- Kolom untuk pesan, bisa NULL
+    [status_tim] VARCHAR(10) NOT NULL DEFAULT 'individu';
 
 SELECT * FROM prestasi;
 

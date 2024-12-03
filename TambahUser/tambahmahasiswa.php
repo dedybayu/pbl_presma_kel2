@@ -7,9 +7,9 @@ include "../fungsi/anti_injection.php";
 // $password = $_POST['password'];
 // $level = $_POST['level'];  // Misalnya 'admin' atau 'user'
 // Mendapatkan data dari form atau input
-$password = "1234";
-$nim = "1111111111";
-$nama = "Zahra";
+$password = "2222222222";
+$nim = "2222222222";
+$nama = "Dedy Bayu";
 $jenis_kelamin = "perempuan";
 $id_prodi = "1";
 
