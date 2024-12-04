@@ -54,8 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'waktu_lomba' => $waktu_lomba
             ];
 
-            $controller->updatePrestasi($id, $data, $_FILES);
-            
+            $controller->updatePrestasi($id, $data, $_FILES); 
         }
     }
 
