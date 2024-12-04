@@ -1,6 +1,7 @@
 <?php
 require_once '../model/DosenModel.php';
-
+include '../fungsi/anti_injection.php';
+session_start();
 $dosenModel = new DosenModel();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -47,6 +48,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // } else {
         //     echo 'Password lama salah.';
         // }
+    }
+
+    if ($_POST['action'] === 'edit_biodata') {
+        $data['email'] = antiinjection($_POST['email']);
+        $data['no_tlp'] = antiinjection($_POST['no_tlp']);
+        $data['nip'] = antiinjection($_POST['nip']);
+        $filePP = antiinjection_files($_FILES);
+
+        $filePP = antiinjection_files($_FILES);
+        $data['file_foto_profile'] = !empty($filePP['file_foto_profile']['tmp_name']) ? file_get_contents($filePP['file_foto_profile']['tmp_name']) : null;
+
+        $params = [
+            $data['email'],
+            $data['no_tlp'],
+            $data['file_foto_profile'],
+            $data['nip']
+        ];
+        $status = $dosenModel->updateBiodata($params);
+
+        if ($status === true) {
+            $_SESSION['success_message'] = "Biodata Berhasil Diubah";
+        } else {
+            $_SESSION['error_message'] = "Gagal Merubah Biodata";
+        }
+        header("Location: ../index.php?page=profile");
     }
 }
 ?>

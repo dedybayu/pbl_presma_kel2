@@ -75,6 +75,18 @@ class DosenModel
         return "User tidak ditemukan.";
     }
 
+    function updateBiodata($data)
+    {
+        $query = "UPDATE dosen SET email = ?, no_tlp = ?, file_foto_profile = ISNULL(CONVERT(VARBINARY(MAX), ?), file_foto_profile) WHERE nip = ?";
+        $stmt = sqlsrv_query($this->db, $query, $data);
+        if ($stmt === false) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
     function insertChangePassword($password, $nip)
     {
         $salt = bin2hex(random_bytes(16));

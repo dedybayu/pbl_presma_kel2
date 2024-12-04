@@ -6,6 +6,39 @@
     <div class="kotak-konten">
         <h1>Biodata Dosen</h1>
         <hr>
+        <?php
+        if (isset($_SESSION['success_message'])) {
+            echo '<div id="success-alert" class="alert alert-success text-center alert-delete" role="alert">';
+            echo $_SESSION['success_message'];
+            echo '</div>';
+            unset($_SESSION['success_message']); // Hapus pesan setelah ditampilkan
+        }
+
+        if (isset($_SESSION['error_message'])) {
+            echo '<div id="error-alert" class="alert alert-danger text-center alert-delete" role="alert">';
+            echo $_SESSION['error_message'];
+            echo '</div>';
+            unset($_SESSION['error_message']); // Hapus pesan setelah ditampilkan
+        }
+        ?>
+
+        <script>
+            setTimeout(function () {
+                let successAlert = document.getElementById('success-alert');
+                let errorAlert = document.getElementById('error-alert');
+
+                if (successAlert) {
+                    successAlert.style.transition = 'opacity 0.5s';
+                    successAlert.style.opacity = '0';
+                    setTimeout(() => successAlert.remove(), 500);
+                }
+                if (errorAlert) {
+                    errorAlert.style.transition = 'opacity 0.5s';
+                    errorAlert.style.opacity = '0';
+                    setTimeout(() => errorAlert.remove(), 500);
+                }
+            }, 3000);
+        </script>
         <br>
         <div class="row g-4">
             <!-- Sertifikat -->
@@ -13,7 +46,7 @@
                 <div class="FotoContainer">
                     <?php
                     if (!empty($row['file_foto_profile'])) {
-                        echo '<img class="foto_profile" src="data:image/jpeg;base64,' . base64_encode($prestasi['file_foto_profile']) . '" alt="fotoProfile" data-title="fotoProfile">';
+                        echo '<img class="foto_profile" src="data:image/jpeg;base64,' . base64_encode($row['file_foto_profile']) . '" alt="fotoProfile" data-title="fotoProfile">';
                     } else {
                         echo '<span class="foto_profile" id="noFoto">Tidak ada foto profile</span>';
                     }
@@ -142,27 +175,34 @@
             </div>
             <div class="modal-body">
                 <!-- Form untuk edit biodata -->
-                <form id="editProfileForm">
+                <form id="editProfileForm" action="action/dosen_action.php" method="POST"
+                    enctype="multipart/form-data">
+                    <input type="hidden" name="action" value="edit_biodata">
+                    <input type="hidden" name="nip" value="<?= $row['nip']; ?>">
                     <div class="mb-3">
                         <label for="nip" class="form-label">NIP</label>
-                        <input type="text" class="form-control" id="nip" value="<?= $row['nip']; ?>" disabled>
+                        <input type="text" class="form-control" id="nip" name=" ip" value="<?= $row['nip']; ?>"
+                            disabled>
                     </div>
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="nama" value="<?= $row['nama']; ?>" disabled>
+                        <input type="text" class="form-control" id="nama" name="nama" value="<?= $row['nama']; ?>"
+                            disabled>
                     </div>
                     <div class="mb-3">
-                        <label for="nip" class="form-label">Jenis Kelamin</label>
-                        <input type="text" class="form-control" id="nip"
+                        <label for="jenisKelamin" class="form-label">Jenis Kelamin</label>
+                        <input type="text" class="form-control" id="jenisKelamin" name="jenis_kelamin"
                             value="<?= ucfirst(strtolower($row['jenis_kelamin'])); ?>" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Masukkan email">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan email"
+                            value="<?= $row['email']; ?>">
                     </div>
                     <div class="mb-3">
                         <label for="noTlp" class="form-label">Nomor Telepon</label>
-                        <input type="text" class="form-control" id="noTlp" placeholder="Masukkan nomor telepon">
+                        <input type="text" class="form-control" id="noTlp" name="no_tlp"
+                            placeholder="Masukkan nomor telepon" value="<?= $row['no_tlp']; ?>">
                     </div>
                     <div class="mb-3">
                         <label for="fileFotoProfile" class="form-label">Foto Profile</label>

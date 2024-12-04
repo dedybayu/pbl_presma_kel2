@@ -34,8 +34,14 @@ class MahasiswaModel
 
     function updateBiodata($data)
     {
-        $query = "UPDATE mahasiswa SET nama = ?, email = ?, no_telp = ? WHERE NIM = ?";
-        $stmt = sqlsrv_prepare($this->db, $query, $data);
+        $query = "UPDATE mahasiswa SET email = ?, no_tlp = ?, file_foto_profile = ISNULL(CONVERT(VARBINARY(MAX), ?), file_foto_profile) WHERE NIM = ?";
+        $stmt = sqlsrv_query($this->db, $query, $data);
+        if ($stmt === false) {
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
     function changePassword($data)
