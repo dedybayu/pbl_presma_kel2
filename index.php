@@ -90,7 +90,7 @@ if (!empty($_SESSION['level'])) { // Cek jika session level ada dan tidak kosong
                 }
             } else {
                 include 'page/template/sidebar_dosen.php';
-                include 'page/admin/index.php';
+                include 'page/dosen/index.php';
             }
             include 'page/template/footer.php';
             exit();

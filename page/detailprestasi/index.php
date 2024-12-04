@@ -245,14 +245,14 @@
                                     <label class="form-label">Verifikasi Prestasi <span style="color: red;">*</span></label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="statusVerifikasi" id="valid"
-                                            value="valid" checked required>
+                                            value="valid" <?php if($prestasi['status_verifikasi'] == 'waiting' || $prestasi['status_verifikasi'] == 'valid'){echo 'checked';} ?> required>
                                         <label class="form-check-label" for="valid">
                                             Valid
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="statusVerifikasi" id="invalid"
-                                            value="invalid" required>
+                                            value="invalid" <?php if($prestasi['status_verifikasi'] == 'invalid'){echo 'checked';} ?> required>
                                         <label class="form-check-label" for="invalid">
                                             Invalid
                                         </label>
@@ -267,7 +267,8 @@
                             </div>
                             <div class="modal-footer d-flex justify-content-between">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                <button type="button" class="btn btn-primary" onclick="document.getElementById('formVerifikasi').submit();">Submit</button>
+                                <button type="button" class="btn btn-primary"
+                                    onclick="document.getElementById('formVerifikasi').submit();">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -419,6 +420,15 @@
             object-fit: contain;
             margin: 0 auto;
         }
+    }
+
+    .dark-mode textarea.form-control {
+        background-color: #355470;
+        color: white;
+    }
+    .dark-mode textarea.form-control:focus {
+        background-color: #355470;
+        color: white;
     }
 </style>
 

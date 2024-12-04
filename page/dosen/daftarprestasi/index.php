@@ -8,7 +8,7 @@ $daftarPrestasi = $listPrestasi->getPrestasiByDosen($_SESSION['nip']);
 <!-- Content Area -->
 <div class="content">
     <div class="kotak-judul">
-        <p>Daftar Semua Prestasi</p>
+        <p>Daftar Prestasi Bimbingan Anda</p>
     </div>
 
     <div class="kotak-konten">
