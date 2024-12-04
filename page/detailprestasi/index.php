@@ -62,44 +62,44 @@
 
             }
             ?>
-             <!-- Informasi Lomba -->
-                    <div class="col-12 col-md-6 box-transparen">
-                        <table class="table table-borderless align-middle">
-                            <tbody>
-                                <tr>
-                                    <td class="text-nowrap"><strong>Nama Lomba</strong></td>
-                                    <td class="colon">:</td>
-                                    <td><strong><?= $prestasi['nama_lomba']; ?></strong></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-nowrap"><strong>Juara</strong></td>
-                                    <td class="colon">:</td>
-                                    <td><strong>Juara <?= $prestasi['juara_lomba']; ?></strong></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-nowrap"><strong>Status Tim</strong></td>
-                                    <td class="colon">:</td>
-                                    <td><strong><?= $prestasi['status_tim']; ?></strong></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-nowrap"><strong>Tingkat</strong></td>
-                                    <td class="colon">:</td>
-                                    <td><strong><?= ucfirst(strtolower($prestasi['tingkat_lomba'])); ?>
-                                        </strong></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-nowrap"><strong>Tanggal Lomba</strong></td>
-                                    <td class="colon">:</td>
-                                    <td><strong><?= $prestasi['waktu_pelaksanaan']->format('j F Y'); ?></strong></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-nowrap"><strong>Penyelenggara</strong></td>
-                                    <td class="colon">:</td>
-                                    <td><strong><?= $prestasi['penyelenggara_lomba']; ?></strong></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            <!-- Informasi Lomba -->
+            <div class="col-12 col-md-6 box-transparen">
+                <table class="table table-borderless align-middle">
+                    <tbody>
+                        <tr>
+                            <td class="text-nowrap"><strong>Nama Lomba</strong></td>
+                            <td class="colon">:</td>
+                            <td><strong><?= $prestasi['nama_lomba']; ?></strong></td>
+                        </tr>
+                        <tr>
+                            <td class="text-nowrap"><strong>Juara</strong></td>
+                            <td class="colon">:</td>
+                            <td><strong>Juara <?= $prestasi['juara_lomba']; ?></strong></td>
+                        </tr>
+                        <tr>
+                            <td class="text-nowrap"><strong>Status Tim</strong></td>
+                            <td class="colon">:</td>
+                            <td><strong><?= $prestasi['status_tim']; ?></strong></td>
+                        </tr>
+                        <tr>
+                            <td class="text-nowrap"><strong>Tingkat</strong></td>
+                            <td class="colon">:</td>
+                            <td><strong><?= ucfirst(strtolower($prestasi['tingkat_lomba'])); ?>
+                                </strong></td>
+                        </tr>
+                        <tr>
+                            <td class="text-nowrap"><strong>Tanggal Lomba</strong></td>
+                            <td class="colon">:</td>
+                            <td><strong><?= $prestasi['waktu_pelaksanaan']->format('j F Y'); ?></strong></td>
+                        </tr>
+                        <tr>
+                            <td class="text-nowrap"><strong>Penyelenggara</strong></td>
+                            <td class="colon">:</td>
+                            <td><strong><?= $prestasi['penyelenggara_lomba']; ?></strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <br>
 
@@ -296,7 +296,8 @@
                             </div>
                             <div class="modal-footer d-flex justify-content-between">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                <button type="button" class="btn btn-primary" onclick="document.getElementById('formVerifikasi').submit();">Submit</button>
+                                <button type="button" class="btn btn-primary"
+                                    onclick="document.getElementById('formVerifikasi').submit();">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -380,7 +381,7 @@
 
 
 <style>
-        .table td {
+    .table td {
         padding: 8px 12px;
         /* Menambahkan padding antar elemen */
     }
@@ -406,6 +407,7 @@
         height: auto;
         display: block;
     }
+
     #noFoto,
     #noProposal,
     #noMessage {
