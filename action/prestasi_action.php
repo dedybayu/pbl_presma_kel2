@@ -55,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ];
 
             $controller->updatePrestasi($id, $data, $_FILES);
+            
         }
     }
 
