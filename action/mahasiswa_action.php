@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $data = [];
                 foreach ($rows as $index => $row) {
-                    if ($index === 0)
+                    if ($index === 0 )
                         continue; // Skip header row
                     $data[] = [
                         'nim' => $row[0],
@@ -74,11 +74,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
 
                 // Masukkan data ke database
-                if ($mahasiswaModel->addMahasiswaByExcel($data)) {
-                    echo 'Data mahasiswa berhasil dimasukkan ke database.';
+                $status = $mahasiswaModel->addMahasiswaByExcel($data);
+                if ($status === true) {
+                    unlink($filePath);
+                    $_SESSION['success_message'] = "Daftar Mahasiswa Berhasil Ditambah";
                 } else {
-                    echo 'Gagal memasukkan data mahasiswa.';
+                    unlink($filePath);
+                    $_SESSION['error_message'] = "Gagal Menambah Mahasiswa";
                 }
+                header("Location: ../index.php?page=daftarmahasiswa");
             }
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
@@ -142,6 +146,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['error_message'] = "Gagal Merubah Biodata";
         }
         header("Location: ../index.php?page=profile");
+    }
+
+    if ($_POST['action'] === 'ubah_password_mhs_by_admin'){
+        $nim = antiinjection($_POST['nim']);
+        $password = antiinjection($_POST['password']);
+
+        echo $nim;
+        echo $password;
+        $status = $mahasiswaModel->insertChangePassword($password, $nim);
+
+        if ($status === "Password berhasil diubah.") {
+            $_SESSION['success_message'] = "Password Berhasil Diubah";
+        } else {
+            $_SESSION['error_message'] = "Gagal Merubah Password";
+        }
+        $_SESSION['temp_nim'] = $nim;
+        header("Location: ../index.php?page=detailmahasiswa");
     }
 }
 ?>

@@ -15,19 +15,20 @@ $daftarProdi = $prodiModel->getAllProdi();
     </div>
 
     <div class="kotak-konten">
-        <!-- Tombol untuk membuka modal -->
-        <div class="action-container" style="margin-bottom: 15px;">
+        <!-- Kontainer untuk tombol-tombol -->
+        <div class="action-container" style="margin-bottom: 15px; display: flex; gap: 10px;">
+            <!-- Tombol untuk membuka modal -->
             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                 data-bs-target="#tambahMahasiswaModal">
                 <i class="fa fa-plus"></i> Tambah Mahasiswa
             </button>
-        </div>
-        <div class="action-container" style="margin-bottom: 15px;">
-            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                data-bs-target="#tambahByExcel">
+
+            <!-- Tombol untuk membuka modal -->
+            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tambahByExcel">
                 <i class="fa fa-plus"></i> Tambah By Excel
             </button>
         </div>
+
 
         <?php
         if (isset($_SESSION['success_message'])) {
@@ -92,9 +93,8 @@ $daftarProdi = $prodiModel->getAllProdi();
                         echo "<td>" . $mahasiswa['no_tlp'] . "</td>";
                         ?>
                         <td style="text-align: center; vertical-align: middle;">
-                            <!-- Button untuk menampilkan ID -->
                             <form action="index.php?page=detailmahasiswa" method="POST">
-                                <input type="hidden" name="idPrestasi" value="<?php echo $mahasiswa['NIM']; ?>">
+                                <input type="hidden" name="nim" value="<?php echo $mahasiswa['NIM']; ?>">
                                 <button type="submit" class="btn btn-success btn-sm btn-detail">
                                     <i class="fa fa-edit"></i> Detail
                                 </button>
@@ -114,7 +114,8 @@ $daftarProdi = $prodiModel->getAllProdi();
 </div>
 
 
-<div class="modal fade" id="tambahMahasiswaModal" tabindex="-1" aria-labelledby="tambahMahasiswaModalLabel" aria-hidden="true">
+<div class="modal fade" id="tambahMahasiswaModal" tabindex="-1" aria-labelledby="tambahMahasiswaModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form id="tambahMahasiswa" action="action/mahasiswa_action.php" method="POST">
@@ -125,15 +126,13 @@ $daftarProdi = $prodiModel->getAllProdi();
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="nip" class="form-label">NIM<span
-                        style="color: red;">*</span></label>
+                        <label for="nip" class="form-label">NIM<span style="color: red;">*</span></label>
                         <input type="text" class="form-control" id="nim" name="nim" placeholder="Masukkan NIM" required>
                     </div>
                     <div class="mb-3">
-                        <label for="nama" class="form-label">Nama<span
-                        style="color: red;">*</span></label>
-                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama Dosen"
-                            required>
+                        <label for="nama" class="form-label">Nama<span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" id="nama" name="nama"
+                            placeholder="Masukkan Nama Mahasiswa" required>
                     </div>
                     <div class="mb-3">
                         <label for="jenisKelamin" class="form-label">Jenis Kelamin<span
@@ -145,13 +144,12 @@ $daftarProdi = $prodiModel->getAllProdi();
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="prodi" class="form-label">Prodi<span
-                                style="color: red;">*</span></label>
+                        <label for="prodi" class="form-label">Prodi<span style="color: red;">*</span></label>
                         <select class="form-select" id="prodi" name="prodi" required>
                             <option value="" disabled selected>Pilih Prodi</option>
                             <?php
                             foreach ($daftarProdi as $prodi) {
-                                echo '<option value="'. $prodi['id'] .'">'. $prodi['nama_prodi'] .'</option>';
+                                echo '<option value="' . $prodi['id'] . '">' . $prodi['nama_prodi'] . '</option>';
                             }
                             ?>
                         </select>
@@ -159,12 +157,12 @@ $daftarProdi = $prodiModel->getAllProdi();
                     <div class="mb-3">
                         <label for="nama" class="form-label">email</label>
                         <input type="text" class="form-control" id="email" name="email"
-                            placeholder="Masukkan Email Dosen" required>
+                            placeholder="Masukkan Email Mahasiswa">
                     </div>
                     <div class="mb-3">
                         <label for="nama" class="form-label">No. Telp</label>
                         <input type="text" class="form-control" id="no_tlp" name="no_tlp"
-                            placeholder="Masukkan No. Telp Dosen" required>
+                            placeholder="Masukkan No. Telp Mahasiswa">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -189,7 +187,8 @@ $daftarProdi = $prodiModel->getAllProdi();
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="excelFile" class="form-label">Upload File Excel</label>
-                        <input type="file" name="excelFile" id="excelFile" class="form-control" accept=".xls,.xlsx" required>
+                        <input type="file" name="excelFile" id="excelFile" class="form-control" accept=".xls,.xlsx"
+                            required>
                         <small class="form-text text-muted">Format yang didukung: .xls, .xlsx</small>
                     </div>
                 </div>
@@ -202,6 +201,53 @@ $daftarProdi = $prodiModel->getAllProdi();
         </div>
     </div>
 </div>
+
+
+<!-- Modal Detail Mahasiswa -->
+<div class="modal fade" id="detailMahasiswaModal" tabindex="-1" aria-labelledby="detailMahasiswaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailMahasiswaModalLabel">Detail Mahasiswa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Detail Mahasiswa Form -->
+                <form>
+                    <div class="mb-3">
+                        <label for="nimDetail" class="form-label">NIM</label>
+                        <input type="text" class="form-control" id="nimDetail" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="namaDetail" class="form-label">Nama</label>
+                        <input type="text" class="form-control" id="namaDetail" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="prodiDetail" class="form-label">Program Studi</label>
+                        <input type="text" class="form-control" id="prodiDetail" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jenisKelaminDetail" class="form-label">Jenis Kelamin</label>
+                        <input type="text" class="form-control" id="jenisKelaminDetail" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="emailDetail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="emailDetail" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="noTlpDetail" class="form-label">No. Telepon</label>
+                        <input type="text" class="form-control" id="noTlpDetail" readonly>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
 <style>

@@ -2,6 +2,8 @@
 if (file_exists('../config/database.php')) {
     require_once '../config/database.php';
 }
+// include '../fungsi/anti_injection.php';
+
 
 
 class MahasiswaModel
@@ -45,13 +47,29 @@ class MahasiswaModel
             $stmt = sqlsrv_query($this->db, $query, $params);
 
             if ($stmt === false) {
-                return false; // Jika ada error, hentikan dan kembalikan false
+                die(print_r(sqlsrv_errors(), true));
             }
         }
-
-        return true; // Jika semua data berhasil dimasukkan
+        return true;
     }
 
+    function getMahasiswaByNim($nim)
+    {
+        $nim = antiinjection($nim);
+        $query = "SELECT * FROM mahasiswa WHERE NIM = ?";
+        $params = array($nim);
+        // Mempersiapkan query
+        $stmt = sqlsrv_query($this->db, $query, $params);
+
+        if ($stmt === false) {
+            die(print_r(sqlsrv_errors(), true));
+        }
+
+        $mahasiswa = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+        sqlsrv_free_stmt($stmt);
+
+        return $mahasiswa;
+    }
 
     function getAllMahasiswa()
     {
@@ -143,7 +161,7 @@ class MahasiswaModel
         $stmt = sqlsrv_prepare($this->db, $query, $params);
 
         if ($stmt === false) {
-            die(print_r(sqlsrv_errors(), true));
+            die(print_r(sqlsrv_errors(), return: true));
         }
 
         // Eksekusi query

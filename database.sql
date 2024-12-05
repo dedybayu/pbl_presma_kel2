@@ -76,9 +76,16 @@ ALTER TABLE [prodi] DROP CONSTRAINT FK_prodi_jurusan;
 -- Hapus kolom id_jurusan
 ALTER TABLE [prodi] DROP COLUMN [id_jurusan];
 
+
+DELETE FROM [prodi] WHERE id = '1';
+SET IDENTITY_INSERT [prodi] ON;
+
 -- Menambahkan data ke tabel jurusan
-INSERT INTO [jurusan] (nama_jurusan)
-VALUES ('Teknologi Informasi');
+INSERT INTO [prodi] (id, nama_prodi)
+VALUES 
+(1001, 'D4-Teknologi Informasi'),
+(1002, 'D4-Sistem Informasi Bisnis'),
+(1003, 'D2-Pengembangan Piranti Lunak Situs');
 
 SELECT * FROM prodi;
 
@@ -91,6 +98,8 @@ DELETE FROM [mahasiswa] WHERE nim = '4444444444';
 DELETE FROM [mahasiswa] WHERE nim = '5555555555';
 DELETE FROM [mahasiswa] WHERE nim = '6666666666';
 DELETE FROM [mahasiswa] WHERE nim = '7777777777';
+DELETE FROM [mahasiswa] WHERE nim = '8888888888';
+DELETE FROM [mahasiswa] WHERE nim = '9999999999';
 
 
 
