@@ -1,11 +1,10 @@
 <?php
 require 'model/MahasiswaModel.php';
 include 'fungsi/anti_injection.php';
-if (isset($_SESSION['temp_nim'])) {
-    $nim = $_SESSION['temp_nim'];
-    unset($_SESSION['temp_nim']);
-} else {
+if (isset($_POST['nim'])) {
     $nim = antiinjection($_POST['nim']);
+} else {
+    $nim = $_SESSION['temp_nim'];
 }
 $mahasiswaModel = new MahasiswaModel();
 $mahasiswa = $mahasiswaModel->getMahasiswaByNim($nim);
@@ -13,6 +12,9 @@ if (!$mahasiswa) {
     echo "Mahasiswa tidak ditemukan!";
     exit;
 }
+require_once "model/ProdiModel.php";
+$prodiModel = new ProdiModel();
+$daftarProdi = $prodiModel->getAllProdi();
 ?>
 <!-- Content Area -->
 <div class="content">
@@ -194,27 +196,41 @@ if (!$mahasiswa) {
                 <!-- Form untuk edit biodata -->
                 <form id="editProfileForm" action="action/mahasiswa_action.php" method="POST"
                     enctype="multipart/form-data">
-                    <input type="hidden" name="action" value="edit_biodata">
+                    <input type="hidden" name="action" value="edit_data_mahasiswa">
                     <input type="hidden" name="nim" value="<?= $mahasiswa['NIM']; ?>">
                     <div class="mb-3">
-                        <label for="nim" class="form-label">NIM</label>
-                        <input type="text" class="form-control" id="nim" name="nim" value="<?= $mahasiswa['NIM']; ?>"
-                            disabled>
+                        <label for="nim" class="form-label">NIM <span
+                        style="color: red;">*</span></label>
+                        <input type="text" class="form-control" id="newnim" name="new_nim" value="<?= $mahasiswa['NIM']; ?>" required>
                     </div>
                     <div class="mb-3">
-                        <label for="nama" class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="nama" name="nama" value="<?= $mahasiswa['nama']; ?>"
-                            disabled>
+                        <label for="nama" class="form-label">Nama Lengkap <span
+                        style="color: red;">*</span></label>
+                        <input type="text" class="form-control" id="nama" name="nama" value="<?= $mahasiswa['nama']; ?>" required>
                     </div>
                     <div class="mb-3">
-                        <label for="jenisKelamin" class="form-label">Jenis Kelamin</label>
-                        <input type="text" class="form-control" id="jenisKelamin" name="jenis_kelamin"
-                            value="<?php if ($mahasiswa['jenis_kelamin'] == 'L') {
-                                echo "Laki-Laki";
-                            } else {
-                                echo "Perempuan";
-                            } ?>"
-                            disabled>
+                        <label for="jenisKelamin" class="form-label">Jenis Kelamin <span
+                                style="color: red;">*</span></label>
+                        <select class="form-select" id="jenisKelamin" name="jenis_kelamin" required>
+                            <option value="" disabled selected>Jenis Kelamin</option>
+                            <option value="L" <?php if($mahasiswa['jenis_kelamin'] == 'L'){echo "selected";} ?>>Laki-Laki</option>
+                            <option value="P" <?php if($mahasiswa['jenis_kelamin'] == 'P'){echo "selected";} ?>>Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="prodi" class="form-label">Prodi <span style="color: red;">*</span></label>
+                        <select class="form-select" id="prodi" name="prodi" required>
+                            <option value="" disabled selected>Pilih Prodi</option>
+                            <?php
+                            foreach ($daftarProdi as $prodi) {
+                                if($prodi['id'] == $mahasiswa['id_prodi']) {
+                                    echo '<option value="' . $prodi['id'] . '" selected>' . $prodi['nama_prodi'] . '</option>';
+                                } else {
+                                    echo '<option value="' . $prodi['id'] . '">' . $prodi['nama_prodi'] . '</option>';
+                                } 
+                            }
+                            ?>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>

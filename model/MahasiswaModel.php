@@ -92,10 +92,12 @@ class MahasiswaModel
 
     function updateDataMahasiswa($data)
     {
-        $query = "UPDATE mahasiswa SET NIM = ?, nama = ? email = ?, no_tlp = ?, file_foto_profile = ISNULL(CONVERT(VARBINARY(MAX), ?), file_foto_profile) WHERE NIM = ?";
+        $query = "UPDATE mahasiswa SET NIM = ?, nama = ?, jenis_kelamin = ?, id_prodi = ?, email = ?, no_tlp = ?, file_foto_profile = ISNULL(CONVERT(VARBINARY(MAX), ?), file_foto_profile) WHERE NIM = ?";
         $stmt = sqlsrv_query($this->db, $query, $data);
         if ($stmt === false) {
-            return false;
+            // return false;
+            die(print_r(sqlsrv_errors(), true));
+
         } else {
             return true;
         }
@@ -113,7 +115,7 @@ class MahasiswaModel
         }
 
     }
-    
+
 
     function changePassword($data)
     {

@@ -127,7 +127,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $data['email'] = antiinjection($_POST['email']);
         $data['no_tlp'] = antiinjection($_POST['no_tlp']);
         $data['nim'] = antiinjection($_POST['nim']);
-        $filePP = antiinjection_files($_FILES);
 
         $filePP = antiinjection_files($_FILES);
         $data['file_foto_profile'] = !empty($filePP['file_foto_profile']['tmp_name']) ? file_get_contents($filePP['file_foto_profile']['tmp_name']) : null;
@@ -146,6 +145,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['error_message'] = "Gagal Merubah Biodata";
         }
         header("Location: ../index.php?page=profile");
+    }
+
+    if ($_POST['action'] === 'edit_data_mahasiswa') {
+        $data['new_nim'] = antiinjection($_POST['new_nim']);
+        $data['nim'] = antiinjection($_POST['nim']);
+        $data['nama'] = antiinjection($_POST['nama']);
+        $data['jenis_kelamin'] = antiinjection($_POST['jenis_kelamin']);
+        $data['prodi'] = antiinjection($_POST['prodi']);
+        $data['email'] = antiinjection($_POST['email']);
+        $data['no_tlp'] = antiinjection($_POST['no_tlp']);
+
+        $filePP = antiinjection_files($_FILES);
+        $data['file_foto_profile'] = !empty($filePP['file_foto_profile']['tmp_name']) ? file_get_contents($filePP['file_foto_profile']['tmp_name']) : null;
+        $params = [
+            $data['new_nim'],
+            $data['nama'],
+            $data['jenis_kelamin'],
+            $data['prodi'],
+            $data['email'],
+            $data['no_tlp'],
+            $data['file_foto_profile'],
+            $data['nim']
+        ];
+        $status = $mahasiswaModel->updateDataMahasiswa($params);
+
+        if ($status === true) {
+            $_SESSION['success_message'] = "Biodata Berhasil Diubah";
+        } else {
+            $_SESSION['error_message'] = "Gagal Merubah Biodata";
+        }
+        $_SESSION['temp_nim'] = $data['new_nim'];
+        header("Location: ../index.php?page=detailmahasiswa");
     }
 
     if ($_POST['action'] === 'ubah_password_mhs_by_admin'){

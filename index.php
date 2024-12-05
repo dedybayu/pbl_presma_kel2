@@ -46,7 +46,7 @@ if (!empty($_SESSION['level'])) { // Cek jika session level ada dan tidak kosong
             include 'page/template/header.php';
             if (!empty($_GET['page'])) {
                 if ($_GET['page'] === "editprestasi") {
-                    // $_SESSION['page'] = "daftarprestasi";
+                    $_SESSION['page'] = "daftarprestasi";
                     include 'page/template/sidebar_admin.php';
                     include 'page/' . $_GET['page'] . '/index.php';
                 } else if ($_GET['page'] === "detailprestasi") {
@@ -58,6 +58,7 @@ if (!empty($_SESSION['level'])) { // Cek jika session level ada dan tidak kosong
                     include 'page/admin/' . $_GET['page'] . '/index.php';
                 }
             } else {
+                $_SESSION['page'] = "dashboard";
                 include 'page/template/sidebar_admin.php';
                 include 'page/admin/index.php';
             }
