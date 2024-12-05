@@ -90,6 +90,7 @@ if (!empty($_SESSION['level'])) { // Cek jika session level ada dan tidak kosong
                     include 'page/dosen/' . $_GET['page'] . '/index.php';
                 }
             } else {
+                $_SESSION['page'] = "dashboard";
                 include 'page/template/sidebar_dosen.php';
                 include 'page/dosen/index.php';
             }
