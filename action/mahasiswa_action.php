@@ -4,6 +4,9 @@ include '../fungsi/anti_injection.php';
 $mahasiswaModel = new MahasiswaModel();
 session_start();
 
+require '../composer/vendor/autoload.php';
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($_POST['action'] === 'add_mahasiswa') {
         $data['nim'] = antiinjection($_POST['nim']);
@@ -23,9 +26,65 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: ../index.php?page=daftarmahasiswa");
     }
 
-    if ($_POST['action'] === 'add_by_excel'){
+    if ($_POST['action'] === 'add_by_excel') {
+        try {
+            $mahasiswaModel = new MahasiswaModel();
 
+            // Upload file
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
+                $file = $_FILES['excelFile'];
+                $allowedExtensions = ['xls', 'xlsx'];
+
+                if ($file['error'] !== 0) {
+                    throw new Exception('Error uploading file.');
+                }
+
+                $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+                if (!in_array($fileExtension, $allowedExtensions)) {
+                    throw new Exception('Invalid file type.');
+                }
+
+                $uploadDir = '../uploads/';
+                if (!file_exists($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                }
+
+                $filePath = $uploadDir . uniqid() . '.' . $fileExtension;
+                if (!move_uploaded_file($file['tmp_name'], $filePath)) {
+                    throw new Exception('Failed to save uploaded file.');
+                }
+
+                // Proses file Excel
+                $spreadsheet = IOFactory::load($filePath);
+                $worksheet = $spreadsheet->getActiveSheet();
+                $rows = $worksheet->toArray();
+
+                $data = [];
+                foreach ($rows as $index => $row) {
+                    if ($index === 0)
+                        continue; // Skip header row
+                    $data[] = [
+                        'nim' => $row[0],
+                        'nama' => $row[1],
+                        'jenis_kelamin' => $row[2],
+                        'prodi' => $row[3],
+                        'email' => $row[4],
+                        'no_tlp' => $row[5]
+                    ];
+                }
+
+                // Masukkan data ke database
+                if ($mahasiswaModel->addMahasiswaByExcel($data)) {
+                    echo 'Data mahasiswa berhasil dimasukkan ke database.';
+                } else {
+                    echo 'Gagal memasukkan data mahasiswa.';
+                }
+            }
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
     }
+
 
 
     if ($_POST['action'] === 'remove') {

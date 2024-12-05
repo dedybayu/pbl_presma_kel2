@@ -64,6 +64,12 @@ CREATE TABLE [prodi] (
     ON UPDATE CASCADE
 );
 
+SET IDENTITY_INSERT [prodi] ON;
+
+UPDATE [prodi]
+SET id = 1001
+WHERE id = 1;
+
 -- Hapus foreign key constraint
 ALTER TABLE [prodi] DROP CONSTRAINT FK_prodi_jurusan;
 
@@ -75,6 +81,23 @@ INSERT INTO [jurusan] (nama_jurusan)
 VALUES ('Teknologi Informasi');
 
 SELECT * FROM prodi;
+
+TRUNCATE TABLE [mahasiswa];
+
+DELETE FROM [mahasiswa] WHERE nim = '1111111111';
+DELETE FROM [mahasiswa] WHERE nim = '2222222222';
+DELETE FROM [mahasiswa] WHERE nim = '3333333333';
+DELETE FROM [mahasiswa] WHERE nim = '4444444444';
+DELETE FROM [mahasiswa] WHERE nim = '5555555555';
+DELETE FROM [mahasiswa] WHERE nim = '6666666666';
+DELETE FROM [mahasiswa] WHERE nim = '7777777777';
+
+
+
+TRUNCATE TABLE [prestasi];
+
+SELECT * FROM mahasiswa;
+
 
 -- Menambahkan data ke tabel prodi
 -- Ambil ID jurusan yang sesuai dengan nama "Teknologi Informasi"
@@ -106,6 +129,16 @@ CREATE TABLE [mahasiswa] (
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
+
+
+UPDATE mahasiswa
+SET jenis_kelamin = CASE 
+    WHEN jenis_kelamin = 'perempuan' THEN 'P'
+    WHEN jenis_kelamin = 'laki-laki' THEN 'L'
+    ELSE jenis_kelamin
+END;
+
+
 
 SELECT c.name AS ColumnName,
        t.name AS DataType,

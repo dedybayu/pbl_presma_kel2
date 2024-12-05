@@ -3,6 +3,7 @@ if (file_exists('../config/database.php')) {
     require_once '../config/database.php';
 }
 
+
 class MahasiswaModel
 {
     private $db;
@@ -30,6 +31,27 @@ class MahasiswaModel
             return true;
         }
     }
+
+    function addMahasiswaByExcel($data)
+    {
+        foreach ($data as $row) {
+            $password = $row['nim'];
+            $salt = bin2hex(random_bytes(16));
+            $combined_password = $salt . $password;
+            $hashed_password = password_hash($combined_password, PASSWORD_BCRYPT);
+
+            $query = "INSERT INTO [mahasiswa] (NIM, password, salt, nama, jenis_kelamin, id_prodi, email, no_tlp) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $params = array($row['nim'], $hashed_password, $salt, $row['nama'], $row['jenis_kelamin'], $row['prodi'], $row['email'], $row['no_tlp']);
+            $stmt = sqlsrv_query($this->db, $query, $params);
+
+            if ($stmt === false) {
+                return false; // Jika ada error, hentikan dan kembalikan false
+            }
+        }
+
+        return true; // Jika semua data berhasil dimasukkan
+    }
+
 
     function getAllMahasiswa()
     {

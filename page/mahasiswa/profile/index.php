@@ -71,7 +71,7 @@
                         <tr>
                             <td class="text-nowrap"><strong>Jenis Kelamin</strong></td>
                             <td class="colon">:</td>
-                            <td><strong><?= ucfirst(strtolower($row['jenis_kelamin'])); ?>
+                            <td><strong><?php if($row['jenis_kelamin'] == 'L'){echo "Laki-Laki";} else{echo "Perempuan";} ?>
                                 </strong></td>
                         </tr>
                         <tr>
@@ -193,7 +193,7 @@
                     <div class="mb-3">
                         <label for="jenisKelamin" class="form-label">Jenis Kelamin</label>
                         <input type="text" class="form-control" id="jenisKelamin" name="jenis_kelamin"
-                            value="<?= ucfirst(strtolower($row['jenis_kelamin'])); ?>" disabled>
+                            value="<?php if($row['jenis_kelamin'] == 'L'){echo "Laki-Laki";} else{echo "Perempuan";} ?>" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>

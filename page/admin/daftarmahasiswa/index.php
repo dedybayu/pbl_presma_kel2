@@ -22,6 +22,12 @@ $daftarProdi = $prodiModel->getAllProdi();
                 <i class="fa fa-plus"></i> Tambah Mahasiswa
             </button>
         </div>
+        <div class="action-container" style="margin-bottom: 15px;">
+            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                data-bs-target="#tambahByExcel">
+                <i class="fa fa-plus"></i> Tambah By Excel
+            </button>
+        </div>
 
         <?php
         if (isset($_SESSION['success_message'])) {
@@ -77,7 +83,11 @@ $daftarProdi = $prodiModel->getAllProdi();
                         echo "<td>" . $mahasiswa['NIM'] . "</td>";
                         echo "<td>" . $mahasiswa['nama'] . "</td>";
                         echo "<td>" . $mahasiswa['prodi'] . "</td>";
-                        echo "<td>" . $mahasiswa['jenis_kelamin'] . "</td>";
+                        if ($mahasiswa['jenis_kelamin'] == 'L') {
+                            echo "<td>Laki-laki</td>";
+                        } else if ($mahasiswa['jenis_kelamin'] == 'P') {
+                            echo "<td>Perempuan</td>";
+                        }
                         echo "<td>" . $mahasiswa['email'] . "</td>";
                         echo "<td>" . $mahasiswa['no_tlp'] . "</td>";
                         ?>
@@ -104,8 +114,6 @@ $daftarProdi = $prodiModel->getAllProdi();
 </div>
 
 
-
-<!-- Modal Tambah Dosen -->
 <div class="modal fade" id="tambahMahasiswaModal" tabindex="-1" aria-labelledby="tambahMahasiswaModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -116,13 +124,11 @@ $daftarProdi = $prodiModel->getAllProdi();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Input NIP -->
                     <div class="mb-3">
                         <label for="nip" class="form-label">NIM<span
                         style="color: red;">*</span></label>
                         <input type="text" class="form-control" id="nim" name="nim" placeholder="Masukkan NIM" required>
                     </div>
-                    <!-- Input Nama -->
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama<span
                         style="color: red;">*</span></label>
@@ -134,8 +140,8 @@ $daftarProdi = $prodiModel->getAllProdi();
                                 style="color: red;">*</span></label>
                         <select class="form-select" id="jenisKelamin" name="jenis_kelamin" required>
                             <option value="" disabled selected>Jenis Kelamin</option>
-                            <option value="laki-laki">Laki-Laki</option>
-                            <option value="perempuan">Perempuan</option>
+                            <option value="L">Laki-Laki</option>
+                            <option value="P">Perempuan</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -169,6 +175,34 @@ $daftarProdi = $prodiModel->getAllProdi();
         </div>
     </div>
 </div>
+
+<!-- Modal Tambah Mahasiswa by Excel -->
+<div class="modal fade" id="tambahByExcel" tabindex="-1" aria-labelledby="tambahByExcelLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="action/mahasiswa_action.php" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="action" id="action" value="add_by_excel">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tambahByExcelLabel">Tambah Mahasiswa via Excel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="excelFile" class="form-label">Upload File Excel</label>
+                        <input type="file" name="excelFile" id="excelFile" class="form-control" accept=".xls,.xlsx" required>
+                        <small class="form-text text-muted">Format yang didukung: .xls, .xlsx</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="action" value="add_by_excel">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 <style>
     .dark-mode .form-control,
