@@ -13,6 +13,24 @@ class MahasiswaModel
         $this->db = $database->conn;
     }
 
+    function addMahasiswa($data)
+    {
+        $password = $data['nim'];
+        $salt = bin2hex(random_bytes(16));
+        $combined_password = $salt . $password;
+        $hashed_password = password_hash($combined_password, PASSWORD_BCRYPT);
+
+        $query = "INSERT INTO [mahasiswa] (NIM, password, salt, nama, jenis_kelamin, id_prodi, email, no_tlp) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $params = array($data['nim'], $hashed_password, $salt, $data['nama'], $data['jenis_kelamin'], $data['prodi'], $data['email'], $data['no_tlp']);
+        $stmt = sqlsrv_query($this->db, $query, $params);
+
+        if ($stmt === false) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     function getAllMahasiswa()
     {
         $query = "SELECT m.*, p.nama_prodi AS prodi FROM mahasiswa m JOIN prodi p ON m.id_prodi = p.id";

@@ -47,12 +47,6 @@ function tambahUser($koneksi, $nip, $password, $nama, $jenis_kelamin) {
     if ($stmt === false) {
         die(print_r(sqlsrv_errors(), true));
     }
-
-    sqlsrv_free_stmt($stmt);
-    sqlsrv_close($koneksi);
-
-    // Mengembalikan pesan sukses
-    return "User baru telah ditambahkan.";
 }
 
 ?>

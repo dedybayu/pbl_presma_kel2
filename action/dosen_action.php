@@ -5,17 +5,30 @@ session_start();
 $dosenModel = new DosenModel();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($_POST['action'] === 'add') {
+    if ($_POST['action'] === 'add_dosen') {
+        $data['nip'] = antiinjection($_POST['nip']);
+        $data['nama'] = antiinjection($_POST['nama']);
+        $data['jenis_kelamin'] = antiinjection($_POST['jenis_kelamin']);
+        $data['email'] = antiinjection($_POST['email']);
+        $data['no_tlp'] = antiinjection($_POST['no_tlp']);
 
+        $dosenModel->addDosen($data);
+
+        if ($status === true) {
+            $_SESSION['success_message'] = "Dosen Berhasil Ditambah";
+        } else {
+            $_SESSION['error_message'] = "Gagal Menambah Dosen";
+        }
+        header("Location: ../index.php?page=daftardosen");
     }
 
     if ($_POST['action'] === 'remove') {}
 
     if ($_POST['action'] === 'ubah_password') {
-        $nip = $_POST['nip'];
-        $currentPassword = $_POST['currentPassword'];
-        $newPassword = $_POST['newPassword'];
-        $confirmPassword = $_POST['confirmPassword'];
+        $nip = antiinjection($_POST['nip']);
+        $currentPassword = antiinjection($_POST['currentPassword']);
+        $newPassword = antiinjection($_POST['newPassword']);
+        $confirmPassword = antiinjection($_POST['confirmPassword']);
     
         // Validasi input
         if (empty($currentPassword) || empty($newPassword) || empty($confirmPassword)) {
@@ -38,16 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $result = $dosenModel->changePassword($data);
         echo $result;
-        // if ($currentPassword === $storedPassword) {
-        //     if ($newPassword === $confirmPassword) {
-        //         $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-        //         echo 'Password berhasil diubah.';
-        //     } else {
-        //         echo 'Password baru dan konfirmasi tidak cocok.';
-        //     }
-        // } else {
-        //     echo 'Password lama salah.';
-        // }
     }
 
     if ($_POST['action'] === 'edit_biodata') {

@@ -5,8 +5,22 @@ $mahasiswaModel = new MahasiswaModel();
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($_POST['action'] === 'add') {
+    if ($_POST['action'] === 'add_mahasiswa') {
+        $data['nim'] = antiinjection($_POST['nim']);
+        $data['nama'] = antiinjection($_POST['nama']);
+        $data['jenis_kelamin'] = antiinjection($_POST['jenis_kelamin']);
+        $data['prodi'] = antiinjection($_POST['prodi']);
+        $data['email'] = antiinjection($_POST['email']);
+        $data['no_tlp'] = antiinjection($_POST['no_tlp']);
 
+        $status = $mahasiswaModel->addMahasiswa($data);
+
+        if ($status === true) {
+            $_SESSION['success_message'] = "Mahasiswa Berhasil Ditambah";
+        } else {
+            $_SESSION['error_message'] = "Gagal Menambah Mahasiswa";
+        }
+        header("Location: ../index.php?page=daftarmahasiswa");
     }
 
     if ($_POST['action'] === 'remove') {

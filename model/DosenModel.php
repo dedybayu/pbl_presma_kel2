@@ -13,6 +13,24 @@ class DosenModel
         $this->db = $database->conn;
     }
 
+    function addDosen($data)
+    {
+        $password = $data['nip'];
+        $salt = bin2hex(random_bytes(16));
+        $combined_password = $salt . $password;
+        $hashed_password = password_hash($combined_password, PASSWORD_BCRYPT);
+
+        $query = "INSERT INTO [dosen] (nip, password, salt, nama, jenis_kelamin, email, no_tlp) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $params = array($data['nip'], $hashed_password, $salt, $data['nama'], $data['jenis_kelamin'], $data['email'], $data['no_tlp']);
+        $stmt = sqlsrv_query($this->db, $query, $params);
+
+        if ($stmt === false) {
+            die(print_r(sqlsrv_errors(), true));
+        } else {
+            return true;
+        }
+    }
+
     function getAllDosen()
     {
         $query = "SELECT * FROM dosen";
