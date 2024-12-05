@@ -23,6 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: ../index.php?page=daftarmahasiswa");
     }
 
+    if ($_POST['action'] === 'add_by_excel'){
+
+    }
+
+
     if ($_POST['action'] === 'remove') {
     }
 
