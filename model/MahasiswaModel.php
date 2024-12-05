@@ -90,6 +90,18 @@ class MahasiswaModel
         return $daftarMahasiswa;
     }
 
+    function updateDataMahasiswa($data)
+    {
+        $query = "UPDATE mahasiswa SET NIM = ?, nama = ? email = ?, no_tlp = ?, file_foto_profile = ISNULL(CONVERT(VARBINARY(MAX), ?), file_foto_profile) WHERE NIM = ?";
+        $stmt = sqlsrv_query($this->db, $query, $data);
+        if ($stmt === false) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
     function updateBiodata($data)
     {
         $query = "UPDATE mahasiswa SET email = ?, no_tlp = ?, file_foto_profile = ISNULL(CONVERT(VARBINARY(MAX), ?), file_foto_profile) WHERE NIM = ?";
@@ -101,6 +113,7 @@ class MahasiswaModel
         }
 
     }
+    
 
     function changePassword($data)
     {
