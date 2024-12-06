@@ -9,7 +9,7 @@ if (isset($_POST['nip'])) {
 $dosenModel = new DosenModel();
 $dosen = $dosenModel->getDosenByNip($nip);
 if (!$dosen) {
-    echo "Mahasiswa tidak ditemukan!";
+    echo "Dosen tidak ditemukan!";
     exit;
 }
 ?>
@@ -85,7 +85,11 @@ if (!$dosen) {
                         <tr>
                             <td class="text-nowrap"><strong>Jenis Kelamin</strong></td>
                             <td class="colon">:</td>
-                            <td><strong><?= ucfirst(strtolower($dosen['jenis_kelamin'])); ?>
+                            <td><strong><?php if ($dosen['jenis_kelamin'] == 'L') {
+                                echo "Laki-Laki";
+                            } else {
+                                echo "Perempuan";
+                            } ?>
                                 </strong></td>
                         </tr>
                         <tr>
@@ -123,19 +127,14 @@ if (!$dosen) {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ubahPasswordModalLabel">Ubah Password</h5>
+                <h5 class="modal-title" id="ubahPasswordModalLabel">Ubah Password Dosen</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <!-- Form untuk ubah password -->
-                <form id="passwordForm">
-                    <input type="hidden" name="action" id="action" value="ubah_password">
+                <form id="passwordForm" action="action/dosen_action.php" method="POST">
+                    <input type="hidden" name="action" id="action" value="ubah_password_dosen_by_admin">
                     <input type="hidden" name="nip" id="nip" value="<?= $dosen['nip']; ?>">
-                    <div class="mb-3">
-                        <label for="currentPassword" class="form-label">Password Lama</label>
-                        <input type="password" class="form-control" id="currentPassword"
-                            placeholder="Masukkan password lama" required>
-                    </div>
                     <div id="currentPasswordError" class="text-danger mt-2" style="display: none;">Password lama salah.
                     </div>
                     <div class="mb-3">
@@ -146,10 +145,10 @@ if (!$dosen) {
                     <div class="mb-3">
                         <label for="confirmPassword" class="form-label">Konfirmasi Password Baru</label>
                         <input type="password" class="form-control" id="confirmPassword"
-                            placeholder="Konfirmasi password baru" required>
+                            placeholder="Konfirmasi password baru" name="password" required>
                         <div id="passwordError" class="text-danger mt-2" style="display: none;">Password baru dan
                             konfirmasi tidak cocok.</div>
-                        <div id="passwordMinipal" class="text-danger mt-2" style="display: none;"></div>
+                        <div id="passwordMinimal" class="text-danger mt-2" style="display: none;"></div>
                         <div id="fieldRequired" class="text-danger mt-2" style="display: none;"></div>
                         <div id="peringatanPassword" class="text-danger mt-2" style="display: none;"></div>
                     </div>
@@ -157,7 +156,8 @@ if (!$dosen) {
             </div>
             <div class="modal-footer d-flex justify-content-between">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary" id="saveChangesBtn">Simpan Perubahan</button>
+                <button type="button" class="btn btn-primary" form="passwordForm" id="saveChangesBtn">Simpan
+                    Perubahan</button>
             </div>
         </div>
     </div>
@@ -197,22 +197,24 @@ if (!$dosen) {
                 <!-- Form untuk edit biodata -->
                 <form id="editProfileForm" action="action/dosen_action.php" method="POST"
                     enctype="multipart/form-data">
-                    <input type="hidden" name="action" value="edit_biodata">
+                    <input type="hidden" name="action" value="edit_data_dosen">
                     <input type="hidden" name="nip" value="<?= $dosen['nip']; ?>">
                     <div class="mb-3">
                         <label for="nip" class="form-label">NIP</label>
-                        <input type="text" class="form-control" id="nip" name=" ip" value="<?= $dosen['nip']; ?>"
-                            disabled>
+                        <input type="text" class="form-control" id="new_nip" name="new_nip" value="<?= $dosen['nip']; ?>">
                     </div>
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="nama" name="nama" value="<?= $dosen['nama']; ?>"
-                            disabled>
+                        <input type="text" class="form-control" id="nama" name="nama" value="<?= $dosen['nama']; ?>">
                     </div>
                     <div class="mb-3">
-                        <label for="jenisKelamin" class="form-label">Jenis Kelamin</label>
-                        <input type="text" class="form-control" id="jenisKelamin" name="jenis_kelamin"
-                            value="<?= ucfirst(strtolower($dosen['jenis_kelamin'])); ?>" disabled>
+                        <label for="jenisKelamin" class="form-label">Jenis Kelamin <span
+                                style="color: red;">*</span></label>
+                        <select class="form-select" id="jenisKelamin" name="jenis_kelamin" required>
+                            <option value="" disabled selected>Jenis Kelamin</option>
+                            <option value="L" <?php if($dosen['jenis_kelamin'] == 'L'){echo "selected";} ?>>Laki-Laki</option>
+                            <option value="P" <?php if($dosen['jenis_kelamin'] == 'P'){echo "selected";} ?>>Perempuan</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
@@ -368,80 +370,63 @@ if (!$dosen) {
         }
     });
 
-    // Fungsi untuk memeriksa kecocokan password baru dan konfirmasi
+   
     function checkPasswords() {
         const newPassword = document.getElementById('newPassword').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
         const passwordError = document.getElementById('passwordError');
+        const passwordMinimal = document.getElementById('passwordMinimal');
+        const fieldRequired = document.getElementById('fieldRequired');
 
+        // Reset errors
+        passwordError.style.display = 'none';
+        passwordMinimal.style.display = 'none';
+        fieldRequired.style.display = 'none';
+
+        // Check if both passwords match
         if (newPassword !== confirmPassword) {
-            passwordError.style.display = 'block'; // Tampilkan peringatan
+            passwordError.style.display = 'block'; // Show mismatch warning
             return false;
-        } else {
-            passwordError.style.display = 'none'; // Sembunyikan peringatan
-            return true;
         }
+
+        // Check if password is long enough (e.g., minimum 8 characters)
+        if (newPassword.length < 8) {
+            passwordMinimal.style.display = 'block'; // Show minimum length warning
+            passwordMinimal.innerHTML = 'Password minimal 8 karakter.';
+            return false;
+        }
+
+        // Check if any field is empty
+        if (!newPassword || !confirmPassword) {
+            fieldRequired.style.display = 'block'; // Show required field warning
+            fieldRequired.innerHTML = 'Semua kolom harus diisi.';
+            return false;
+        }
+
+        return true;
     }
 
-    document.getElementById('saveChangesBtn').addEventListener('click', function () {
-        const currentPassword = document.getElementById('currentPassword').value;
-        const newPassword = document.getElementById('newPassword').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-        const action = document.getElementById('action').value;
-        const nip = document.getElementById('nip').value;
 
-        // Kirim data ke server menggunakan AJAX
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'action/dosen_action.php', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                const response = xhr.responseText;
-
-                // Jika password lama salah
-                if (response === 'Password lama salah.') {
-                    document.getElementById('fieldRequired').style.display = 'none';
-                    document.getElementById('currentPasswordError').innerHTML = response;
-                    document.getElementById('currentPasswordError').style.display = 'block';
-                } else if (response === 'Password baru harus memiliki minimal 8 karakter.') {
-                    document.getElementById('fieldRequired').style.display = 'none';
-                    document.getElementById('passwordMinimal').innerHTML = response;
-                    document.getElementById('passwordMinimal').style.display = 'block';
-                } else if (response === 'Password berhasil diubah.') {
-                    // Tutup modal Ubah Password
-                    $('#ubahPasswordModal').modal('hide');
-
-                    // Menampilkan modal Password Berhasil Dirubah
-                    $('#passwordSuccessModal').modal('show');
-                } else if (response === 'Semua field harus diisi.') {
-                    document.getElementById('fieldRequired').innerHTML = response;
-                    document.getElementById('fieldRequired').style.display = 'block';
-                } else {
-                    document.getElementById('peringatanPassword').innerHTML = response;
-                    document.getElementById('peringatanPassword').style.display = 'block';
-                }
-
-
-                // else {
-                //     document.getElementById('currentPasswordError').style.display = 'none'; // Sembunyikan error password lama
-                //     alert(response); // Tampilkan respon dari server
-                //     // Jika berhasil, tutup modal
-                //     $('#ubahPasswordModal').modal('hide');
-                // }
-            }
-        };
-        xhr.send(`action=${encodeURIComponent(action)}&nip=${encodeURIComponent(nip)}&currentPassword=${encodeURIComponent(currentPassword)}&newPassword=${encodeURIComponent(newPassword)}&confirmPassword=${encodeURIComponent(confirmPassword)}`);
+    document.getElementById('saveChangesBtn').addEventListener('click', function (event) {
+        // Prevent form submission if validation fails
+        if (!checkPasswords()) {
+            event.preventDefault(); // Prevent form submission
+        } else {
+            // Proceed with form submission if passwords match
+            document.getElementById('passwordForm').submit();
+        }
     });
-
-    $('#passwordSuccessModal').on('hidden.bs.modal', function () {
-        // Reset form dan sembunyikan pesan error setelah modal ditutup
+    $('#ubahPasswordModal').on('hidden.bs.modal', function () {
+        // Reset form and hide error messages after the modal closes
         document.getElementById('passwordForm').reset();
         document.getElementById('currentPasswordError').style.display = 'none';
         document.getElementById('passwordError').style.display = 'none';
-        document.getElementById('passwordMinipal').style.display = 'none';
+        document.getElementById('passwordMinimal').style.display = 'none';
+        document.getElementById('fieldRequired').style.display = 'none';
         document.getElementById('currentPasswordError').innerHTML = '';
         document.getElementById('passwordError').innerHTML = '';
-        document.getElementById('passwordMinipal').innerHTML = '';
+        document.getElementById('passwordMinimal').innerHTML = '';
+        document.getElementById('fieldRequired').innerHTML = '';
     });
 
 </script>

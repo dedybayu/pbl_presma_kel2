@@ -100,7 +100,7 @@ class DosenModel
 
     function updateDataDosen($data)
     {
-        $query = "UPDATE dosen SET nip = ?, nama = ?, jenis_kelamin = ?, email = ?, no_tlp = ?, file_foto_profile = ISNULL(CONVERT(VARBINARY(MAX), ?), file_foto_profile) WHERE NIM = ?";
+        $query = "UPDATE dosen SET nip = ?, nama = ?, jenis_kelamin = ?, email = ?, no_tlp = ?, file_foto_profile = ISNULL(CONVERT(VARBINARY(MAX), ?), file_foto_profile) WHERE nip = ?";
         $stmt = sqlsrv_query($this->db, $query, $data);
         if ($stmt === false) {
             // return false;
