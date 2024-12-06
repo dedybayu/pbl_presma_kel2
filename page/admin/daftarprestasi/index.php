@@ -32,12 +32,7 @@ $daftarPrestasi = $listPrestasi->getAllPrestasi();
             ?>
 
             <div class="container">
-                <h1>Anda Belum Memiliki Prestasi</h1>
-                <br>
-                <div class="d-flex justify-content-center">
-                    <a href="index.php?page=inputprestasi" class="btn btn-primary">Tambah Prestasi</a>
-                </div>
-                <br>
+                <h1>Belum Ada Mahasiswa Yang Memiliki Prestasi</h1>
             </div>
             <?php
         } else {

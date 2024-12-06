@@ -27,6 +27,15 @@ $daftarProdi = $prodiModel->getAllProdi();
             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tambahByExcel">
                 <i class="fa fa-plus"></i> Tambah By Excel
             </button>
+            <!-- Tombol untuk mengekspor data Excel -->
+            <a href="export_data/export_mahasiswa.php" class="btn btn-success btn-sm">
+                <i class="fa fa-file-excel"></i> Export to Excel
+            </a>
+            <!-- Tombol Export PDF -->
+            <a href="export_data/export_mahasiswa_pdf.php" class="btn btn-danger btn-sm">
+                <i class="fa fa-file-pdf"></i> Export PDF
+            </a>
+
         </div>
 
 
@@ -204,7 +213,8 @@ $daftarProdi = $prodiModel->getAllProdi();
 
 
 <!-- Modal Detail Mahasiswa -->
-<div class="modal fade" id="detailMahasiswaModal" tabindex="-1" aria-labelledby="detailMahasiswaModalLabel" aria-hidden="true">
+<div class="modal fade" id="detailMahasiswaModal" tabindex="-1" aria-labelledby="detailMahasiswaModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
