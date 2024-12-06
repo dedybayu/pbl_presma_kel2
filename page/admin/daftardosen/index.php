@@ -11,11 +11,16 @@ $daftarDosen = $dosenModel->getAllDosen();
         <p>Daftar Dosen di Admin</p>
     </div>
     <div class="kotak-konten">
-        <!-- Tombol untuk membuka modal -->
-        <div class="action-container" style="margin-bottom: 15px;">
+        <div class="action-container" style="margin-bottom: 15px; display: flex; gap: 10px;">
+            <!-- Tombol untuk membuka modal -->
             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                 data-bs-target="#tambahDosenModal">
                 <i class="fa fa-plus"></i> Tambah Dosen
+            </button>
+
+            <!-- Tombol untuk membuka modal -->
+            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tambahByExcel">
+                <i class="fa fa-plus"></i> Tambah By Excel
             </button>
         </div>
 
@@ -78,7 +83,7 @@ $daftarDosen = $dosenModel->getAllDosen();
                         <td style="text-align: center; vertical-align: middle;">
                             <!-- Button untuk menampilkan ID -->
                             <form action="index.php?page=detaildosen" method="POST">
-                                <input type="hidden" name="idPrestasi" value="<?php echo $dosen['nip']; ?>">
+                                <input type="hidden" name="nip" value="<?php echo $dosen['nip']; ?>">
                                 <button type="submit" class="btn btn-success btn-sm btn-detail">
                                     <i class="fa fa-edit"></i> Detail
                                 </button>
@@ -144,6 +149,34 @@ $daftarDosen = $dosenModel->getAllDosen();
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tambah Mahasiswa by Excel -->
+<div class="modal fade" id="tambahByExcel" tabindex="-1" aria-labelledby="tambahByExcelLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="action/dosen_action.php" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="action" id="action" value="add_by_excel">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tambahByExcelLabel">Tambah Mahasiswa via Excel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="excelFile" class="form-label">Upload File Excel</label>
+                        <input type="file" name="excelFile" id="excelFile" class="form-control" accept=".xls,.xlsx"
+                            required>
+                        <small class="form-text text-muted">Format yang didukung: .xls, .xlsx</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="action" value="add_by_excel">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Upload</button>
                 </div>
             </form>
         </div>

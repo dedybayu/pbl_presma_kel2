@@ -28,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($_POST['action'] === 'add_by_excel') {
         try {
-            $mahasiswaModel = new MahasiswaModel();
 
             // Upload file
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
@@ -183,8 +182,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $nim = antiinjection($_POST['nim']);
         $password = antiinjection($_POST['password']);
 
-        echo $nim;
-        echo $password;
         $status = $mahasiswaModel->insertChangePassword($password, $nim);
 
         if ($status === "Password berhasil diubah.") {

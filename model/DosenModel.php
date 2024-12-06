@@ -25,7 +25,55 @@ class DosenModel
         $stmt = sqlsrv_query($this->db, $query, $params);
 
         if ($stmt === false) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function addDosenByExcel($data)
+    {
+        foreach ($data as $row) {
+            $password = $row['nip'];
+            $salt = bin2hex(random_bytes(16));
+            $combined_password = $salt . $password;
+            $hashed_password = password_hash($combined_password, PASSWORD_BCRYPT);
+
+            $query = "INSERT INTO [dosen] (nip, password, salt, nama, jenis_kelamin, email, no_tlp) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $params = array($row['nip'], $hashed_password, $salt, $row['nama'], $row['jenis_kelamin'], $row['email'], $row['no_tlp']);
+            $stmt = sqlsrv_query($this->db, $query, $params);
+
+            if ($stmt === false) {
+                die(print_r(sqlsrv_errors(), true));
+            }
+        }
+        return true;
+    }
+
+    function getDosenByNip($nip)
+    {
+        $nim = antiinjection($nip);
+        $query = "SELECT * FROM dosen WHERE nip = ?";
+        $params = array($nip);
+        // Mempersiapkan query
+        $stmt = sqlsrv_query($this->db, $query, $params);
+
+        if ($stmt === false) {
             die(print_r(sqlsrv_errors(), true));
+        }
+
+        $dosen = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+        sqlsrv_free_stmt($stmt);
+
+        return $dosen;
+    }
+    
+    function deleteDosen($nip){
+        $query = "DELETE FROM [dosen] WHERE nip = $nip";
+        $stmt = sqlsrv_query($this->db, $query);
+        if ($stmt === false) {
+            return false;
+
         } else {
             return true;
         }
@@ -48,6 +96,20 @@ class DosenModel
         sqlsrv_free_stmt($stmt);
 
         return $daftarDosen;
+    }
+
+    function updateDataDosen($data)
+    {
+        $query = "UPDATE dosen SET nip = ?, nama = ?, jenis_kelamin = ?, email = ?, no_tlp = ?, file_foto_profile = ISNULL(CONVERT(VARBINARY(MAX), ?), file_foto_profile) WHERE NIM = ?";
+        $stmt = sqlsrv_query($this->db, $query, $data);
+        if ($stmt === false) {
+            // return false;
+            die(print_r(sqlsrv_errors(), true));
+
+        } else {
+            return true;
+        }
+
     }
 
     function changePassword($data)
