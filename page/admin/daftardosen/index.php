@@ -22,6 +22,15 @@ $daftarDosen = $dosenModel->getAllDosen();
             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tambahByExcel">
                 <i class="fa fa-plus"></i> Tambah By Excel
             </button>
+
+            <!-- Tombol untuk mengekspor data Excel -->
+            <a href="export_data/export_dosen.php" class="btn btn-success btn-sm">
+                <i class="fa fa-file-excel"></i> Export to Excel
+            </a>
+            <!-- Tombol Export PDF -->
+            <a href="export_data/export_dosen_pdf.php" class="btn btn-danger btn-sm">
+                <i class="fa fa-file-pdf"></i> Export PDF
+            </a>
         </div>
 
         <?php

@@ -10,13 +10,9 @@ $daftarPrestasi = $listPrestasi->getAllPrestasi();
 
 <!-- Content Area -->
 <div class="content">
-
-
     <div class="kotak-judul">
         <p>Daftar Semua Prestasi</p>
     </div>
-
-
 
     <style>
         .alert-delete {
@@ -26,7 +22,14 @@ $daftarPrestasi = $listPrestasi->getAllPrestasi();
         }
     </style>
     <div class="kotak-konten">
-
+            <!-- Tombol untuk mengekspor data Excel -->
+            <a href="export_data/export_prestasi.php" class="btn btn-success btn-sm">
+                <i class="fa fa-file-excel"></i> Export to Excel
+            </a>
+            <!-- Tombol Export PDF -->
+            <a href="export_data/export_prestasi_pdf.php" class="btn btn-danger btn-sm">
+                <i class="fa fa-file-pdf"></i> Export PDF
+            </a>
         <?php
         if (empty($daftarPrestasi)) {
             ?>
