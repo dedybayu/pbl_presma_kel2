@@ -1,0 +1,170 @@
+.footer-section {
+    position: fixed;
+    /* Memperbaiki posisi footer */
+    left: 0;
+    /* Mengatur posisi footer di paling kiri */
+    bottom: 0;
+    /* Mengatur posisi footer di bagian bawah */
+    width: 100%;
+    /* Memastikan footer mengambil seluruh lebar */
+    background-color: #ddd;
+    /* Warna latar belakang footer */
+    padding: 10px 20px;
+    /* Jarak dalam footer */
+    color: #333;
+    /* Warna teks */
+    text-align: left;
+    /* Menempatkan teks di kiri */
+    z-index: 100;
+}
+
+.footer-section p {
+    margin: 0;
+    /* Menghilangkan margin default */
+    font-size: 14px;
+    /* Ukuran font lebih kecil */
+}
+
+.footer-section strong {
+    font-weight: bold;
+    /* Menebalkan teks yang diperlukan */
+}
+
+.hero-section .container {
+    margin-top: 10px;
+    /* Menambahkan jarak di bagian atas kontainer */
+}
+
+.hero-section {
+    padding-top: 10px;
+    /* Menambahkan jarak dari atas */
+    background-image: url(images/gdungjti.jpg);
+}
+
+.book-section-info p {
+    color: rgb(0, 0, 0);
+    /* Mengubah warna teks menjadi hitam */
+    font-size: 18px;
+}
+
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-size: cover;
+    background-color: rgb(143, 167, 192);
+    padding-bottom: 50px;
+    
+}
+
+.prestasi-section {
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    padding-top: 80px;
+}
+
+.slider-container {
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.slide img {
+    width: 50%;
+    border-radius: 10px;
+    max-width: 100%;
+}
+
+.details {
+    width: 55%;
+    background-color: rgba(216, 212, 212, 0.7);
+    padding: 10px;
+    border-radius: 10px;
+    color: black;
+    text-align: left;
+}
+
+.details table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.details td,p {
+    padding: 5px 0;
+    vertical-align: top;
+    color: black;
+}
+
+/* Panah Navigasi */
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px 20px;
+    z-index: 10;
+    border-radius: 50%;
+}
+
+.arrow.left {
+    left: 10px;
+    top: 15%;
+}
+
+.arrow.right {
+    right: 10px;
+    top: 15%;
+}
+
+.arrow:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Media Query untuk layar kecil (max-width: 768px) */
+@media (max-width: 768px) {
+    .slide {
+        flex-direction: column;
+        text-align: center;
+        /* Teks menjadi rata tengah */
+        gap: 10px;
+        /* Mengurangi jarak antara gambar dan detail */
+    }
+
+    .slide img,
+    .details {
+        width: 100%;
+        /* Elemen mengisi lebar penuh */
+    }
+
+    .details {
+        padding: 20px;
+        /* Memberikan padding lebih pada details untuk layar kecil */
+    }
+}
+
+.daftar-section{
+    padding-top: 200px;
+}
