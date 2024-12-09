@@ -120,7 +120,7 @@ $daftarProdi = $prodiModel->getAllProdi();
                 <input type="hidden" name="action" id="action" value="remove">
                 <input type="hidden" name="nim" id="nim" value="<?= $mahasiswa['NIM']; ?>">
                 <button type="submit" class="btn btn-primary" style="background-color: red; border: red:">Hapus
-                    Dosen</button>
+                    Mahasiswa</button>
             </form>
         </div>
     </div><br>
