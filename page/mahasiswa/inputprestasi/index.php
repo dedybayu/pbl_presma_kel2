@@ -100,8 +100,9 @@
 
                     <div class="col-12 col-md-6">
                         <div class="mb-3">
-                            <label for="dosenPembimbing" class="form-label">Dosen Pembimbing</label>
-                            <select class="form-select" id="DosenPembimbig" name="dosbim">
+                            <label for="dosenPembimbing" class="form-label">Dosen Pembimbing<span 
+                                    style="color: red;">*</span></label>
+                            <select class="form-select" id="DosenPembimbig" name="dosbim" required>
                                 <option value="" disabled selected>Pilih Dosen</option>
                                 <?php getListDosen(); ?>
                             </select>
