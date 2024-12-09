@@ -53,6 +53,19 @@ class MahasiswaModel
         return true;
     }
 
+    function deleteMahasiswa($nim){
+        $query = "DELETE FROM [mahasiswa] WHERE NIM = '$nim'";
+        $stmt = sqlsrv_query($this->db, $query);
+        if ($stmt === false) {
+            die(print_r(sqlsrv_errors(), true));
+
+            // return false;
+
+        } else {
+            return true;
+        }
+    }
+
     function getMahasiswaByNim($nim)
     {
         $nim = antiinjection($nim);

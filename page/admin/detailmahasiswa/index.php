@@ -116,6 +116,12 @@ $daftarProdi = $prodiModel->getAllProdi();
                 data-bs-target="#ubahPasswordModal">Ubah Password</button>
             <button id="editProfile" class="btn btn-primary" data-bs-toggle="modal"
                 data-bs-target="#editProfileModal">Edit Biodata</button>
+            <form action="action/mahasiswa_action.php" method="POST">
+                <input type="hidden" name="action" id="action" value="remove">
+                <input type="hidden" name="nim" id="nim" value="<?= $mahasiswa['NIM']; ?>">
+                <button type="submit" class="btn btn-primary" style="background-color: red; border: red:">Hapus
+                    Dosen</button>
+            </form>
         </div>
     </div><br>
 </div>
@@ -199,22 +205,28 @@ $daftarProdi = $prodiModel->getAllProdi();
                     <input type="hidden" name="action" value="edit_data_mahasiswa">
                     <input type="hidden" name="nim" value="<?= $mahasiswa['NIM']; ?>">
                     <div class="mb-3">
-                        <label for="nim" class="form-label">NIM <span
-                        style="color: red;">*</span></label>
-                        <input type="text" class="form-control" id="newnim" name="new_nim" value="<?= $mahasiswa['NIM']; ?>" required>
+                        <label for="nim" class="form-label">NIM <span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" id="newnim" name="new_nim"
+                            value="<?= $mahasiswa['NIM']; ?>" required>
                     </div>
                     <div class="mb-3">
-                        <label for="nama" class="form-label">Nama Lengkap <span
-                        style="color: red;">*</span></label>
-                        <input type="text" class="form-control" id="nama" name="nama" value="<?= $mahasiswa['nama']; ?>" required>
+                        <label for="nama" class="form-label">Nama Lengkap <span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" id="nama" name="nama" value="<?= $mahasiswa['nama']; ?>"
+                            required>
                     </div>
                     <div class="mb-3">
                         <label for="jenisKelamin" class="form-label">Jenis Kelamin <span
                                 style="color: red;">*</span></label>
                         <select class="form-select" id="jenisKelamin" name="jenis_kelamin" required>
                             <option value="" disabled selected>Jenis Kelamin</option>
-                            <option value="L" <?php if($mahasiswa['jenis_kelamin'] == 'L'){echo "selected";} ?>>Laki-Laki</option>
-                            <option value="P" <?php if($mahasiswa['jenis_kelamin'] == 'P'){echo "selected";} ?>>Perempuan</option>
+                            <option value="L" <?php if ($mahasiswa['jenis_kelamin'] == 'L') {
+                                echo "selected";
+                            } ?>>Laki-Laki
+                            </option>
+                            <option value="P" <?php if ($mahasiswa['jenis_kelamin'] == 'P') {
+                                echo "selected";
+                            } ?>>Perempuan
+                            </option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -223,11 +235,11 @@ $daftarProdi = $prodiModel->getAllProdi();
                             <option value="" disabled selected>Pilih Prodi</option>
                             <?php
                             foreach ($daftarProdi as $prodi) {
-                                if($prodi['id'] == $mahasiswa['id_prodi']) {
+                                if ($prodi['id'] == $mahasiswa['id_prodi']) {
                                     echo '<option value="' . $prodi['id'] . '" selected>' . $prodi['nama_prodi'] . '</option>';
                                 } else {
                                     echo '<option value="' . $prodi['id'] . '">' . $prodi['nama_prodi'] . '</option>';
-                                } 
+                                }
                             }
                             ?>
                         </select>

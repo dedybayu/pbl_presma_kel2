@@ -91,7 +91,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
     if ($_POST['action'] === 'remove') {
+        $nim = antiinjection($_POST['nim']);
+        $status = $mahasiswaModel->deleteMahasiswa($nim);
+        if ($status === true) {
+            $_SESSION['success_message'] = "Mahasiswa Berhasil Dihapus";
+        } else {
+            $_SESSION['error_message'] = "Gagal Menghapus Mahasiswa";
+        }
+        header("Location: ../index.php?page=daftarmahasiswa");
     }
+
 
     if ($_POST['action'] === 'ubah_password') {
         $nim = antiinjection($_POST['nim']);
