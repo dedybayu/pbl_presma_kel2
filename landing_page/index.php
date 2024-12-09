@@ -9,8 +9,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 }
+require_once "../model/PrestasiModel.php";
+
+$listPrestasi = new PrestasiModel();
+$top3Prestasi = $listPrestasi->getTop3Prestasi();
 ?>
 
+<?php
+
+?>
 
 <!doctype html>
 <html lang="en">
@@ -178,6 +185,45 @@ https://templatemo.com/tm-588-ebook-landing
                     <div class="slider-container">
                         <div class="slides">
                             <!-- Slide 1 -->
+
+                            <?php
+                            foreach ($top3Prestasi as $prestasi) {
+                                ?>
+                                <div class="slide">
+                                <img src="images/bayam.jpeg" alt="Bayam Achievement" />
+                                <div class="details">
+                                    <p><strong>JUARA 1 MENANAM BAYAM</strong></p>
+                                    <table>
+                                        <tr>
+                                            <td>Nama Mahasiswa</td>
+                                            <td>: <?= $prestasi['nama'] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tingkat</td>
+                                            <td>: <?= $prestasi['tingkat_lomba'] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jenis Lomba</td>
+                                            <td>: <?= $prestasi['jenis_lomba'] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Penyelenggara</td>
+                                            <td>: <?= $prestasi['penyelenggara_lomba'] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tempat</td>
+                                            <td>: <?= $prestasi['tempat_pelaksanaan'] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Waktu Pelaksanaan</td>
+                                            <td>: 27 Oktober 2030</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                                <?php
+                            }
+                            ?>
                             <div class="slide">
                                 <img src="images/bayam.jpeg" alt="Bayam Achievement" />
                                 <div class="details">

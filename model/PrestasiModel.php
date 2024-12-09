@@ -118,26 +118,31 @@ class PrestasiModel
         return $Prestasi;
     }
 
-    public function getTop3Prestasi($nim)
+    public function getTop3Prestasi(): array
     {
-        $query = "SELECT TOP 3 * 
-          FROM prestasi 
-          WHERE NIM = ? AND status_verifikasi = 'valid' 
-          ORDER BY poin DESC;";
+        $query = "SELECT TOP 3 p.*, m.nama 
+        FROM prestasi p
+        INNER JOIN mahasiswa m ON p.NIM = m.NIM
+        WHERE p.status_verifikasi = 'valid'
+        ORDER BY p.poin DESC;";
 
-        $params = [$nim];
-        $stmt = sqlsrv_query($this->db, $query, $params);
+
+        $stmt = sqlsrv_query($this->db, $query);
 
         if ($stmt === false) {
             die(print_r(sqlsrv_errors(), true));
         }
 
-        $Prestasi = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+        $Prestasi = [];
 
+        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+            $Prestasi[] = $row;
+        }
         sqlsrv_free_stmt($stmt);
 
         return $Prestasi;
     }
+
 
     public function getTopAllPrestasi()
     {
@@ -244,8 +249,9 @@ class PrestasiModel
             return true;
         }
     }
-    
-    function updateValidasi($id_prestasi, $verifikasi, $message){
+
+    function updateValidasi($id_prestasi, $verifikasi, $message)
+    {
         $query = "UPDATE prestasi SET status_verifikasi = ? WHERE id = ?";
         $params = array($verifikasi, $id_prestasi);
         $stmt = sqlsrv_query($this->db, $query, $params);
@@ -254,10 +260,11 @@ class PrestasiModel
         } else {
             $this->updateMessage($id_prestasi, $message);
             return true;
-        }  
+        }
     }
 
-    function updateMessage($id_prestasi, $message){
+    function updateMessage($id_prestasi, $message)
+    {
         $query = "UPDATE prestasi SET message = ? WHERE id = ?";
         $params = array($message, $id_prestasi);
         $stmt = sqlsrv_query($this->db, $query, $params);

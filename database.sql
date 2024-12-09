@@ -33,7 +33,10 @@ EXEC sp_rename 'admin.level', 'level_admin', 'COLUMN';
 GO
 
 
-
+SELECT TOP 3 * 
+          FROM prestasi 
+          WHERE status_verifikasi = 'valid' 
+          ORDER BY poin DESC;
 
 
 
