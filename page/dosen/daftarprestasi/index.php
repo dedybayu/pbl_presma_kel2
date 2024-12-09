@@ -33,11 +33,7 @@ $daftarPrestasi = $listPrestasi->getPrestasiByDosen($_SESSION['nip']);
             ?>
 
             <div class="container">
-                <h1>Anda Belum Memiliki Prestasi</h1>
-                <br>
-                <div class="d-flex justify-content-center">
-                    <a href="index.php?page=inputprestasi" class="btn btn-primary">Tambah Prestasi</a>
-                </div>
+                <h1>Belum Ada Prestasi</h1>
                 <br>
             </div>
             <?php
