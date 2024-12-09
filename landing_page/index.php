@@ -262,60 +262,6 @@ https://templatemo.com/tm-588-ebook-landing
                                 <?php
                             }
                             ?>
-                            <tr>
-                                <td>2</td>
-                                <td>Budi Santoso</td>
-                                <td>Juara 1 Menanam Cabai</td>
-                                <td>28 Oktober 2030</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Joko Widodo</td>
-                                <td>Juara 2 Menanam Tomat</td>
-                                <td>29 Oktober 2030</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Siti Aminah</td>
-                                <td>Juara 3 Menanam Cabai</td>
-                                <td>30 Oktober 2030</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Rina Pramesti</td>
-                                <td>Juara 1 Menanam Terong</td>
-                                <td>31 Oktober 2030</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Agus Setiawan</td>
-                                <td>Juara 2 Menanam Bayam</td>
-                                <td>1 November 2030</td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td>Diana Putri</td>
-                                <td>Juara 3 Menanam Terong</td>
-                                <td>2 November 2030</td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td>Rudi Hartono</td>
-                                <td>Juara 1 Menanam Sawi</td>
-                                <td>3 November 2030</td>
-                            </tr>
-                            <tr>
-                                <td>9</td>
-                                <td>Fajar Nugroho</td>
-                                <td>Juara 2 Menanam Sawi</td>
-                                <td>4 November 2030</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>Wati Sukma</td>
-                                <td>Juara 3 Menanam Tomat</td>
-                                <td>5 November 2030</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
