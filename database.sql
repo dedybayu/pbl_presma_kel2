@@ -12,6 +12,25 @@ GO
 --   [level_admin] VARCHAR(10) NOT NULL DEFAULT 'admin' CHECK ([level] = 'admin'),
 -- );
 -- GO
+WITH CTE_TotalPrestasi AS (
+    SELECT 
+        m.nama, 
+        SUM(p.poin) AS total_poin,
+        COUNT(p.id) AS total_prestasi
+    FROM mahasiswa m
+    LEFT JOIN prestasi p ON m.NIM = p.NIM
+    WHERE p.status_verifikasi = 'valid'
+    GROUP BY m.NIM, m.nama
+)
+SELECT TOP 10 
+    ROW_NUMBER() OVER (ORDER BY total_poin DESC) AS rank,
+    nama,
+    total_poin,
+    total_prestasi
+FROM CTE_TotalPrestasi
+ORDER BY total_poin DESC;
+
+
 
 DROP TABLE [admin];
 SELECT * FROM [admin];
@@ -38,7 +57,14 @@ SELECT TOP 3 *
           WHERE status_verifikasi = 'valid' 
           ORDER BY poin DESC;
 
-
+SELECT TOP 10
+            ROW_NUMBER() OVER (ORDER BY p.poin DESC) AS rank,
+            m.nama,
+            p.*
+            FROM prestasi p
+            INNER JOIN mahasiswa m ON p.NIM = m.NIM
+            WHERE p.status_verifikasi = 'valid'
+            ORDER BY p.poin DESC;
 
 CREATE TABLE [admin] (
   [id] INT IDENTITY(1,1) PRIMARY KEY,  -- Menambahkan IDENTITY untuk auto increment
