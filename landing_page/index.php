@@ -184,6 +184,10 @@ https://templatemo.com/tm-588-ebook-landing
                                     <p><strong>JUARA 1 MENANAM BAYAM</strong></p>
                                     <table>
                                         <tr>
+                                            <td>Nama Mahasiswa</td>
+                                            <td>: Namanya</td>
+                                        </tr>
+                                        <tr>
                                             <td>Tingkat</td>
                                             <td>: Nasional</td>
                                         </tr>
@@ -213,6 +217,10 @@ https://templatemo.com/tm-588-ebook-landing
                                 <div class="details">
                                     <p><strong>JUARA 1 MENANAM CABAI</strong></p>
                                     <table>
+                                        <tr>
+                                            <td>Nama Mahasiswa</td>
+                                            <td>: Namanya</td>
+                                        </tr>
                                         <tr>
                                             <td>Tingkat</td>
                                             <td>: Nasional</td>

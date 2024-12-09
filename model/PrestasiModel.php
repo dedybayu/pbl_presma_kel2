@@ -118,6 +118,27 @@ class PrestasiModel
         return $Prestasi;
     }
 
+    public function getTop3Prestasi($nim)
+    {
+        $query = "SELECT TOP 3 * 
+          FROM prestasi 
+          WHERE NIM = ? AND status_verifikasi = 'valid' 
+          ORDER BY poin DESC;";
+
+        $params = [$nim];
+        $stmt = sqlsrv_query($this->db, $query, $params);
+
+        if ($stmt === false) {
+            die(print_r(sqlsrv_errors(), true));
+        }
+
+        $Prestasi = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+
+        sqlsrv_free_stmt($stmt);
+
+        return $Prestasi;
+    }
+
     public function getTopAllPrestasi()
     {
         $query = "SELECT m.nama AS nama_mhs, p.nama_lomba, p.juara_lomba, p.tingkat_lomba, p.waktu_pelaksanaan, p.penyelenggara_lomba, p.poin, p.upload_date, p.status_verifikasi, p.file_sertifikat
