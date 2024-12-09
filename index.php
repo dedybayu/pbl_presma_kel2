@@ -102,5 +102,5 @@ if (!empty($_SESSION['level'])) { // Cek jika session level ada dan tidak kosong
         }
     }
 } else {
-    header("Location: landing_page.php");
+    header("Location: landing_page");
 }
