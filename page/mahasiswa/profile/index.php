@@ -75,6 +75,11 @@
                                 </strong></td>
                         </tr>
                         <tr>
+                            <td class="text-nowrap"><strong>Prodi</strong></td>
+                            <td class="colon">:</td>
+                            <td><strong><?= $row['nama_prodi'] ?></strong></td>
+                        </tr>
+                        <tr>
                             <td class="text-nowrap"><strong>No. Telp</strong></td>
                             <td class="colon">:</td>
                             <td><strong><?= $row['no_tlp'] ?></strong></td>

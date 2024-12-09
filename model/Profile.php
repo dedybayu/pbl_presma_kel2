@@ -16,7 +16,8 @@ class Profile
     public function getProfile($key)
     {
         if ($_SESSION['level'] === 'mahasiswa') {
-            $query = "SELECT * FROM mahasiswa WHERE NIM = ?";
+            $query = "SELECT m.*, p.nama_prodi FROM mahasiswa m
+                JOIN prodi p ON m.id_prodi = p.id WHERE NIM = ?";
             $params = array($key);
             $stmt = sqlsrv_query($this->db->conn, $query, $params);
 
