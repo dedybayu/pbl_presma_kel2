@@ -55,9 +55,10 @@ foreach (range('A', 'F') as $columnID) {
 // Set nama file dan header HTTP
 $filename = "daftar_mahasiswa.xlsx";
 
-header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header("Content-Disposition: attachment; filename=$filename");
 header('Cache-Control: max-age=0');
+header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+header("Content-Disposition: attachment; filename= $filename");
+
 
 // Simpan file ke output
 $writer = new Xlsx($spreadsheet);
