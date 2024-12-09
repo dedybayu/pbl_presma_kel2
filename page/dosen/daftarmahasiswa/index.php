@@ -13,19 +13,19 @@ $daftarMahasiswa = $mahasiswaModel->getMahasiswaByDosbim($_SESSION['nip']);
 
     <div class="kotak-konten">
         <div class="action-container" style="margin-bottom: 15px; display: flex; gap: 10px;">
-                    <!-- Tombol untuk mengekspor data Excel -->
-        <form action="export_data/export_mahasiswa_fromdosen.php" method="post">
-            <input type="hidden" name="nip" id="nip" value="<?=$_SESSION['nip']?>">
-            <button type="submit" class="btn btn-success btn-sm">
-                <i class="fa fa-file-excel"></i> Export to Excel
-            </button>
-        </form>
-        <form action="export_data/export_mahasiswa_pdf_fromdosen.php" method="post">
-            <input type="hidden" name="nip" id="nip" value="<?=$_SESSION['nip']?>">
-            <button type="submit" class="btn btn-danger btn-sm">
-                <i class="fa fa-file-excel"></i> Export to Pdf
-            </button>
-        </form>
+            <!-- Tombol untuk mengekspor data Excel -->
+            <form action="export_data/export_mahasiswa_fromdosen.php" method="post">
+                <input type="hidden" name="nip" id="nip" value="<?= $_SESSION['nip'] ?>">
+                <button type="submit" class="btn btn-success btn-sm">
+                    <i class="fa fa-file-excel"></i> Export to Excel
+                </button>
+            </form>
+            <form action="export_data/export_mahasiswa_pdf_fromdosen.php" method="post">
+                <input type="hidden" name="nip" id="nip" value="<?= $_SESSION['nip'] ?>">
+                <button type="submit" class="btn btn-danger btn-sm">
+                    <i class="fa fa-file-excel"></i> Export to Pdf
+                </button>
+            </form>
         </div>
 
 

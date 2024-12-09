@@ -7,20 +7,13 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 // Ganti ini dengan model atau cara Anda mengambil data dari database
 require_once "../model/PrestasiModel.php";
+include '../fungsi/anti_injection.php';
 
 ob_start(); // Start output buffering
 
 // Ambil data lomba dari model
 $prestasiModel = new PrestasiModel();
-$daftarPrestasi = $prestasiModel->getAllPrestasi(); // Pastikan fungsi ini mengambil semua data dari tabel
-
-// **VALIDASI HASIL QUERY**
-if (empty($daftarPrestasi)) {
-    // Jika data kosong, berikan pesan dan hentikan proses
-    header('Content-Type: text/html; charset=utf-8');
-    echo "<script>alert('Data tidak ditemukan. Tidak ada prestasi yang dapat diekspor.'); window.history.back();</script>";
-    exit;
-}
+$daftarPrestasi= $prestasiModel->getPrestasiByDosen(antiinjection($_POST['nip']));
 
 // Buat Spreadsheet baru
 $spreadsheet = new Spreadsheet();
@@ -64,10 +57,10 @@ $headerStyle = [
         'bold' => true,
     ],
 ];
-$sheet->getStyle('A1:J1')->applyFromArray($headerStyle);
+$sheet->getStyle('A1:O1')->applyFromArray($headerStyle);
 
 // Set Auto Size untuk kolom
-foreach (range('A', 'J') as $columnID) {
+foreach (range('A', 'O') as $columnID) {
     $sheet->getColumnDimension($columnID)->setAutoSize(true);
 }
 

@@ -4,10 +4,13 @@ require '../composer/vendor/autoload.php'; // Autoload Composer
 // Include PrestasiModel
 require_once "../model/PrestasiModel.php";
 $prestasiModel = new PrestasiModel();
-$daftarPrestasi = $prestasiModel->getAllPrestasi();
+include '../fungsi/anti_injection.php';
 
-// Pastikan tidak ada output sebelum file PDF dibuat
 ob_start(); // Start output buffering
+
+// Ambil data lomba dari model
+$prestasiModel = new PrestasiModel();
+$daftarPrestasi= $prestasiModel->getPrestasiByDosen(antiinjection($_POST['nip']));
 
 // Buat instance TCPDF
 $pdf = new TCPDF();
