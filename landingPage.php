@@ -206,6 +206,7 @@ table caption {
         <h2>Prestasi Tertinggi Mahasiswa</h2>
 
         <div class="prestasi-slider">
+            <?php if (!empty($topMahasiswa)): ?>
             <?php foreach ($topMahasiswa as $index => $mahasiswa): ?>
             <div class="prestasi-item <?= $index === 0 ? 'active' : '' ?>">
                 <p><strong>NIM:</strong> <?= htmlspecialchars($mahasiswa['NIM']) ?></p>
@@ -214,6 +215,9 @@ table caption {
                 <p><strong>Program Studi:</strong> <?= htmlspecialchars($mahasiswa['nama_prodi']) ?></p>
             </div>
             <?php endforeach; ?>
+            <?php else: ?>
+            <p>No data available</p>
+            <?php endif; ?>
         </div>
 
         <div class="slider-controls">
