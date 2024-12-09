@@ -144,19 +144,16 @@ https://templatemo.com/tm-588-ebook-landing
                             <h2 class="mb-4">Sistem Pencatatan Prestasi Mahasiswa</h2>
 
                             <p>
-                                Sebuah sistem informasi yang dirancang untuk mengelola dan mencatat prestasi akademik
-                                maupun non akademik mahasiswa secara efisien dan
-                                terstruktur. Sistem ini memungkinkan pengumpulan, penyimpanan, serta pemantauan
-                                perkembangan akademik mahasiswa,
-                                termasuk nilai mata kuliah, IPK (Indeks Prestasi Kumulatif), penghargaan, serta kegiatan
-                                ekstrakurikuler yang mendukung
-                                prestasi mereka.
+                                Sistem ini hadir untuk membantu mahasiswa dalam mencatat dan mengelola berbagai prestasi yang telah diraih, di bidang non-akademik. 
+                                Dengan fitur yang mudah digunakan, sistem ini memungkinkan setiap mahasiswa untuk mendokumentasikan pencapaian secara rapi, terstruktur, dan terpusat. 
+                                Selain itu, sistem ini dirancang agar data prestasi dapat diakses dengan cepat dan menjadi portofolio yang dapat mendukung pengembangan karier maupun akademik Anda.
+                                Mari wujudkan potensi terbaik dan raih masa depan gemilang bersama!
                             </p>
 
                             <p>
-                                Sistem pencatatan prestasi mahasiswa bertujuan untuk memberikan transparansi dan
-                                kemudahan akses bagi pihak-pihak
-                                terkait, seperti mahasiswa, dosen, dan pihak administrasi kampus.
+                                Sistem pencatatan prestasi mahasiswa bertujuan untuk mencatat dan mengelola prestasi di luar bidang akademik, 
+                                seperti kegiatan olahraga, seni, organisasi, lomba, atau kontribusi lainnya. Dengan sistem ini, Anda dapat mendokumentasikan setiap pencapaian dengan mudah dan terorganisir, sehingga dapat digunakan sebagai portofolio untuk pengembangan diri dan karier. 
+                                Jadikan setiap langkah Anda bermakna, dan raih lebih banyak peluang melalui prestasi non-akademik yang membanggakan!
                             </p>
                         </div>
                     </div>
@@ -246,7 +243,7 @@ https://templatemo.com/tm-588-ebook-landing
                             </div>
                         </div>
                     </div>
-                    <br><br><br>
+                
 
                     <section class="daftar-section" id="section_4"></section>
                     <!-- Tabel Daftar Mahasiswa dengan Prestasi Terbaik -->
