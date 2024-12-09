@@ -12,7 +12,14 @@ $daftarPrestasi = $listPrestasi->getPrestasiByDosen($_SESSION['nip']);
     </div>
 
     <div class="kotak-konten">
-
+            <!-- Tombol untuk mengekspor data Excel -->
+            <a href="export_data/export_dosen_daftar_prestasi.php" class="btn btn-success btn-sm">
+                <i class="fa fa-file-excel"></i> Export to Excel
+            </a>
+            <!-- Tombol Export PDF -->
+            <a href="export_data/export_dosen_daftar_prestasi_pdf.php" class="btn btn-danger btn-sm">
+                <i class="fa fa-file-pdf"></i> Export PDF
+            </a>
         <?php
         if (empty($daftarPrestasi)) {
             ?>
