@@ -84,6 +84,43 @@ class MahasiswaModel
         return $mahasiswa;
     }
 
+    public function getTop10Mahasiswa(): array
+    {
+        $query = 
+        "WITH CTE_TotalPrestasi AS (
+            SELECT 
+                m.nama, 
+                SUM(p.poin) AS total_poin,
+                COUNT(p.id) AS total_prestasi
+            FROM mahasiswa m
+            LEFT JOIN prestasi p ON m.NIM = p.NIM
+            WHERE p.status_verifikasi = 'valid'
+            GROUP BY m.NIM, m.nama
+        )
+        SELECT TOP 10 
+            ROW_NUMBER() OVER (ORDER BY total_poin DESC) AS rank,
+            nama,
+            total_poin,
+            total_prestasi
+        FROM CTE_TotalPrestasi
+        ORDER BY total_poin DESC;";
+
+        $stmt = sqlsrv_query($this->db, $query);
+
+        if ($stmt === false) {
+            die(print_r(sqlsrv_errors(), true));
+        }
+
+        $mahasiswa = [];
+
+        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+            $mahasiswa[] = $row;
+        }
+        sqlsrv_free_stmt($stmt);
+
+        return $mahasiswa;
+    }
+
     function getAllMahasiswa()
     {
         $query = "SELECT m.*, p.nama_prodi AS prodi FROM mahasiswa m JOIN prodi p ON m.id_prodi = p.id";

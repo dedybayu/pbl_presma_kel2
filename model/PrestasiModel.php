@@ -16,15 +16,15 @@ class PrestasiModel
     public function insertPrestasi($data)
     {
         $sql = "INSERT INTO prestasi (
-                    NIM, nama_lomba, nip_dosbim, jenis_lomba, juara_lomba, status_tim, tingkat_lomba, 
-                    waktu_pelaksanaan, tempat_pelaksanaan, penyelenggara_lomba, 
+                    NIM, nama_lomba, nip_dosbim, jenis_lomba, juara_lomba, status_tim, tingkat_lomba,
+                    waktu_pelaksanaan, tempat_pelaksanaan, penyelenggara_lomba,
                     file_bukti_foto, file_sertifikat,
-                    file_surat_undangan, file_surat_tugas, 
+                    file_surat_undangan, file_surat_tugas,
                     file_proposal, poin, upload_date
                 ) VALUES (
                     ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                    CONVERT(VARBINARY(MAX), ?), CONVERT(VARBINARY(MAX), ?), 
-                    CONVERT(VARBINARY(MAX), ?), CONVERT(VARBINARY(MAX), ?), 
+                    CONVERT(VARBINARY(MAX), ?), CONVERT(VARBINARY(MAX), ?),
+                    CONVERT(VARBINARY(MAX), ?), CONVERT(VARBINARY(MAX), ?),
                     CONVERT(VARBINARY(MAX), ?), ?, ?
                 )";
 
@@ -39,28 +39,27 @@ class PrestasiModel
         }
     }
 
-
-    function updatePrestasi($id_prestasi, $data)
+    public function updatePrestasi($id_prestasi, $data)
     {
         // Query UPDATE untuk memperbarui data pada tabel `prestasi`
-        $sql = "UPDATE prestasi 
-                SET 
-                    NIM = ?, 
-                    nama_lomba = ?, 
-                    nip_dosbim = ?, 
-                    jenis_lomba = ?, 
-                    juara_lomba = ?, 
+        $sql = "UPDATE prestasi
+                SET
+                    NIM = ?,
+                    nama_lomba = ?,
+                    nip_dosbim = ?,
+                    jenis_lomba = ?,
+                    juara_lomba = ?,
                     status_tim = ?,
-                    tingkat_lomba = ?, 
-                    waktu_pelaksanaan = ?, 
-                    tempat_pelaksanaan = ?, 
-                    penyelenggara_lomba = ?, 
+                    tingkat_lomba = ?,
+                    waktu_pelaksanaan = ?,
+                    tempat_pelaksanaan = ?,
+                    penyelenggara_lomba = ?,
                     file_bukti_foto = ISNULL(CONVERT(VARBINARY(MAX), ?), file_bukti_foto),
                     file_sertifikat = ISNULL(CONVERT(VARBINARY(MAX), ?), file_sertifikat),
                     file_surat_undangan = ISNULL(CONVERT(VARBINARY(MAX), ?), file_surat_undangan),
                     file_surat_tugas = ISNULL(CONVERT(VARBINARY(MAX), ?), file_surat_tugas),
                     file_proposal = ISNULL(CONVERT(VARBINARY(MAX), ?), file_proposal),
-                    poin = ?, 
+                    poin = ?,
                     upload_date = ?,
                     status_verifikasi = 'waiting'
                 WHERE id = ?";
@@ -84,7 +83,7 @@ class PrestasiModel
             $data['file_proposal'], // Proposal (jika ada)
             $data['poin'],
             $data['upload_date'],
-            $id_prestasi // ID untuk menentukan baris yang akan diperbarui
+            $id_prestasi, // ID untuk menentukan baris yang akan diperbarui
         ];
 
         // Mempersiapkan query
@@ -120,12 +119,11 @@ class PrestasiModel
 
     public function getTop3Prestasi(): array
     {
-        $query = "SELECT TOP 3 p.*, m.nama 
+        $query = "SELECT TOP 3 p.*, m.nama
         FROM prestasi p
         INNER JOIN mahasiswa m ON p.NIM = m.NIM
         WHERE p.status_verifikasi = 'valid'
         ORDER BY p.poin DESC;";
-
 
         $stmt = sqlsrv_query($this->db, $query);
 
@@ -142,7 +140,6 @@ class PrestasiModel
 
         return $Prestasi;
     }
-
 
     public function getTopAllPrestasi()
     {
@@ -217,7 +214,7 @@ class PrestasiModel
         return $Prestasi;
     }
 
-    function getPrestasiByDosen($nip)
+    public function getPrestasiByDosen($nip)
     {
         $query = "SELECT m.nama AS nama_mhs, p.id, p.nama_lomba, p.juara_lomba, p.status_tim, p.tingkat_lomba, p.waktu_pelaksanaan, p.penyelenggara_lomba, p.poin, p.upload_date, p.status_verifikasi
         FROM prestasi p JOIN mahasiswa m ON p.NIM = m.NIM WHERE p.nip_dosbim = ? ORDER BY p.upload_date DESC;";
@@ -237,7 +234,7 @@ class PrestasiModel
         return $listPrestasi;
     }
 
-    function hapusPrestasi($id_prestasi)
+    public function hapusPrestasi($id_prestasi)
     {
         $id_prestasi = antiinjection($id_prestasi);
         $query = "DELETE FROM prestasi WHERE id = ?";
@@ -250,7 +247,7 @@ class PrestasiModel
         }
     }
 
-    function updateValidasi($id_prestasi, $verifikasi, $message)
+    public function updateValidasi($id_prestasi, $verifikasi, $message)
     {
         $query = "UPDATE prestasi SET status_verifikasi = ? WHERE id = ?";
         $params = array($verifikasi, $id_prestasi);
@@ -263,7 +260,7 @@ class PrestasiModel
         }
     }
 
-    function updateMessage($id_prestasi, $message)
+    public function updateMessage($id_prestasi, $message)
     {
         $query = "UPDATE prestasi SET message = ? WHERE id = ?";
         $params = array($message, $id_prestasi);

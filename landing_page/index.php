@@ -10,9 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 require_once "../model/PrestasiModel.php";
+require_once "../model/MahasiswaModel.php";
 
 $listPrestasi = new PrestasiModel();
+$listMahasiswa = new MahasiswaModel();
 $top3Prestasi = $listPrestasi->getTop3Prestasi();
+$top10ahasiswa = $listMahasiswa->getTop10Mahasiswa();
 ?>
 
 <?php
@@ -151,16 +154,24 @@ https://templatemo.com/tm-588-ebook-landing
                             <h2 class="mb-4">Sistem Pencatatan Prestasi Mahasiswa</h2>
 
                             <p>
-                                Sistem ini hadir untuk membantu mahasiswa dalam mencatat dan mengelola berbagai prestasi yang telah diraih, di bidang non-akademik. 
-                                Dengan fitur yang mudah digunakan, sistem ini memungkinkan setiap mahasiswa untuk mendokumentasikan pencapaian secara rapi, terstruktur, dan terpusat. 
-                                Selain itu, sistem ini dirancang agar data prestasi dapat diakses dengan cepat dan menjadi portofolio yang dapat mendukung pengembangan karier maupun akademik Anda.
+                                Sistem ini hadir untuk membantu mahasiswa dalam mencatat dan mengelola berbagai prestasi
+                                yang telah diraih, di bidang non-akademik.
+                                Dengan fitur yang mudah digunakan, sistem ini memungkinkan setiap mahasiswa untuk
+                                mendokumentasikan pencapaian secara rapi, terstruktur, dan terpusat.
+                                Selain itu, sistem ini dirancang agar data prestasi dapat diakses dengan cepat dan
+                                menjadi portofolio yang dapat mendukung pengembangan karier maupun akademik Anda.
                                 Mari wujudkan potensi terbaik dan raih masa depan gemilang bersama!
                             </p>
 
                             <p>
-                                Sistem pencatatan prestasi mahasiswa bertujuan untuk mencatat dan mengelola prestasi di luar bidang akademik, 
-                                seperti kegiatan olahraga, seni, organisasi, lomba, atau kontribusi lainnya. Dengan sistem ini, Anda dapat mendokumentasikan setiap pencapaian dengan mudah dan terorganisir, sehingga dapat digunakan sebagai portofolio untuk pengembangan diri dan karier. 
-                                Jadikan setiap langkah Anda bermakna, dan raih lebih banyak peluang melalui prestasi non-akademik yang membanggakan!
+                                Sistem pencatatan prestasi mahasiswa bertujuan untuk mencatat dan mengelola prestasi di
+                                luar bidang akademik,
+                                seperti kegiatan olahraga, seni, organisasi, lomba, atau kontribusi lainnya. Dengan
+                                sistem ini, Anda dapat mendokumentasikan setiap pencapaian dengan mudah dan
+                                terorganisir, sehingga dapat digunakan sebagai portofolio untuk pengembangan diri dan
+                                karier.
+                                Jadikan setiap langkah Anda bermakna, dan raih lebih banyak peluang melalui prestasi
+                                non-akademik yang membanggakan!
                             </p>
                         </div>
                     </div>
@@ -181,115 +192,50 @@ https://templatemo.com/tm-588-ebook-landing
 
                     <div class="slider-container">
                         <div class="slides">
-                            <!-- Slide 1 -->
 
                             <?php
                             foreach ($top3Prestasi as $prestasi) {
                                 ?>
                                 <div class="slide">
-                                <img src="images/bayam.jpeg" alt="Bayam Achievement" />
-                                <div class="details">
-                                    <p><strong>JUARA 1 MENANAM BAYAM</strong></p>
-                                    <table>
-                                        <tr>
-                                            <td>Nama Mahasiswa</td>
-                                            <td>: <?= $prestasi['nama'] ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tingkat</td>
-                                            <td>: <?= $prestasi['tingkat_lomba'] ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jenis Lomba</td>
-                                            <td>: <?= $prestasi['jenis_lomba'] ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Penyelenggara</td>
-                                            <td>: <?= $prestasi['penyelenggara_lomba'] ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tempat</td>
-                                            <td>: <?= $prestasi['tempat_pelaksanaan'] ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Waktu Pelaksanaan</td>
-                                            <td>: 27 Oktober 2030</td>
-                                        </tr>
-                                    </table>
+                                    <?php
+                                    echo '<img src="data:image/jpeg;base64,' . base64_encode($prestasi['file_bukti_foto']) . '" alt="Foto Prestasi" data-title="Foto Saat Perlombaan">';
+                                    ?>
+                                    <div class="details">
+                                        <p><strong>JUARA 1 MENANAM BAYAM</strong></p>
+                                        <table>
+                                            <tr>
+                                                <td>Nama Mahasiswa</td>
+                                                <td>: <?= $prestasi['nama'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tingkat</td>
+                                                <td>: <?= ucfirst(strtolower($prestasi['tingkat_lomba'])); ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jenis Lomba</td>
+                                                <td>: <?= $prestasi['jenis_lomba'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Penyelenggara</td>
+                                                <td>: <?= $prestasi['penyelenggara_lomba'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tempat</td>
+                                                <td>: <?= $prestasi['tempat_pelaksanaan'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Waktu Pelaksanaan</td>
+                                                <td>: <?= $prestasi['waktu_pelaksanaan']->format('j F Y'); ?></td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
                                 <?php
                             }
                             ?>
-                            <div class="slide">
-                                <img src="images/bayam.jpeg" alt="Bayam Achievement" />
-                                <div class="details">
-                                    <p><strong>JUARA 1 MENANAM BAYAM</strong></p>
-                                    <table>
-                                        <tr>
-                                            <td>Nama Mahasiswa</td>
-                                            <td>: Namanya</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tingkat</td>
-                                            <td>: Nasional</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jenis Lomba</td>
-                                            <td>: Pertanian</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Penyelenggara</td>
-                                            <td>: Puspresnas</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tempat</td>
-                                            <td>: Universitas Brawijaya</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Waktu Pelaksanaan</td>
-                                            <td>: 27 Oktober 2030</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <!-- Slide 2 -->
-                            <div class="slide">
-                                <img src="images/cabai.jpg" alt="Cabai Achievement" />
-                                <div class="details">
-                                    <p><strong>JUARA 1 MENANAM CABAI</strong></p>
-                                    <table>
-                                        <tr>
-                                            <td>Nama Mahasiswa</td>
-                                            <td>: Namanya</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tingkat</td>
-                                            <td>: Nasional</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jenis Lomba</td>
-                                            <td>: Pertanian</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Penyelenggara</td>
-                                            <td>: Puspresnas</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tempat</td>
-                                            <td>: Universitas Brawijaya</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Waktu Pelaksanaan</td>
-                                            <td>: 28 Oktober 2030</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
                         </div>
                     </div>
-                
+
 
                     <section class="daftar-section" id="section_4"></section>
                     <!-- Tabel Daftar Mahasiswa dengan Prestasi Terbaik -->
@@ -299,17 +245,23 @@ https://templatemo.com/tm-588-ebook-landing
                             <tr>
                                 <th>Rank</th>
                                 <th>Nama Mahasiswa</th>
-                                <th>Prestasi</th>
-                                <th>Waktu Pelaksanaan</th>
+                                <th>Jumlah Prestasi</th>
+                                <th>Poin</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Azzahra Attaqina</td>
-                                <td>Juara 1 Menanam Bayam</td>
-                                <td>27 Oktober 2030</td>
-                            </tr>
+                            <?php
+                            foreach ($top10ahasiswa as $mahasiswa) {
+                                ?>
+                                <tr>
+                                    <td><?= $mahasiswa['rank'] ?></td>
+                                    <td><?= $mahasiswa['nama'] ?></td>
+                                    <td><?= $mahasiswa['total_prestasi'] ?></td>
+                                    <td><?= $mahasiswa['total_poin'] ?></td>
+                                </tr>
+                                <?php
+                            }
+                            ?>
                             <tr>
                                 <td>2</td>
                                 <td>Budi Santoso</td>
