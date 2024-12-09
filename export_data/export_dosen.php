@@ -30,7 +30,7 @@ foreach ($daftarDosen as $dosen) {
     $sheet->setCellValue('A' . $row, $dosen['nip'])
           ->setCellValue('B' . $row, $dosen['nama'])
           ->setCellValue('C' . $row, $dosen['jenis_kelamin'] == 'L' ? 'Laki-laki' : 'Perempuan')
-          ->setCellValue('D' . $row, $dosen['no_telp'])
+          ->setCellValue('D' . $row, $dosen['no_tlp'])
           ->setCellValue('E' . $row, $dosen['email']);
     $row++;
 }
