@@ -11,6 +11,14 @@ GO
 --   [salt] VARCHAR(50) NOT NULL,
 --   [level_admin] VARCHAR(10) NOT NULL DEFAULT 'admin' CHECK ([level] = 'admin'),
 -- );
+
+
+UPDATE prodi
+SET nama_prodi = 'D4-Teknik Informatika'
+WHERE id = 1001;
+
+
+
 -- GO
 WITH CTE_TotalPrestasi AS (
     SELECT 
@@ -130,6 +138,9 @@ DELETE FROM [mahasiswa] WHERE nim = '7777777777';
 DELETE FROM [mahasiswa] WHERE nim = '8888888888';
 DELETE FROM [mahasiswa] WHERE nim = '9999999999';
 
+UPDATE prodi
+SET nama_prodi = 'Nama Baru'
+WHERE id = 10001;
 
 
 TRUNCATE TABLE [prestasi];

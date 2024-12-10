@@ -201,7 +201,7 @@ https://templatemo.com/tm-588-ebook-landing
                                     echo '<img src="data:image/jpeg;base64,' . base64_encode($prestasi['file_bukti_foto']) . '" alt="Foto Prestasi" data-title="Foto Saat Perlombaan">';
                                     ?>
                                     <div class="details">
-                                        <p><strong>JUARA 1 MENANAM BAYAM</strong></p>
+                                        <p><strong>Juara <?= $prestasi['juara_lomba'] ?> <?= $prestasi['nama_lomba'] ?></strong></p>
                                         <table>
                                             <tr>
                                                 <td>Nama Mahasiswa</td>
