@@ -85,7 +85,11 @@ $daftarDosen = $dosenModel->getAllDosen();
                         echo "<tr>";
                         echo "<td>" . $dosen['nip'] . "</td>";
                         echo "<td>" . $dosen['nama'] . "</td>";
-                        echo "<td>" . $dosen['jenis_kelamin'] . "</td>";
+                        if ($dosen['jenis_kelamin'] == 'L') {
+                            echo "<td>Laki-laki</td>";
+                        } else if ($dosen['jenis_kelamin'] == 'P') {
+                            echo "<td>Perempuan</td>";
+                        }
                         echo "<td>" . $dosen['no_tlp'] . "</td>";
                         echo "<td>" . $dosen['email'] . "</td>";
                         ?>
