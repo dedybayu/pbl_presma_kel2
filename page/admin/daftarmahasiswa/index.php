@@ -77,12 +77,15 @@ $daftarProdi = $prodiModel->getAllProdi();
             <table id="example" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
+                        <th>Rank</th>
                         <th>NIM</th>
                         <th>Nama</th>
                         <th>Program Studi</th>
                         <th>Jenis Kelamin</th>
                         <th>email</th>
                         <th>No. Tlp</th>
+                        <th>Prestasu</th>
+                        <th>Poin</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -90,6 +93,7 @@ $daftarProdi = $prodiModel->getAllProdi();
                     <?php
                     foreach ($daftarMahasiswa as $mahasiswa) {
                         echo "<tr>";
+                        echo "<td>" . $mahasiswa['rank'] . "</td>";
                         echo "<td>" . $mahasiswa['NIM'] . "</td>";
                         echo "<td>" . $mahasiswa['nama'] . "</td>";
                         echo "<td>" . $mahasiswa['prodi'] . "</td>";
@@ -100,6 +104,8 @@ $daftarProdi = $prodiModel->getAllProdi();
                         }
                         echo "<td>" . $mahasiswa['email'] . "</td>";
                         echo "<td>" . $mahasiswa['no_tlp'] . "</td>";
+                        echo "<td>" . $mahasiswa['total_prestasi'] . "</td>";
+                        echo "<td>" . $mahasiswa['total_poin'] . "</td>";
                         ?>
                         <td style="text-align: center; vertical-align: middle;">
                             <form action="index.php?page=detailmahasiswa" method="POST">

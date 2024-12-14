@@ -53,7 +53,8 @@ class MahasiswaModel
         return true;
     }
 
-    function deleteMahasiswa($nim){
+    function deleteMahasiswa($nim)
+    {
         $query = "DELETE FROM [mahasiswa] WHERE NIM = '$nim'";
         $stmt = sqlsrv_query($this->db, $query);
         if ($stmt === false) {
@@ -86,8 +87,8 @@ class MahasiswaModel
 
     public function getTop10Mahasiswa(): array
     {
-        $query = 
-        "WITH CTE_TotalPrestasi AS (
+        $query =
+            "WITH CTE_TotalPrestasi AS (
             SELECT 
                 m.nama, 
                 SUM(p.poin) AS total_poin,
@@ -124,6 +125,45 @@ class MahasiswaModel
     function getAllMahasiswa()
     {
         $query = "SELECT m.*, p.nama_prodi AS prodi FROM mahasiswa m JOIN prodi p ON m.id_prodi = p.id";
+        $query = "WITH CTE_TotalPrestasi AS (
+            SELECT 
+                m.NIM,
+                m.nama,
+                m.jenis_kelamin,
+                m.email,
+                m.no_tlp,
+                p.nama_prodi AS prodi,
+                SUM(COALESCE(pr.poin, 0)) AS total_poin,
+                COUNT(pr.id) AS total_prestasi
+            FROM mahasiswa m
+            LEFT JOIN prestasi pr 
+                ON m.NIM = pr.NIM AND pr.status_verifikasi = 'valid'
+            INNER JOIN prodi p 
+                ON m.id_prodi = p.id
+            GROUP BY 
+                m.NIM, 
+                m.nama, 
+                m.jenis_kelamin, 
+                m.email, 
+                m.no_tlp, 
+                p.nama_prodi
+        )
+        SELECT 
+            ROW_NUMBER() OVER (ORDER BY total_poin DESC) AS rank,
+            NIM,
+            nama,
+            prodi,
+            jenis_kelamin,
+            email,
+            no_tlp,
+            total_poin,
+            total_prestasi
+        FROM CTE_TotalPrestasi
+        ORDER BY total_poin DESC;
+        ";
+
+
+
         // Mempersiapkan query
         $stmt = sqlsrv_query($this->db, $query);
 

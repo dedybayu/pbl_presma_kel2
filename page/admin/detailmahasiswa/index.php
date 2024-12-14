@@ -13,8 +13,11 @@ if (!$mahasiswa) {
     exit;
 }
 require_once "model/ProdiModel.php";
+require_once "model/PrestasiModel.php";
+$listPrestasi = new PrestasiModel();
 $prodiModel = new ProdiModel();
 $daftarProdi = $prodiModel->getAllProdi();
+$daftarPrestasi = $listPrestasi->getPrestasiByNim($nim);
 ?>
 <!-- Content Area -->
 <div class="content">
@@ -123,6 +126,84 @@ $daftarProdi = $prodiModel->getAllProdi();
                     Mahasiswa</button>
             </form>
         </div>
+    
+        <br><br><br>
+        <?php
+        if (empty($daftarPrestasi)) {
+            ?>
+
+            <div class="container">
+                <h1>Mahasiswa Belum Memiliki Prestasi</h1>
+                <br>
+                <div class="d-flex justify-content-center">
+                    <form action="index.php?page=inputprestasi" method="POST">
+                        <input type="hidden" name="nim" id="nim" value="<?= $mahasiswa['NIM']; ?>">
+                        <input type="hidden" name="nama_mhs" id="nama_mhs" value="<?= $mahasiswa['nama']; ?>">
+                        <button type="submit" class="btn btn-primary" style="background-color: blue;">Tambah Prestasi</button>
+                    </form>
+                </div>
+                <br>
+            </div>
+            <?php
+        } else {
+            ?>
+            <div class="table-container">
+            <h1>Prestasi Mahasiswa</h1>
+                <br>
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Juara</th>
+                            <th>Tingkat</th>
+                            <th>Tim</th>
+                            <th>Tanggal</th>
+                            <th>Penyelenggara</th>
+                            <th>Poin</th>
+                            <th>Upload Date</th>
+                            <th>Status Verifikasi</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($daftarPrestasi as $prestasi) {
+                            // $modal_prestasi = $prestasi;
+                            echo "<tr>";
+                            echo "<td>" . $prestasi['nama_lomba'] . "</td>";
+                            echo "<td>" . "Juara " . $prestasi['juara_lomba'] . "</td>";
+                            echo "<td>" . $prestasi['tingkat_lomba'] . "</td>";
+                            echo "<td>" . $prestasi['status_tim'] . "</td>";
+                            echo "<td>" . $prestasi['waktu_pelaksanaan']->format('j F Y') . "</td>";
+                            echo "<td>" . $prestasi['penyelenggara_lomba'] . "</td>";
+                            echo "<td>" . $prestasi['poin'] . "</td>";
+                            echo "<td>" . $prestasi['upload_date']->format('d-m-Y H:i') . "</td>";
+                            echo "<td>" . $prestasi['status_verifikasi'] . "</td>";
+                            ?>
+                            <td style="text-align: center; vertical-align: middle;">
+                                <form action="index.php?page=detailprestasi" method="POST">
+                                    <input type="hidden" name="idPrestasi" value="<?php echo $prestasi['id']; ?>">
+                                    <button type="submit" class="btn btn-success btn-sm btn-detail">
+                                        <i class="fa fa-edit"></i> Detail
+                                    </button>
+                                </form>
+
+                            </td>
+                            <?php
+                            echo "</tr>";
+
+                            // Modal for each prestasi
+                            ?>
+
+                            <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+            <?php
+        }
+        ?>
     </div><br>
 </div>
 
