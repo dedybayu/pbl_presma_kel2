@@ -84,7 +84,7 @@ $daftarProdi = $prodiModel->getAllProdi();
                         <th>Jenis Kelamin</th>
                         <th>email</th>
                         <th>No. Tlp</th>
-                        <th>Prestasu</th>
+                        <th>Prestasi</th>
                         <th>Poin</th>
                         <th>Action</th>
                     </tr>
