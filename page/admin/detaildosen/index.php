@@ -12,6 +12,10 @@ if (!$dosen) {
     echo "Dosen tidak ditemukan!";
     exit;
 }
+
+require_once "model/MahasiswaModel.php";
+$mahasiswaModel = new MahasiswaModel();
+$daftarMahasiswa = $mahasiswaModel->getMahasiswaByDosbim($nip);
 ?>
 <!-- Content Area -->
 <div class="content">
@@ -115,10 +119,61 @@ if (!$dosen) {
             <form action="action/dosen_action.php" method="POST">
                 <input type="hidden" name="action" id="action" value="remove">
                 <input type="hidden" name="nip" id="nip" value="<?= $dosen['nip']; ?>">
-                <button type="submit" class="btn btn-primary" style="background-color: red; border: red:">Hapus Dosen</button>
+                <button type="submit" class="btn btn-primary" style="background-color: red; border: red:">Hapus
+                    Dosen</button>
             </form>
         </div>
-    </div><br>
+        <hr><br>
+        <h1>Daftar Mahasiswa Bimbingan</h1>
+        <div class="table-container">
+            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>NIM</th>
+                        <th>Nama</th>
+                        <th>Program Studi</th>
+                        <th>Jenis Kelamin</th>
+                        <th>email</th>
+                        <th>No. Tlp</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($daftarMahasiswa as $mahasiswa) {
+                        echo "<tr>";
+                        echo "<td>" . $mahasiswa['NIM'] . "</td>";
+                        echo "<td>" . $mahasiswa['nama'] . "</td>";
+                        echo "<td>" . $mahasiswa['nama_prodi'] . "</td>";
+                        if ($mahasiswa['jenis_kelamin'] == 'L') {
+                            echo "<td>Laki-laki</td>";
+                        } else if ($mahasiswa['jenis_kelamin'] == 'P') {
+                            echo "<td>Perempuan</td>";
+                        }
+                        echo "<td>" . $mahasiswa['email'] . "</td>";
+                        echo "<td>" . $mahasiswa['no_tlp'] . "</td>";
+                        ?>
+                        <td style="text-align: center; vertical-align: middle;">
+                            <!-- Button untuk menampilkan ID -->
+                            <form action="index.php?page=detailmahasiswa" method="POST">
+                                <input type="hidden" name="idPrestasi" value="<?php echo $mahasiswa['NIM']; ?>">
+                                <button type="submit" class="btn btn-success btn-sm btn-detail">
+                                    <i class="fa fa-edit"></i> Detail
+                                </button>
+                            </form>
+
+
+                        </td>
+                        <?php
+                        echo "</tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
 </div>
 
 <!-- Modal untuk Ubah Password -->
@@ -195,13 +250,13 @@ if (!$dosen) {
             </div>
             <div class="modal-body">
                 <!-- Form untuk edit biodata -->
-                <form id="editProfileForm" action="action/dosen_action.php" method="POST"
-                    enctype="multipart/form-data">
+                <form id="editProfileForm" action="action/dosen_action.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="edit_data_dosen">
                     <input type="hidden" name="nip" value="<?= $dosen['nip']; ?>">
                     <div class="mb-3">
                         <label for="nip" class="form-label">NIP</label>
-                        <input type="text" class="form-control" id="new_nip" name="new_nip" value="<?= $dosen['nip']; ?>">
+                        <input type="text" class="form-control" id="new_nip" name="new_nip"
+                            value="<?= $dosen['nip']; ?>">
                     </div>
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama Lengkap</label>
@@ -212,8 +267,14 @@ if (!$dosen) {
                                 style="color: red;">*</span></label>
                         <select class="form-select" id="jenisKelamin" name="jenis_kelamin" required>
                             <option value="" disabled selected>Jenis Kelamin</option>
-                            <option value="L" <?php if($dosen['jenis_kelamin'] == 'L'){echo "selected";} ?>>Laki-Laki</option>
-                            <option value="P" <?php if($dosen['jenis_kelamin'] == 'P'){echo "selected";} ?>>Perempuan</option>
+                            <option value="L" <?php if ($dosen['jenis_kelamin'] == 'L') {
+                                echo "selected";
+                            } ?>>Laki-Laki
+                            </option>
+                            <option value="P" <?php if ($dosen['jenis_kelamin'] == 'P') {
+                                echo "selected";
+                            } ?>>Perempuan
+                            </option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -370,7 +431,7 @@ if (!$dosen) {
         }
     });
 
-   
+
     function checkPasswords() {
         const newPassword = document.getElementById('newPassword').value;
         const confirmPassword = document.getElementById('confirmPassword').value;

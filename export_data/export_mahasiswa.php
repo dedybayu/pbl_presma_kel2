@@ -16,22 +16,24 @@ $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet();
 
 // Set judul kolom
-$sheet->setCellValue('A1', 'NIM')
-      ->setCellValue('B1', 'Nama')
-      ->setCellValue('C1', 'Program Studi')
-      ->setCellValue('D1', 'Jenis Kelamin')
-      ->setCellValue('E1', 'Email')
-      ->setCellValue('F1', 'No. Telepon');
+$sheet->setCellValue('A1', 'Rank')
+      ->setCellValue('B1', 'NIM')
+      ->setCellValue('C1', 'Nama')
+      ->setCellValue('D1', 'Program Studi')
+      ->setCellValue('E1', 'Jenis Kelamin')
+      ->setCellValue('F1', 'Email')
+      ->setCellValue('G1', 'No. Telepon');
 
 // Tambahkan data mahasiswa
 $row = 2; // Mulai dari baris kedua
 foreach ($daftarMahasiswa as $mahasiswa) {
-    $sheet->setCellValue('A' . $row, $mahasiswa['NIM'])
-          ->setCellValue('B' . $row, $mahasiswa['nama'])
-          ->setCellValue('C' . $row, $mahasiswa['prodi'])
-          ->setCellValue('D' . $row, $mahasiswa['jenis_kelamin'] == 'L' ? 'Laki-laki' : 'Perempuan')
-          ->setCellValue('E' . $row, $mahasiswa['email'])
-          ->setCellValue('F' . $row, $mahasiswa['no_tlp']);
+    $sheet->setCellValue('A' . $row, $mahasiswa['rank'])
+          ->setCellValue('B' . $row, $mahasiswa['NIM'])
+          ->setCellValue('C' . $row, $mahasiswa['nama'])
+          ->setCellValue('D' . $row, $mahasiswa['prodi'])
+          ->setCellValue('E' . $row, $mahasiswa['jenis_kelamin'] == 'L' ? 'Laki-laki' : 'Perempuan')
+          ->setCellValue('F' . $row, $mahasiswa['email'])
+          ->setCellValue('G' . $row, $mahasiswa['no_tlp']);
     $row++;
 }
 
@@ -45,10 +47,10 @@ $headerStyle = [
         'bold' => true,
     ],
 ];
-$sheet->getStyle('A1:F1')->applyFromArray($headerStyle);
+$sheet->getStyle('A1:G1')->applyFromArray($headerStyle);
 
 // Set Auto Size untuk kolom
-foreach (range('A', 'F') as $columnID) {
+foreach (range('A', 'G') as $columnID) {
     $sheet->getColumnDimension($columnID)->setAutoSize(true);
 }
 

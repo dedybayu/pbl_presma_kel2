@@ -139,7 +139,7 @@ $daftarPrestasi = $listPrestasi->getPrestasiByNim($nim);
                     <form action="index.php?page=inputprestasi" method="POST">
                         <input type="hidden" name="nim" id="nim" value="<?= $mahasiswa['NIM']; ?>">
                         <input type="hidden" name="nama_mhs" id="nama_mhs" value="<?= $mahasiswa['nama']; ?>">
-                        <button type="submit" class="btn btn-primary" style="background-color: blue;">Tambah Prestasi</button>
+                        <button type="submit" class="btn btn-primary"> <i class="fa fa-plus"></i>Tambah Prestasi Mahasiswa</button>
                     </form>
                 </div>
                 <br>
@@ -147,9 +147,17 @@ $daftarPrestasi = $listPrestasi->getPrestasiByNim($nim);
             <?php
         } else {
             ?>
+            
             <div class="table-container">
             <h1>Prestasi Mahasiswa</h1>
                 <br>
+                <div class="d-flex">
+                    <form action="index.php?page=inputprestasi" method="POST">
+                        <input type="hidden" name="nim" id="nim" value="<?= $mahasiswa['NIM']; ?>">
+                        <input type="hidden" name="nama_mhs" id="nama_mhs" value="<?= $mahasiswa['nama']; ?>">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i>Tambah Prestasi</button>
+                    </form>
+                </div>
                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
@@ -168,7 +176,6 @@ $daftarPrestasi = $listPrestasi->getPrestasiByNim($nim);
                     <tbody>
                         <?php
                         foreach ($daftarPrestasi as $prestasi) {
-                            // $modal_prestasi = $prestasi;
                             echo "<tr>";
                             echo "<td>" . $prestasi['nama_lomba'] . "</td>";
                             echo "<td>" . "Juara " . $prestasi['juara_lomba'] . "</td>";
@@ -191,8 +198,6 @@ $daftarPrestasi = $listPrestasi->getPrestasiByNim($nim);
                             </td>
                             <?php
                             echo "</tr>";
-
-                            // Modal for each prestasi
                             ?>
 
                             <?php
