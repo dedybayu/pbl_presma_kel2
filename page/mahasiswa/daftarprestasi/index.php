@@ -2,8 +2,11 @@
 <?php
 require_once "model/PrestasiModel.php";
 $listPrestasi = new PrestasiModel();
+require_once "model/MahasiswaModel.php";
+$mahasiswa = new MahasiswaModel();
 $daftarPrestasi = $listPrestasi->getPrestasiByNim($_SESSION['nim']);
-?>
+$rank = $mahasiswa->getRankAndPoin($_SESSION['nim'])
+    ?>
 
 <!-- Content Area -->
 <div class="content">
@@ -50,7 +53,7 @@ $daftarPrestasi = $listPrestasi->getPrestasiByNim($_SESSION['nim']);
                 if (errorAlert) {
                     errorAlert.style.transition = 'opacity 0.5s';
                     errorAlert.style.opacity = '0';
-                    setTimeout(() => errorAlert.remove(), 500); 
+                    setTimeout(() => errorAlert.remove(), 500);
                 }
             }, 3000);
         </script>
@@ -73,7 +76,14 @@ $daftarPrestasi = $listPrestasi->getPrestasiByNim($_SESSION['nim']);
         } else {
             ?>
             <div class="table-container">
-                <br>
+                <div class="btn btn-secondary btn-sm">
+                    <i class="bi bi-trophy-fill"></i> Rankingmu: <?= $rank['ranking'] ?>
+                </div>
+                <div class="btn btn-secondary btn-sm">
+                    <i class="bi bi-trophy-fill"></i> Poinmu: <?= $rank['total_poin'] ?>
+                </div>
+                <br><br>
+
                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>

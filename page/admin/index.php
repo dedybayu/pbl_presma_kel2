@@ -6,13 +6,15 @@
     <?php
     require_once 'model/PrestasiModel.php';
     $prestasiModel = new PrestasiModel();
-    $prestasi = $prestasiModel->getTopAllPrestasi();
+    $prestasi = $prestasiModel->getTop3Prestasi();
     ?>
     <div class="kotak-konten">
         <div class="container">
             <h1 class="mb-4">Prestasi Terbaik Mahasiswa</h1>
+            <br><hr><br>
             <?php
             if ($prestasi != null) {
+                foreach ($prestasi as $prestasi) {
                 ?>
                 <div class="row g-4">
                     <!-- Sertifikat -->
@@ -36,7 +38,7 @@
                                 <tr>
                                     <td class="text-nowrap"><strong>Nama Mahasiswa</strong></td>
                                     <td class="colon">:</td>
-                                    <td><strong><?= $prestasi['nama_mhs']; ?></strong></td>
+                                    <td><strong><?= $prestasi['nama']; ?></strong></td>
                                 </tr>
                                 <tr>
                                     <td class="text-nowrap"><strong>Nama Lomba</strong></td>
@@ -68,7 +70,11 @@
                         </table>
                     </div>
                 </div>
+                <br>
+                <hr>
+                <br>
                 <?php
+                }
             }
             ?>
 

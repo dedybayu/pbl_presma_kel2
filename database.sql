@@ -370,3 +370,38 @@ SELECT * From dosen;
 
 UPDATE prestasi SET status_verifikasi = 'valid' WHERE id = 4;
 SELECT * FROM prestasi;
+
+
+
+WITH TotalPoin AS (
+    SELECT
+        m.NIM,
+        m.nama,
+        SUM(p.poin) AS total_poin
+    FROM
+        mahasiswa m
+    JOIN
+        prestasi p ON m.NIM = p.NIM
+    WHERE
+        p.status_verifikasi = 'valid'
+    GROUP BY
+        m.NIM, m.nama
+),
+Ranking AS (
+    SELECT
+        NIM,
+        nama,
+        total_poin,
+        RANK() OVER (ORDER BY total_poin DESC) AS ranking
+    FROM
+        TotalPoin
+)
+SELECT
+    ranking,
+    NIM,
+    nama,
+    total_poin
+FROM
+    Ranking
+WHERE
+    NIM = '2341720224';

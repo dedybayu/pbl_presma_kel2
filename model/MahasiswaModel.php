@@ -124,7 +124,7 @@ class MahasiswaModel
 
     function getAllMahasiswa()
     {
-        $query = "SELECT m.*, p.nama_prodi AS prodi FROM mahasiswa m JOIN prodi p ON m.id_prodi = p.id";
+        // $query = "SELECT m.*, p.nama_prodi AS prodi FROM mahasiswa m JOIN prodi p ON m.id_prodi = p.id";
         $query = "WITH CTE_TotalPrestasi AS (
             SELECT 
                 m.NIM,
@@ -179,6 +179,56 @@ class MahasiswaModel
 
         return $daftarMahasiswa;
     }
+
+    function getRankAndPoin($nim)
+    {
+        $query = "WITH TotalPoin AS (
+                SELECT
+                    m.NIM,
+                    m.nama,
+                    SUM(p.poin) AS total_poin
+                FROM
+                    mahasiswa m
+                JOIN
+                    prestasi p ON m.NIM = p.NIM
+                WHERE
+                    p.status_verifikasi = 'valid'
+                GROUP BY
+                    m.NIM, m.nama
+            ),
+            Ranking AS (
+                SELECT
+                    NIM,
+                    nama,
+                    total_poin,
+                    RANK() OVER (ORDER BY total_poin DESC) AS ranking
+                FROM
+                    TotalPoin
+            )
+            SELECT
+                ranking,
+                NIM,
+                nama,
+                total_poin
+            FROM
+                Ranking
+            WHERE
+                NIM = ?;";
+
+        $params = array($nim);
+        // Mempersiapkan query
+        $stmt = sqlsrv_query($this->db, $query, $params);
+
+        if ($stmt === false) {
+            die(print_r(sqlsrv_errors(), true));
+        }
+
+        $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+        sqlsrv_free_stmt($stmt);
+
+        return $row;
+    }
+
 
     function updateDataMahasiswa($data)
     {
@@ -281,9 +331,37 @@ class MahasiswaModel
 
     function getMahasiswaByDosbim($nip)
     {
-        $query = "SELECT DISTINCT m.*, p.nama_prodi FROM mahasiswa m
-            JOIN prodi p ON m.id_prodi = p.id JOIN prestasi pr ON m.NIM = pr.NIM
-            WHERE pr.nip_dosbim = ?";
+        $query = "WITH TotalPrestasi AS (
+        SELECT 
+            m.NIM,
+            COUNT(pr.id) AS total_prestasi_valid,
+            SUM(pr.poin) AS total_poin
+        FROM mahasiswa m
+        JOIN prestasi pr ON m.NIM = pr.NIM
+        WHERE pr.status_verifikasi = 'valid'
+        GROUP BY m.NIM
+        ),
+        Ranking AS (
+            SELECT 
+                NIM,
+                total_poin,
+                RANK() OVER (ORDER BY total_poin DESC) AS ranking
+            FROM TotalPrestasi
+        )
+        SELECT DISTINCT 
+            m.*,
+            p.nama_prodi,
+            ISNULL(tp.total_poin, 0) AS total_poin,
+            ISNULL(tp.total_prestasi_valid, 0) AS total_prestasi_valid,
+            ISNULL(r.ranking, NULL) AS ranking
+        FROM mahasiswa m
+        JOIN prodi p ON m.id_prodi = p.id
+        LEFT JOIN TotalPrestasi tp ON m.NIM = tp.NIM
+        LEFT JOIN Ranking r ON m.NIM = r.NIM
+        JOIN prestasi pr ON m.NIM = pr.NIM
+        WHERE pr.nip_dosbim = ?;
+        ";
+
         $params = array($nip);
         $stmt = sqlsrv_query($this->db, $query, $params);
 

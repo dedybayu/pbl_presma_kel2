@@ -35,12 +35,15 @@ $daftarMahasiswa = $mahasiswaModel->getMahasiswaByDosbim($_SESSION['nip']);
             <table id="example" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
+                        <th>Rank</th>
                         <th>NIM</th>
                         <th>Nama</th>
                         <th>Program Studi</th>
                         <th>Jenis Kelamin</th>
                         <th>email</th>
                         <th>No. Tlp</th>
+                        <th>Prestasi</th>
+                        <th>Poin</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -48,12 +51,20 @@ $daftarMahasiswa = $mahasiswaModel->getMahasiswaByDosbim($_SESSION['nip']);
                     <?php
                     foreach ($daftarMahasiswa as $mahasiswa) {
                         echo "<tr>";
+                        echo "<td>" . $mahasiswa['ranking'] . "</td>";
                         echo "<td>" . $mahasiswa['NIM'] . "</td>";
                         echo "<td>" . $mahasiswa['nama'] . "</td>";
                         echo "<td>" . $mahasiswa['nama_prodi'] . "</td>";
-                        echo "<td>" . $mahasiswa['jenis_kelamin'] . "</td>";
+                        if ($mahasiswa['jenis_kelamin'] == 'L') {
+                            echo "<td>Laki-laki</td>";
+                        } else if ($mahasiswa['jenis_kelamin'] == 'P') {
+                            echo "<td>Perempuan</td>";
+                        }
                         echo "<td>" . $mahasiswa['email'] . "</td>";
                         echo "<td>" . $mahasiswa['no_tlp'] . "</td>";
+                        echo "<td>" . $mahasiswa['total_prestasi_valid'] . "</td>";
+                        echo "<td>" . $mahasiswa['total_poin'] . "</td>";
+
                         ?>
                         <td style="text-align: center; vertical-align: middle;">
                             <!-- Button untuk menampilkan ID -->
