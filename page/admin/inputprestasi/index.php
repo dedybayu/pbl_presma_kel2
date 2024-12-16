@@ -3,13 +3,13 @@
 
     <!-- Tampilan List Dosen -->
     <?php
-    require_once "class_data/data_user.php";
+    require_once "model/DosenModel.php";
     include 'fungsi/anti_injection.php';
 
     function getListDosen()
     {
-        $listDosen = new ListDosen();
-        $dosenList = $listDosen->getListDosen();
+        $listDosen = new DosenModel();
+        $dosenList = $listDosen->getAllDosen();
         if (!empty($dosenList)) {
             foreach ($dosenList as $dosen) {
                 echo "<option value='" . $dosen['nip'] . "'>- " . htmlspecialchars($dosen['nama']) . "</option>";

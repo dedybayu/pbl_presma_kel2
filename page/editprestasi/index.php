@@ -4,14 +4,14 @@
     <!-- Tampilan List Dosen -->
     <?php
     require_once "model/PrestasiModel.php";
-    require_once "class_data/data_user.php";
+    require_once "model/DosenModel.php";
 
     $prestasiModel = new PrestasiModel();
     $prestasi = $prestasiModel->getPrestasiById($_POST['idPrestasi']);
     function getListDosen($prestasi)
     {
-        $listDosen = new ListDosen();
-        $dosenList = $listDosen->getListDosen();
+        $listDosen = new DosenModel();
+        $dosenList = $listDosen->getAllDosen();
         $nipDosbimPrestasi = $prestasi['nip_dosbim'];
         if (!empty($dosenList)) {
             foreach ($dosenList as $dosen) {

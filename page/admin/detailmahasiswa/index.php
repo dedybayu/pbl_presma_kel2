@@ -139,7 +139,7 @@ $daftarPrestasi = $listPrestasi->getPrestasiByNim($nim);
                     <form action="index.php?page=inputprestasi" method="POST">
                         <input type="hidden" name="nim" id="nim" value="<?= $mahasiswa['NIM']; ?>">
                         <input type="hidden" name="nama_mhs" id="nama_mhs" value="<?= $mahasiswa['nama']; ?>">
-                        <button type="submit" class="btn btn-primary"> <i class="fa fa-plus"></i>Tambah Prestasi Mahasiswa</button>
+                        <button type="submit" class="btn btn-primary"> <i class="fa fa-plus"></i> Tambah Prestasi Mahasiswa</button>
                     </form>
                 </div>
                 <br>

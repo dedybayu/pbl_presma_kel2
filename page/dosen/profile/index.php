@@ -70,7 +70,11 @@
                         <tr>
                             <td class="text-nowrap"><strong>Jenis Kelamin</strong></td>
                             <td class="colon">:</td>
-                            <td><strong><?= ucfirst(strtolower($row['jenis_kelamin'])); ?>
+                            <td><strong><?php if ($row['jenis_kelamin'] == 'L') {
+                                echo "Laki-Laki";
+                            } else {
+                                echo "Perempuan";
+                            } ?>
                                 </strong></td>
                         </tr>
                         <tr>
