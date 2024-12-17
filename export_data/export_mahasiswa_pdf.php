@@ -38,12 +38,15 @@ $pdf->SetFont('helvetica', '', 10);
 $tableHTML = '<table border="1" cellspacing="0" cellpadding="5">
     <thead>
         <tr style="font-weight: bold; background-color: #f2f2f2;">
+            <th style="background-color: #f2f2f2;">Rank</th>
             <th style="background-color: #f2f2f2;">NIM</th>
             <th style="background-color: #f2f2f2;">Nama</th>
             <th style="background-color: #f2f2f2;">Program Studi</th>
             <th style="background-color: #f2f2f2;">Jenis Kelamin</th>
             <th style="background-color: #f2f2f2;">Email</th>
             <th style="background-color: #f2f2f2;">No. Telepon</th>
+            <th style="background-color: #f2f2f2;">Prestasi</th>
+            <th style="background-color: #f2f2f2;">Poin</th>
         </tr>
     </thead>
     <tbody>';
@@ -52,12 +55,15 @@ $tableHTML = '<table border="1" cellspacing="0" cellpadding="5">
 foreach ($daftarMahasiswa as $mahasiswa) {
     $jenisKelamin = $mahasiswa['jenis_kelamin'] == 'L' ? 'Laki-laki' : 'Perempuan';
     $tableHTML .= '<tr>
+        <td>' . $mahasiswa['Rank'] . '</td>
         <td>' . $mahasiswa['NIM'] . '</td>
         <td>' . $mahasiswa['nama'] . '</td>
         <td>' . $mahasiswa['prodi'] . '</td>
         <td>' . $jenisKelamin . '</td>
         <td>' . $mahasiswa['email'] . '</td>
         <td>' . $mahasiswa['no_tlp'] . '</td>
+        <td>' . $mahasiswa['total_prestasi'] . '</td>
+        <td>' . $mahasiswa['total_poin'] . '</td>
     </tr>';
 }
 

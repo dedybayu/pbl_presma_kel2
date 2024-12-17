@@ -22,7 +22,9 @@ $sheet->setCellValue('A1', 'Rank')
       ->setCellValue('D1', 'Program Studi')
       ->setCellValue('E1', 'Jenis Kelamin')
       ->setCellValue('F1', 'Email')
-      ->setCellValue('G1', 'No. Telepon');
+      ->setCellValue('G1', 'No. Telepon')
+      ->setCellValue('H1', 'Jumlah Prestasi')
+      ->setCellValue('I1', 'Total Poin');
 
 // Tambahkan data mahasiswa
 $row = 2; // Mulai dari baris kedua
@@ -33,7 +35,10 @@ foreach ($daftarMahasiswa as $mahasiswa) {
           ->setCellValue('D' . $row, $mahasiswa['prodi'])
           ->setCellValue('E' . $row, $mahasiswa['jenis_kelamin'] == 'L' ? 'Laki-laki' : 'Perempuan')
           ->setCellValue('F' . $row, $mahasiswa['email'])
-          ->setCellValue('G' . $row, $mahasiswa['no_tlp']);
+          ->setCellValue('G' . $row, $mahasiswa['no_tlp'])
+          ->setCellValue('H' . $row, $mahasiswa['total_prestasi'])
+          ->setCellValue('I' . $row, $mahasiswa['total_poin']);
+          
     $row++;
 }
 
@@ -47,10 +52,10 @@ $headerStyle = [
         'bold' => true,
     ],
 ];
-$sheet->getStyle('A1:G1')->applyFromArray($headerStyle);
+$sheet->getStyle('A1:I1')->applyFromArray($headerStyle);
 
 // Set Auto Size untuk kolom
-foreach (range('A', 'G') as $columnID) {
+foreach (range('A', 'I') as $columnID) {
     $sheet->getColumnDimension($columnID)->setAutoSize(true);
 }
 

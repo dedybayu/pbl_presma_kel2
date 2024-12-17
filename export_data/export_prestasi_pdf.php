@@ -38,6 +38,7 @@ $pdf->SetFont('helvetica', '', 10);
 $tableHTML = '<table border="1" cellspacing="0" cellpadding="5">
     <thead>
         <tr style="font-weight: bold; background-color: #f2f2f2;">
+            <th>Rank</th>
             <th>Nama Mahasiswa</th>
             <th>Nama Lomba</th>
             <th>Juara Lomba</th>
@@ -46,6 +47,7 @@ $tableHTML = '<table border="1" cellspacing="0" cellpadding="5">
             <th>Waktu Pelaksanaan</th>
             <th>Penyelenggara Lomba</th>
             <th>Poin</th>
+            <th>Total Poin</th>
             <th>Upload Date</th>
             <th>Status Verifikasi</th>
         </tr>
@@ -64,6 +66,7 @@ foreach ($daftarPrestasi as $prestasi) {
         : $prestasi['upload_date'];
 
     $tableHTML .= '<tr>
+        <td>' . htmlspecialchars($prestasi['ranking']) . '</td>
         <td>' . htmlspecialchars($prestasi['nama_mhs']) . '</td>
         <td>' . htmlspecialchars($prestasi['nama_lomba']) . '</td>
         <td>' . htmlspecialchars($prestasi['juara_lomba']) . '</td>
@@ -72,6 +75,7 @@ foreach ($daftarPrestasi as $prestasi) {
         <td>' . htmlspecialchars($waktuPelaksanaan) . '</td>
         <td>' . htmlspecialchars($prestasi['penyelenggara_lomba']) . '</td>
         <td>' . htmlspecialchars($prestasi['poin']) . '</td>
+        <td>' . htmlspecialchars($prestasi['total_poin']) . '</td>
         <td>' . htmlspecialchars($uploadDate) . '</td>
         <td>' . htmlspecialchars($prestasi['status_verifikasi']) . '</td>
     </tr>';
