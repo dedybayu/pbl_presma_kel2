@@ -78,24 +78,26 @@ $daftarPrestasi = $listPrestasi->getAllPrestasi();
                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
+                            <th>Rank</th>
                             <th>Mahasiswa</th>
                             <th>Nama Lomba</th>
                             <th>Juara</th>
-                            <th>Status Tim</th>
+                            <th>Tim</th>
                             <th>Tingkat</th>
                             <th>Tanggal</th>
                             <th>Penyelenggara</th>
                             <th>Poin</th>
+                            <th>Total</th>
                             <th>Upload Date</th>
-                            <th>Status Verifikasi</th>
+                            <th>Verifikasi</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         foreach ($daftarPrestasi as $prestasi) {
-                            // $modal_prestasi = $prestasi;
                             echo "<tr>";
+                            echo "<td>" . $prestasi['ranking'] . "</td>";
                             echo "<td>" . $prestasi['nama_mhs'] . "</td>";
                             echo "<td>" . $prestasi['nama_lomba'] . "</td>";
                             echo "<td>" . "Juara " . $prestasi['juara_lomba'] . "</td>";
@@ -104,6 +106,7 @@ $daftarPrestasi = $listPrestasi->getAllPrestasi();
                             echo "<td>" . $prestasi['waktu_pelaksanaan']->format('j F Y') . "</td>";
                             echo "<td>" . $prestasi['penyelenggara_lomba'] . "</td>";
                             echo "<td>" . $prestasi['poin'] . "</td>";
+                            echo "<td>" . $prestasi['total_poin'] . "</td>";
                             echo "<td>" . $prestasi['upload_date']->format('d-m-Y H:i') . "</td>";
                             echo "<td>" . $prestasi['status_verifikasi'] . "</td>";
                             ?>

@@ -161,8 +161,62 @@ class PrestasiModel
 
     public function getAllPrestasi()
     {
-        $query = "SELECT m.nama AS nama_mhs, p.id, p.nama_lomba, p.juara_lomba, p.status_tim, p.tingkat_lomba, p.waktu_pelaksanaan, p.penyelenggara_lomba, p.poin, p.upload_date, p.status_verifikasi
-         FROM prestasi p JOIN mahasiswa m ON p.NIM = m.NIM ORDER BY p.upload_date DESC;";
+        $query = "WITH TotalPoin AS (
+            SELECT 
+                NIM, 
+                SUM(poin) AS total_poin
+            FROM 
+                prestasi
+            WHERE 
+                status_verifikasi = 'valid'
+            GROUP BY 
+                NIM
+        ),
+        RankedMahasiswa AS (
+            SELECT 
+                m.NIM, 
+                m.nama AS nama_mhs, 
+                tp.total_poin,
+                RANK() OVER (ORDER BY tp.total_poin DESC) AS ranking
+            FROM 
+                mahasiswa m
+            LEFT JOIN 
+                TotalPoin tp 
+            ON 
+                m.NIM = tp.NIM
+        )
+        SELECT 
+            m.nama AS nama_mhs, 
+            p.id, 
+            p.nama_lomba, 
+            p.juara_lomba, 
+            p.status_tim, 
+            p.tingkat_lomba, 
+            p.waktu_pelaksanaan, 
+            p.penyelenggara_lomba, 
+            p.poin, 
+            p.upload_date, 
+            p.status_verifikasi,
+            tp.total_poin,
+            rm.ranking
+        FROM 
+            prestasi p 
+        JOIN 
+            mahasiswa m 
+        ON 
+            p.NIM = m.NIM
+        LEFT JOIN 
+            TotalPoin tp 
+        ON 
+            m.NIM = tp.NIM
+        LEFT JOIN 
+            RankedMahasiswa rm 
+        ON 
+            m.NIM = rm.NIM
+        ORDER BY 
+            p.upload_date DESC;
+
+        ";
         $stmt = sqlsrv_query($this->db, $query);
 
         if ($stmt === false) {
