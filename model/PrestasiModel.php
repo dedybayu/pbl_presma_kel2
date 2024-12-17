@@ -214,7 +214,7 @@ class PrestasiModel
         ON 
             m.NIM = rm.NIM
         ORDER BY 
-            p.upload_date DESC;
+            rm.ranking ASC;
 
         ";
         $stmt = sqlsrv_query($this->db, $query);
@@ -349,7 +349,7 @@ class PrestasiModel
         WHERE 
             p.nip_dosbim = ? 
         ORDER BY 
-            p.upload_date DESC;
+            rm.ranking ASC;
         ";
         $params = array($nip);
         $stmt = sqlsrv_query($this->db, $query, $params);

@@ -159,7 +159,7 @@ class MahasiswaModel
             total_poin,
             total_prestasi
         FROM CTE_TotalPrestasi
-        ORDER BY total_poin DESC;
+        ORDER BY nama ASC;
         ";
 
 
@@ -213,7 +213,7 @@ class MahasiswaModel
             FROM
                 Ranking
             WHERE
-                NIM = ?;";
+                NIM = ?";
 
         $params = array($nim);
         // Mempersiapkan query
@@ -359,7 +359,8 @@ class MahasiswaModel
         LEFT JOIN TotalPrestasi tp ON m.NIM = tp.NIM
         LEFT JOIN Ranking r ON m.NIM = r.NIM
         JOIN prestasi pr ON m.NIM = pr.NIM
-        WHERE pr.nip_dosbim = ?;
+        WHERE pr.nip_dosbim = ?
+        ORDER BY m.nama ASC;
         ";
 
         $params = array($nip);
