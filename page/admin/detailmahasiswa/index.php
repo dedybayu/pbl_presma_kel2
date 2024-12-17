@@ -255,27 +255,6 @@ $daftarPrestasi = $listPrestasi->getPrestasiByNim($nim);
 </div>
 
 
-<!-- Modal untuk Password Berhasil Dirubah -->
-<div class="modal fade" id="passwordSuccessModal" tabindex="-1" aria-labelledby="passwordSuccessModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="passwordSuccessModalLabel">Password Berhasil Dirubah</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Password Mahasiswa telah berhasil diubah.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
 <!-- Modal untuk Edit Biodata -->
 <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -530,6 +509,7 @@ $daftarPrestasi = $listPrestasi->getPrestasiByNim($nim);
             document.getElementById('passwordForm').submit();
         }
     });
+    
     $('#ubahPasswordModal').on('hidden.bs.modal', function () {
         // Reset form and hide error messages after the modal closes
         document.getElementById('passwordForm').reset();

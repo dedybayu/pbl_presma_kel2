@@ -31,10 +31,10 @@ function toggleDarkMode() {
     body.classList.toggle('dark-mode');
     if (body.classList.contains('dark-mode')) {
         localStorage.setItem('theme', 'dark'); // Save preference
-        darkModeToggle.textContent = 'Light Mode'; // Change button text
+        darkModeToggle.innerHTML = '<i class="bi bi-sun"></i> Light Mode'; // Change button text with icon
     } else {
         localStorage.setItem('theme', 'light'); // Save preference
-        darkModeToggle.textContent = 'Dark Mode'; // Change button text
+        darkModeToggle.innerHTML = '<i class="bi bi-moon"></i> Dark Mode'; // Change button text with icon
     }
 }
 
@@ -44,7 +44,7 @@ window.onload = function () {
     var savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
         document.getElementById('body').classList.add('dark-mode');
-        document.getElementById('darkModeToggle').textContent = 'Light Mode'; // Set button text
+        document.getElementById('darkModeToggle').innerHTML = '<i class="bi bi-sun"></i> Light Mode'; // Set button text
     }
 };
 
