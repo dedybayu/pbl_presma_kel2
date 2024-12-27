@@ -48,17 +48,17 @@ $daftarPrestasi = $listPrestasi->getPrestasiByNim($nim);
                     <tbody>
                         <tr>
                             <td class="text-nowrap"><strong>Nama</strong></td>
-                            <td class="colon">:</td>
+                            <td class="colon"><strong>:</strong></td>
                             <td><strong><?= $mahasiswa['nama']; ?></strong></td>
                         </tr>
                         <tr>
                             <td class="text-nowrap"><strong>NIM</strong></td>
-                            <td class="colon">:</td>
+                            <td class="colon"><strong>:</strong></td>
                             <td><strong><?= $mahasiswa['NIM']; ?></strong></td>
                         </tr>
                         <tr>
                             <td class="text-nowrap"><strong>Jenis Kelamin</strong></td>
-                            <td class="colon">:</td>
+                            <td class="colon"><strong>:</strong></td>
                             <td><strong><?php if ($mahasiswa['jenis_kelamin'] == 'L') {
                                 echo "Laki-Laki";
                             } else {
@@ -67,13 +67,18 @@ $daftarPrestasi = $listPrestasi->getPrestasiByNim($nim);
                                 </strong></td>
                         </tr>
                         <tr>
+                            <td class="text-nowrap"><strong>Program Studi</strong></td>
+                            <td class="colon"><strong>:</strong></td>
+                            <td><strong><?= $mahasiswa['prodi']; ?></strong></td>
+                        </tr>
+                        <tr>
                             <td class="text-nowrap"><strong>No. Telp</strong></td>
-                            <td class="colon">:</td>
+                            <td class="colon"><strong>:</strong></td>
                             <td><strong><?= $mahasiswa['no_tlp'] ?></strong></td>
                         </tr>
                         <tr>
                             <td class="text-nowrap"><strong>Email</strong></td>
-                            <td class="colon">:</td>
+                            <td class="colon"><strong>:</strong></td>
                             <td><strong><?= $mahasiswa['email']; ?></strong></td>
                         </tr>
                     </tbody>

@@ -70,7 +70,15 @@ class MahasiswaModel
     function getMahasiswaByNim($nim)
     {
         $nim = antiinjection($nim);
-        $query = "SELECT * FROM mahasiswa WHERE NIM = ?";
+        $query = "SELECT 
+                m.*, 
+                p.nama_prodi AS prodi 
+            FROM 
+                mahasiswa m
+            JOIN 
+                prodi p ON m.id_prodi = p.id
+            WHERE 
+                m.NIM = ?;";
         $params = array($nim);
         // Mempersiapkan query
         $stmt = sqlsrv_query($this->db, $query, $params);
